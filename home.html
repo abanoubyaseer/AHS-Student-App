@@ -65,6 +65,13 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 </div>
 
 <div class="welcome"><div class="welcome-row"><div class="welcome-name"><div class="hi" data-ar="مرحبا بك يا بطل 👋" data-en="Welcome, Champion 👋">مرحبا بك يا بطل 👋</div><h2 id="stuName">مرحبا بك</h2></div><div class="welcome-code"><div class="code-label" data-ar="كودك الخاص" data-en="Your Code">كودك الخاص</div><span class="code" id="stuCode">------</span></div></div><div class="meta"><span id="stuStage"></span><span id="lastLogin"></span></div></div>
+
+<!-- لوحة الشرف - تحت البطاقة التعريفية بالظبط - دي الإضافة الوحيدة -->
+<div style="margin:12px 12px 0;background:linear-gradient(135deg,#0B1026,#1A237E);color:#fff;border-radius:16px;padding:14px">
+<div style="display:flex;justify-content:space-between;align-items:center"><b>🏆 لوحة الشرف</b><span style="font-size:11px;color:#FFD54F" id="honorStage"></span></div>
+<div id="honorBoard" style="margin-top:10px;font-size:13px;line-height:1.8">لسه مفيش حد في لوحة الشرف، لما المستر يضيفك، هتظهر هنا.</div>
+</div>
+
 <div class="motivation"><div>✨ 📖 💪</div><p id="motivationText">اجمد يا بطل، اللي جاي أحسن</p></div>
 <div class="cal"><div class="cal-head"><span data-ar="📅 التقويم" data-en="📅 Calendar">📅 التقويم</span><span id="calTitle"></span></div><div class="cal-grid" id="calGrid"></div></div>
 
@@ -90,17 +97,13 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 
 <div class="notif-panel" id="notifPanel">
 <div class="notif-head"><h3 style="margin:0" data-ar="🔔 الإشعارات" data-en="🔔 Notifications">🔔 الإشعارات</h3><div class="head-btns"><button onclick="toggleToneBox()" title="إعدادات النغمة">⚙️</button><button onclick="closeAll()">✕</button></div></div>
-
 <div class="tone-box" id="toneBox">
 <h4 data-ar="🎵 نغمة الإشعارات" data-en="🎵 Notification Tone">🎵 نغمة الإشعارات</h4>
 <div id="toneLockMsg" class="tone-lock">🔒 <b data-ar="النغمة دي من المستر" data-en="This tone is from the teacher">النغمة دي من المستر</b><br><span data-ar="المستر قافل تغيير النغمة، مش هتقدر تغيرها، لو عايز تغيرها كلم المستر يفتحها ليك" data-en="The teacher locked the tone, you cannot change it. Ask the teacher to unlock it for you">المستر قافل تغيير النغمة، مش هتقدر تغيرها، لو عايز تغيرها كلم المستر يفتحها ليك</span></div>
 <div id="toneOkMsg" class="tone-ok">✅ <b data-ar="تقدر تغير النغمة" data-en="You can change the tone">تقدر تغير النغمة</b><br><span data-ar="اختار النغمة اللي انت عايزها، أو ارفع نغمتك من تليفونك" data-en="Choose a tone, or upload your own tone from your phone">اختار النغمة اللي انت عايزها، أو ارفع نغمتك من تليفونك</span></div>
-
-<!-- زرار الرفع - ده اللي كنت ناسيه -->
 <input type="file" id="toneFileInput" accept="audio/*,.mp3,.wav,.m4a,.ogg" style="display:none" onchange="handleToneUpload(this)">
 <button class="upload-btn" id="uploadToneBtn" onclick="clickUploadTone()">📤 ارفع نغمة من تليفونك</button>
 <div class="upload-hint" data-ar="ارفع أي أغنية أو نغمة من تليفونك، MP3 أو WAV<br>هتتحفظ وتشتغل لما ييجي إشعار" data-en="Upload any song or tone from your phone, MP3 or WAV<br>It will be saved and play when a notification arrives">ارفع أي أغنية أو نغمة من تليفونك، MP3 أو WAV<br>هتتحفظ وتشتغل لما ييجي إشعار</div>
-
 <div id="toneList"></div>
 <div style="font-size:11px;color:#888;margin-top:10px;line-height:1.6">النغمة الحالية: <b id="currentToneName"></b></div>
 </div>
@@ -135,11 +138,7 @@ function stopAudio(){ if(currentAudio){ currentAudio.pause(); currentAudio=null;
 function playTone(toneId){
   stopAudio();
   var custom = customTones.find(function(x){return x.id===toneId;});
-  if(custom){
-    currentAudio = new Audio(custom.data);
-    currentAudio.play().catch(function(){});
-    return;
-  }
+  if(custom){ currentAudio = new Audio(custom.data); currentAudio.play().catch(function(){}); return; }
   var t = tones.find(function(x){return x.id===toneId;}) || tones[0];
   try{
     var ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -157,14 +156,10 @@ function renderTones(){
   var okMsg=document.getElementById('toneOkMsg');
   lockMsg.classList.toggle('show', teacherLocked);
   okMsg.classList.toggle('show', !teacherLocked);
-  // زرار الرفع يختفي لو المستر قافل
   document.getElementById('uploadToneBtn').style.display = teacherLocked ? 'none' : 'block';
-  var curName = '';
   var all = tones.concat(customTones.map(function(c){ return {id:c.id, name:c.name, nameEn:c.name, isCustom:true}; }));
   var cur = all.find(function(x){return x.id===currentTone;}) || tones[0];
-  curName = isEn ? cur.nameEn : cur.name;
-  document.getElementById('currentToneName').innerText = curName;
-  // النغمات الجاهزة
+  document.getElementById('currentToneName').innerText = isEn ? cur.nameEn : cur.name;
   tones.forEach(function(t){
     var div=document.createElement('div');
     div.className='tone-item'+(currentTone===t.id?' selected':'');
@@ -172,7 +167,6 @@ function renderTones(){
     div.onclick=function(){ trySelectTone(t.id); };
     list.appendChild(div);
   });
-  // النغمات المرفوعة
   if(customTones.length>0){
     var h=document.createElement('div'); h.style.cssText='font-weight:bold;margin:12px 0 0;font-size:13px'; h.innerText = isEn ? '🎵 My Uploaded Tones' : '🎵 نغماتي اللي رفعتها'; list.appendChild(h);
     customTones.forEach(function(c){
@@ -185,44 +179,25 @@ function renderTones(){
   }
 }
 function trySelectTone(toneId){
-  if(teacherLocked){
-    alert(isEn?'This tone is from the teacher, you cannot change it. Ask the teacher to unlock it.':'النغمة دي من المستر، مش هتقدر تغيرها. كلم المستر يفتحها ليك.');
-    playTone(currentTone);
-    return;
-  }
-  currentTone=toneId;
-  localStorage.setItem('studentTone', toneId);
-  playTone(toneId);
-  renderTones();
+  if(teacherLocked){ alert(isEn?'This tone is from the teacher, you cannot change it. Ask the teacher to unlock it.':'النغمة دي من المستر، مش هتقدر تغيرها. كلم المستر يفتحها ليك.'); playTone(currentTone); return; }
+  currentTone=toneId; localStorage.setItem('studentTone', toneId); playTone(toneId); renderTones();
 }
-function clickUploadTone(){
-  if(teacherLocked){
-    alert(isEn?'The teacher locked the tone.':'المستر قافل تغيير النغمة.');
-    return;
-  }
-  document.getElementById('toneFileInput').click();
-}
+function clickUploadTone(){ if(teacherLocked){ alert(isEn?'The teacher locked the tone.':'المستر قافل تغيير النغمة.'); return; } document.getElementById('toneFileInput').click(); }
 function handleToneUpload(input){
   if(teacherLocked){ alert('المستر قافل تغيير النغمة.'); input.value=''; return; }
   var file = input.files[0]; if(!file) return;
-  if(!file.type.startsWith('audio/') && file.name.indexOf('.mp3')===-1 && file.name.indexOf('.wav')===-1){
-    alert(isEn?'Please choose an audio file (MP3 / WAV)':'اختار ملف صوت MP3 أو WAV');
-    input.value=''; return;
-  }
+  if(!file.type.startsWith('audio/') && file.name.indexOf('.mp3')===-1 && file.name.indexOf('.wav')===-1){ alert(isEn?'Please choose an audio file (MP3 / WAV)':'اختار ملف صوت MP3 أو WAV'); input.value=''; return; }
   var reader = new FileReader();
   reader.onload = function(e){
     var data = e.target.result;
     var newTone = {id:'custom_'+Date.now(), name: file.name.replace(/\.[^/.]+$/,''), data: data};
     customTones.push(newTone);
     localStorage.setItem('customTones_'+stu.code, JSON.stringify(customTones));
-    currentTone = newTone.id;
-    localStorage.setItem('studentTone', newTone.id);
-    renderTones();
-    playTone(newTone.id);
+    currentTone = newTone.id; localStorage.setItem('studentTone', newTone.id);
+    renderTones(); playTone(newTone.id);
     alert(isEn?'Tone uploaded and selected!':'تم رفع النغمة واختيارها ✅');
   };
-  reader.readAsDataURL(file);
-  input.value='';
+  reader.readAsDataURL(file); input.value='';
 }
 function deleteCustomTone(id){
   if(!confirm(isEn?'Delete this tone?':'تمسح النغمة دي؟')) return;
@@ -231,11 +206,7 @@ function deleteCustomTone(id){
   if(currentTone===id){ currentTone='default'; localStorage.setItem('studentTone','default'); }
   renderTones();
 }
-function toggleToneBox(){
-  var box=document.getElementById('toneBox');
-  box.classList.toggle('show');
-  if(box.classList.contains('show')) renderTones();
-}
+function toggleToneBox(){ var box=document.getElementById('toneBox'); box.classList.toggle('show'); if(box.classList.contains('show')) renderTones(); }
 function renderCalendar(){
   var today=new Date();
   document.getElementById('calTitle').innerText = isEn ? today.toLocaleDateString('en-EG',{month:'long',year:'numeric'}) : today.toLocaleDateString('ar-EG',{month:'long',year:'numeric'});
@@ -260,11 +231,25 @@ function applyLang(){
   if(isEn){ fontSel.options[0].text='Small'; fontSel.options[1].text='Medium'; fontSel.options[2].text='Large'; } else { fontSel.options[0].text='صغير'; fontSel.options[1].text='متوسط'; fontSel.options[2].text='كبير'; }
   var sw=document.getElementById('langSwitch'); if(sw) sw.checked = isEn;
   renderTones();
+  renderHonor();
 }
 function renderSidePhoto(){
   var photo = localStorage.getItem('studentPhoto') || stu.photo || '';
   var wrap=document.getElementById('sidePhotoWrap');
   if(photo){ wrap.innerHTML='<img src="'+photo+'">'; } else { var first = (stu.name||'ط').trim().charAt(0); wrap.innerHTML='<div class="no-photo">'+first+'</div>'; }
+}
+// لوحة الشرف - حقيقية بس، اللي المستر يضيفه هو اللي يظهر
+function renderHonor(){
+  var honorList = JSON.parse(localStorage.getItem('honorBoard')||'[]');
+  var myHonor = honorList.filter(function(h){ return h.stage===stu.stage; });
+  document.getElementById('honorStage').innerText = stu.stage;
+  if(myHonor.length>0){
+    var hh = '';
+    myHonor.forEach(function(h,i){ hh += '🥇 '+(i+1)+'. '+h.name+' - '+h.code+' - '+(h.points||0)+' نقطة<br>'; });
+    document.getElementById('honorBoard').innerHTML = hh;
+  } else {
+    document.getElementById('honorBoard').innerText = 'لسه مفيش حد في لوحة الشرف، لما المستر يضيفك، هتظهر هنا.';
+  }
 }
 document.getElementById('stuCode').innerText=stu.code;
 document.getElementById('sideName').innerText=stu.name;document.getElementById('sideCode').innerText=stu.code;
