@@ -8,18 +8,10 @@
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
 body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;padding-bottom:72px;font-size:15px}
-.app.font-small{font-size:13px}
-.app.font-small .welcome-name h2{font-size:18px}
-.app.font-small .motivation p{font-size:12px}
-.app.font-medium{font-size:15px}
-.app.font-medium .welcome-name h2{font-size:22px}
-.app.font-medium .motivation p{font-size:14px}
-.app.font-large{font-size:18px}
-.app.font-large .welcome-name h2{font-size:26px}
-.app.font-large .motivation p{font-size:17px}
-.app.font-large .cal-grid{font-size:14px}
-.app.dark{background:#141A33;color:#fff}
-.app.dark .top,.app.dark .cal,.app.dark .sidebar,.app.dark .notif-panel,.app.dark .bottom-nav{background:#1E2447;color:#fff}
+.app.font-small{font-size:13px}.app.font-small .welcome-name h2{font-size:18px}.app.font-small .motivation p{font-size:12px}
+.app.font-medium{font-size:15px}.app.font-medium .welcome-name h2{font-size:22px}.app.font-medium .motivation p{font-size:14px}
+.app.font-large{font-size:18px}.app.font-large .welcome-name h2{font-size:26px}.app.font-large .motivation p{font-size:17px}.app.font-large .cal-grid{font-size:14px}
+.app.dark{background:#141A33;color:#fff}.app.dark .top,.app.dark .cal,.app.dark .sidebar,.app.dark .notif-panel,.app.dark .bottom-nav{background:#1E2447;color:#fff}
 .top{height:96px;position:relative;background:#fff;border-bottom:3px solid #FF6B00}
 .hamburger-btn{position:absolute;left:10px;top:28px;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:22px;background:#FFF3E0;display:flex;align-items:center;justify-content:center;z-index:10}
 .top-right-icons{position:absolute;right:10px;top:28px;display:flex;gap:6px;z-index:10}
@@ -30,93 +22,50 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .center small{font-size:11px;color:#FF6B00;display:block;margin:1px 0 0;font-weight:bold}
 .welcome{margin:14px 12px 0;background:linear-gradient(135deg,#0B1026,#1A237E 60%,#FF6B00);color:#fff;border-radius:22px;padding:26px 20px 22px}
 .welcome-row{display:flex;justify-content:space-between;align-items:center;gap:14px}
-.welcome-name{text-align:right;flex:1}
-.welcome-name .hi{font-size:13px}
-.welcome-name h2{margin:8px 0 0;font-size:22px;line-height:1.3}
+.welcome-name{text-align:right;flex:1}.welcome-name .hi{font-size:13px}.welcome-name h2{margin:8px 0 0;font-size:22px;line-height:1.3}
 .welcome-code{text-align:center;flex-shrink:0;background:rgba(255,255,255,.18);padding:12px;border-radius:14px}
-.welcome-code .code-label{font-size:12px;margin-bottom:7px}
-.welcome-code .code{display:block;background:#fff;color:#0B1026;font-weight:900;font-size:18px;letter-spacing:2px;padding:9px 13px;border-radius:9px;direction:ltr}
+.welcome-code .code-label{font-size:12px;margin-bottom:7px}.welcome-code .code{display:block;background:#fff;color:#0B1026;font-weight:900;font-size:18px;letter-spacing:2px;padding:9px 13px;border-radius:9px;direction:ltr}
 .welcome .meta{display:flex;justify-content:space-between;gap:10px;font-size:12px;border-top:1px solid rgba(255,255,255,.35);padding-top:16px;margin-top:18px;line-height:1.7}
 .motivation{margin:12px 12px 0;text-align:center;padding:16px;background:#FFF3E0;border-radius:14px;border:1px dashed #FFB74D}
-.app.dark .motivation{background:#1E2447;border-color:#FF6B00}
-.motivation p{font-size:14px;font-weight:bold;margin:6px 0 0;line-height:1.6}
-.cal{margin:12px 12px 0;background:#fff;border-radius:16px;padding:14px}
-.cal-head{display:flex;justify-content:space-between;font-weight:bold;font-size:14px}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:10px;text-align:center;font-size:12px}
-.cal-grid div{padding:8px 0;border-radius:9px}
-.cal-grid .wd{font-weight:bold;color:#888}
-.cal-grid .today{background:#FF6B00;color:#fff;font-weight:bold}
+.app.dark .motivation{background:#1E2447;border-color:#FF6B00}.motivation p{font-size:14px;font-weight:bold;margin:6px 0 0;line-height:1.6}
+.cal{margin:12px 12px 0;background:#fff;border-radius:16px;padding:14px}.cal-head{display:flex;justify-content:space-between;font-weight:bold;font-size:14px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:10px;text-align:center;font-size:12px}.cal-grid div{padding:8px 0;border-radius:9px}.cal-grid .wd{font-weight:bold;color:#888}.cal-grid .today{background:#FF6B00;color:#fff;font-weight:bold}
 .bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}
-.nav-item .ico{font-size:22px;line-height:1}
-.nav-item.active{background:#FFF3E0;color:#FF6B00}
-.sidebar{position:absolute;top:0;left:0;width:280px;height:100%;background:#fff;z-index:50;transform:translateX(-110%);transition:.35s;padding:16px;overflow:auto}
-.sidebar.open{transform:translateX(0)}
-.sidebar .head{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid #EEE}
-.sidebar .head button{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px}
-.sidebar .profile{text-align:center;margin:16px 0 8px;padding:16px;background:#FFF8F0;border-radius:16px}
-.sidebar .profile img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00;display:block;margin:0 auto}
-.sidebar .profile .no-photo{width:70px;height:70px;border-radius:50%;background:#0B1026;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;margin:0 auto;border:2px solid #FF6B00}
-.sidebar .profile b{display:block;margin-top:10px;font-size:15px}
-.sidebar .profile small{color:#888}
-.sidebar label{font-size:13px;font-weight:bold;display:block;margin-top:16px;margin-bottom:6px}
-.sidebar select{width:100%;padding:11px;border-radius:10px;border:1px solid #EEE;background:#fff;font-size:13px}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}.nav-item .ico{font-size:22px;line-height:1}.nav-item.active{background:#FFF3E0;color:#FF6B00}
+.sidebar{position:absolute;top:0;left:0;width:280px;height:100%;background:#fff;z-index:50;transform:translateX(-110%);transition:.35s;padding:16px;overflow:auto}.sidebar.open{transform:translateX(0)}
+.sidebar .head{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid #EEE}.sidebar .head button{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px}
+.sidebar .profile{text-align:center;margin:16px 0 8px;padding:16px;background:#FFF8F0;border-radius:16px}.sidebar .profile img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00;display:block;margin:0 auto}.sidebar .profile .no-photo{width:70px;height:70px;border-radius:50%;background:#0B1026;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;margin:0 auto;border:2px solid #FF6B00}
+.sidebar .profile b{display:block;margin-top:10px;font-size:15px}.sidebar .profile small{color:#888}
+.sidebar label{font-size:13px;font-weight:bold;display:block;margin-top:16px;margin-bottom:6px}.sidebar select{width:100%;padding:11px;border-radius:10px;border:1px solid #EEE;background:#fff;font-size:13px}
 .sidebar .menu-btn{width:100%;padding:12px;border:none;border-radius:12px;cursor:pointer;font-weight:bold;margin-top:10px;text-align:right;font-size:13px;display:flex;gap:8px;align-items:center}
-.btn-dark{background:#0B1026;color:#fff}.btn-red{background:#FFEBEE;color:#C62828}
-.sidebar .divider{height:1px;background:#EEE;margin:16px 0}
-.lang-row{display:flex;justify-content:space-between;align-items:center;background:#E8EAF6;padding:12px;border-radius:12px;margin-top:12px}
-.lang-row b{font-size:13px}
-.switch{position:relative;width:56px;height:30px;display:inline-block;flex-shrink:0}
-.switch input{display:none}
-.slider{position:absolute;inset:0;background:#ccc;border-radius:30px;cursor:pointer;transition:.3s}
-.slider:before{content:"";position:absolute;width:24px;height:24px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.3s}
-.switch input:checked + .slider{background:#FF6B00}
-.switch input:checked + .slider:before{transform:translateX(26px)}
+.btn-dark{background:#0B1026;color:#fff}.btn-red{background:#FFEBEE;color:#C62828}.sidebar .divider{height:1px;background:#EEE;margin:16px 0}
+.lang-row{display:flex;justify-content:space-between;align-items:center;background:#E8EAF6;padding:12px;border-radius:12px;margin-top:12px}.lang-row b{font-size:13px}
+.switch{position:relative;width:56px;height:30px;display:inline-block;flex-shrink:0}.switch input{display:none}.slider{position:absolute;inset:0;background:#ccc;border-radius:30px;cursor:pointer;transition:.3s}.slider:before{content:"";position:absolute;width:24px;height:24px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.3s}.switch input:checked + .slider{background:#FF6B00}.switch input:checked + .slider:before{transform:translateX(26px)}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:none;z-index:40}.overlay.show{display:block}
-/* الإشعارات */
-.notif-panel{position:absolute;top:0;right:0;width:300px;height:100%;background:#fff;z-index:60;transform:translateX(110%);transition:.35s;padding:14px;overflow:auto}
-.notif-panel.open{transform:translateX(0)}
-.notif-head{display:flex;justify-content:space-between;align-items:center}
-.notif-head .head-btns{display:flex;gap:6px}
-.notif-head .head-btns button{width:36px;height:36px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:17px}
-.tone-box{margin-top:12px;background:#FFF8F0;border-radius:14px;padding:12px;display:none}
-.tone-box.show{display:block}
-.tone-box h4{margin:0 0 8px}
-.tone-item{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:10px;border-radius:10px;margin-top:8px;border:2px solid transparent}
-.tone-item.selected{border-color:#FF6B00}
-.tone-item button{border:none;background:#EEE;padding:7px 10px;border-radius:20px;cursor:pointer;font-weight:bold}
-.tone-item button.playing{background:#FF6B00;color:#fff}
-.tone-lock{margin-top:10px;background:#FFEBEE;color:#C62828;padding:10px;border-radius:10px;font-size:12px;line-height:1.6;display:none}
-.tone-lock.show{display:block}
-.tone-ok{margin-top:10px;background:#E8F5E9;color:#2E7D32;padding:10px;border-radius:10px;font-size:12px;line-height:1.6;display:none}
-.tone-ok.show{display:block}
-.warning{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}
-.warning.show{display:flex}
-.warning-box{background:#fff;border-radius:20px;padding:18px;width:100%;max-height:92%;overflow:auto;text-align:center}
-.warning-box h2{color:#C62828;margin:0}.warning-box ul{text-align:right;line-height:1.8;font-size:13px}
+.notif-panel{position:absolute;top:0;right:0;width:300px;height:100%;background:#fff;z-index:60;transform:translateX(110%);transition:.35s;padding:14px;overflow:auto}.notif-panel.open{transform:translateX(0)}
+.notif-head{display:flex;justify-content:space-between;align-items:center}.notif-head .head-btns{display:flex;gap:6px}.notif-head .head-btns button{width:36px;height:36px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:17px}
+.tone-box{margin-top:12px;background:#FFF8F0;border-radius:14px;padding:12px;display:none}.tone-box.show{display:block}.tone-box h4{margin:0 0 8px}
+.tone-item{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:10px;border-radius:10px;margin-top:8px;border:2px solid transparent}.tone-item.selected{border-color:#FF6B00}.tone-item button{border:none;background:#EEE;padding:7px 10px;border-radius:20px;cursor:pointer;font-weight:bold}.tone-item button.playing{background:#FF6B00;color:#fff}
+.tone-lock{margin-top:10px;background:#FFEBEE;color:#C62828;padding:10px;border-radius:10px;font-size:12px;line-height:1.6;display:none}.tone-lock.show{display:block}
+.tone-ok{margin-top:10px;background:#E8F5E9;color:#2E7D32;padding:10px;border-radius:10px;font-size:12px;line-height:1.6;display:none}.tone-ok.show{display:block}
+.upload-btn{width:100%;padding:13px;border:2px dashed #FF6B00;background:#fff;border-radius:14px;font-weight:bold;cursor:pointer;font-size:13px;margin-top:10px}
+.upload-btn:active{background:#FFF3E0}
+.upload-hint{font-size:11px;color:#888;text-align:center;margin-top:6px;line-height:1.6}
+.warning{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}.warning.show{display:flex}.warning-box{background:#fff;border-radius:20px;padding:18px;width:100%;max-height:92%;overflow:auto;text-align:center}.warning-box h2{color:#C62828;margin:0}.warning-box ul{text-align:right;line-height:1.8;font-size:13px}
 .check-row{display:flex;gap:8px;justify-content:center;background:#F5F5F5;padding:10px;border-radius:12px;margin:12px 0;font-size:13px;font-weight:bold}
-#understoodBtn{background:#C8E6C9;color:#666;border:none;padding:13px;border-radius:14px;width:100%;font-weight:bold;cursor:not-allowed}
-#understoodBtn.active{background:#2E7D32;color:#fff;cursor:pointer}
+#understoodBtn{background:#C8E6C9;color:#666;border:none;padding:13px;border-radius:14px;width:100%;font-weight:bold;cursor:not-allowed}#understoodBtn.active{background:#2E7D32;color:#fff;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="app font-medium" id="app">
 <div class="top">
-<button class="hamburger-btn" onclick="toggleSidebar()" title="القائمة">☰</button>
+<button class="hamburger-btn" onclick="toggleSidebar()">☰</button>
 <div class="center"><img src="teacher.jpg"><b>Mr Romany Faheam</b><small>MRF English</small></div>
 <div class="top-right-icons"><button class="icon-btn" onclick="toggleNotif()">🔔</button><button class="icon-btn" onclick="goPage('notes.html')">📝</button></div>
 </div>
 
-<div class="welcome">
-<div class="welcome-row">
-<div class="welcome-name"><div class="hi" data-ar="مرحبا بك يا بطل 👋" data-en="Welcome, Champion 👋">مرحبا بك يا بطل 👋</div><h2 id="stuName">مرحبا بك</h2></div>
-<div class="welcome-code"><div class="code-label" data-ar="كودك الخاص" data-en="Your Code">كودك الخاص</div><span class="code" id="stuCode">------</span></div>
-</div>
-<div class="meta"><span id="stuStage"></span><span id="lastLogin"></span></div>
-</div>
-
+<div class="welcome"><div class="welcome-row"><div class="welcome-name"><div class="hi" data-ar="مرحبا بك يا بطل 👋" data-en="Welcome, Champion 👋">مرحبا بك يا بطل 👋</div><h2 id="stuName">مرحبا بك</h2></div><div class="welcome-code"><div class="code-label" data-ar="كودك الخاص" data-en="Your Code">كودك الخاص</div><span class="code" id="stuCode">------</span></div></div><div class="meta"><span id="stuStage"></span><span id="lastLogin"></span></div></div>
 <div class="motivation"><div>✨ 📖 💪</div><p id="motivationText">اجمد يا بطل، اللي جاي أحسن</p></div>
-
 <div class="cal"><div class="cal-head"><span data-ar="📅 التقويم" data-en="📅 Calendar">📅 التقويم</span><span id="calTitle"></span></div><div class="cal-grid" id="calGrid"></div></div>
 
 <div class="bottom-nav">
@@ -128,19 +77,15 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 </div>
 
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
-
 <div class="sidebar" id="sidebar">
 <div class="head"><h3 data-ar="القائمة" data-en="Menu">القائمة</h3><button onclick="closeAll()">→</button></div>
 <div class="profile"><div id="sidePhotoWrap"></div><b id="sideName"></b><small id="sideCode"></small><div style="font-size:11px;color:#888;margin-top:4px">MRF English</div></div>
 <button class="menu-btn btn-dark" onclick="goPage('settings.html')"><span>⚙️</span><span data-ar="الإعدادات" data-en="Settings">الإعدادات</span></button>
 <div class="lang-row"><b><span data-ar="اللغة: عربي" data-en="Language: English">اللغة: عربي</span><br><small style="font-weight:normal;color:#666" data-ar="شغلها للإنجليزي" data-en="Turn ON for English">شغلها للإنجليزي</small></b><label class="switch"><input type="checkbox" id="langSwitch" onchange="toggleLangSwitch(this.checked)"><span class="slider"></span></label></div>
 <div class="divider"></div>
-<label data-ar="حجم الخط" data-en="Font Size">حجم الخط</label>
-<select id="fontSel" onchange="changeFont(this.value)"><option value="font-small">صغير</option><option value="font-medium" selected>متوسط</option><option value="font-large">كبير</option></select>
-<label data-ar="المظهر" data-en="Theme">المظهر</label>
-<select onchange="changeTheme(this.value)"><option value="light">فاتح</option><option value="dark">غامق</option></select>
-<div class="divider"></div>
-<button class="menu-btn btn-red" onclick="logout()"><span>🚪</span><span data-ar="تسجيل خروج" data-en="Logout">تسجيل خروج</span></button>
+<label data-ar="حجم الخط" data-en="Font Size">حجم الخط</label><select id="fontSel" onchange="changeFont(this.value)"><option value="font-small">صغير</option><option value="font-medium" selected>متوسط</option><option value="font-large">كبير</option></select>
+<label data-ar="المظهر" data-en="Theme">المظهر</label><select onchange="changeTheme(this.value)"><option value="light">فاتح</option><option value="dark">غامق</option></select>
+<div class="divider"></div><button class="menu-btn btn-red" onclick="logout()"><span>🚪</span><span data-ar="تسجيل خروج" data-en="Logout">تسجيل خروج</span></button>
 </div>
 
 <div class="notif-panel" id="notifPanel">
@@ -149,11 +94,16 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <div class="tone-box" id="toneBox">
 <h4 data-ar="🎵 نغمة الإشعارات" data-en="🎵 Notification Tone">🎵 نغمة الإشعارات</h4>
 <div id="toneLockMsg" class="tone-lock">🔒 <b data-ar="النغمة دي من المستر" data-en="This tone is from the teacher">النغمة دي من المستر</b><br><span data-ar="المستر قافل تغيير النغمة، مش هتقدر تغيرها، لو عايز تغيرها كلم المستر يفتحها ليك" data-en="The teacher locked the tone, you cannot change it. Ask the teacher to unlock it for you">المستر قافل تغيير النغمة، مش هتقدر تغيرها، لو عايز تغيرها كلم المستر يفتحها ليك</span></div>
-<div id="toneOkMsg" class="tone-ok">✅ <b data-ar="تقدر تغير النغمة" data-en="You can change the tone">تقدر تغير النغمة</b><br><span data-ar="اختار النغمة اللي انت عايزها، ودوس تشغيل عشان تسمعها" data-en="Choose the tone you want, tap Play to hear it">اختار النغمة اللي انت عايزها، ودوس تشغيل عشان تسمعها</span></div>
-<div id="toneList"></div>
-<div style="font-size:11px;color:#888;margin-top:10px;line-height:1.6" data-ar="النغمة الحالية: " data-en="Current tone: ">النغمة الحالية: <b id="currentToneName"></b></div>
-</div>
+<div id="toneOkMsg" class="tone-ok">✅ <b data-ar="تقدر تغير النغمة" data-en="You can change the tone">تقدر تغير النغمة</b><br><span data-ar="اختار النغمة اللي انت عايزها، أو ارفع نغمتك من تليفونك" data-en="Choose a tone, or upload your own tone from your phone">اختار النغمة اللي انت عايزها، أو ارفع نغمتك من تليفونك</span></div>
 
+<!-- زرار الرفع - ده اللي كنت ناسيه -->
+<input type="file" id="toneFileInput" accept="audio/*,.mp3,.wav,.m4a,.ogg" style="display:none" onchange="handleToneUpload(this)">
+<button class="upload-btn" id="uploadToneBtn" onclick="clickUploadTone()">📤 ارفع نغمة من تليفونك</button>
+<div class="upload-hint" data-ar="ارفع أي أغنية أو نغمة من تليفونك، MP3 أو WAV<br>هتتحفظ وتشتغل لما ييجي إشعار" data-en="Upload any song or tone from your phone, MP3 or WAV<br>It will be saved and play when a notification arrives">ارفع أي أغنية أو نغمة من تليفونك، MP3 أو WAV<br>هتتحفظ وتشتغل لما ييجي إشعار</div>
+
+<div id="toneList"></div>
+<div style="font-size:11px;color:#888;margin-top:10px;line-height:1.6">النغمة الحالية: <b id="currentToneName"></b></div>
+</div>
 <div id="notifList" style="margin-top:10px"></div>
 </div>
 
@@ -167,9 +117,7 @@ if(!stu){stu={name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا'};}
 var isEn = localStorage.getItem('lang')==='en';
 var quotesAr=["اجمد يا بطل، اللي جاي أحسن","ذاكر النهاردة، هتفرح بكرة","انت تقدر تجيب أعلى درجة","كل دقيقة مذاكرة، بتقربك من حلمك","الغش بيضيع تعبك، والمذاكرة بتبني مستقبلك","خليك واثق في نفسك، انت شاطر","ابدأ دلوقتي، متستناش بكرة","كل سؤال بتحله، بيخليك أقوى","النجاح مش صدفة، النجاح مجهود","انت بطل، والبطل مش بيستسلم","ركز، وذاكر، وهتوصل","مستقبلك يستاهل تتعب عشانه","لو تعبت النهاردة، هترتاح بكرة","مفيش مستحيل، فيه مذاكرة","كل يوم بتذاكر فيه، انت بتكسب"];
 var quotesEn=["Keep going, champion, the best is yet to come","Study today, be happy tomorrow","You can get the highest score","Every minute you study brings you closer to your dream","Cheating wastes your effort, studying builds your future","Believe in yourself, you are smart","Start now, don't wait for tomorrow","Every question you solve makes you stronger","Success is not luck, success is effort","You are a hero, heroes never give up","Focus, study, and you will make it","Your future deserves your effort","If you get tired today, you will rest tomorrow","Nothing is impossible, there is studying","Every day you study, you win"];
-var quotes = quotesAr;
-var qi=0;
-// النغمات - دي اللي المستر بيتحكم فيها
+var quotes = quotesAr; var qi=0;
 var tones=[
   {id:'default', name:'الافتراضية', nameEn:'Default', freq:660, dur:0.6},
   {id:'alarm', name:'منبه - طويل', nameEn:'Alarm - Long', freq:880, dur:1.2},
@@ -177,12 +125,21 @@ var tones=[
   {id:'chime', name:'رنين هادي', nameEn:'Soft Chime', freq:740, dur:0.8},
   {id:'phone', name:'زي رنة التليفون', nameEn:'Phone Ring', freq:440, dur:1.4},
 ];
+var customTones = JSON.parse(localStorage.getItem('customTones_'+stu.code) || '[]');
 var currentTone = localStorage.getItem('studentTone') || 'default';
-// لو المستر قافل النغمة، دي هتبقى true - المستر بيتحكم فيها من لوحة التحكم
 var teacherLocked = localStorage.getItem('teacherToneLocked')==='true';
 var teacherTone = localStorage.getItem('teacherTone') || 'default';
 if(teacherLocked){ currentTone = teacherTone; }
+var currentAudio = null;
+function stopAudio(){ if(currentAudio){ currentAudio.pause(); currentAudio=null; } }
 function playTone(toneId){
+  stopAudio();
+  var custom = customTones.find(function(x){return x.id===toneId;});
+  if(custom){
+    currentAudio = new Audio(custom.data);
+    currentAudio.play().catch(function(){});
+    return;
+  }
   var t = tones.find(function(x){return x.id===toneId;}) || tones[0];
   try{
     var ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -191,7 +148,6 @@ function playTone(toneId){
     o.type='sine'; o.frequency.value=t.freq; g.gain.value=0.25;
     o.start(); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t.dur);
     o.stop(ctx.currentTime + t.dur);
-    // رنة تانية عشان تبقى طويلة زي التليفون
     setTimeout(function(){ var o2=ctx.createOscillator(); var g2=ctx.createGain(); o2.connect(g2); g2.connect(ctx.destination); o2.type='sine'; o2.frequency.value=t.freq; g2.gain.value=0.25; o2.start(); g2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t.dur); o2.stop(ctx.currentTime + t.dur); }, 500);
   }catch(e){}
 }
@@ -201,17 +157,34 @@ function renderTones(){
   var okMsg=document.getElementById('toneOkMsg');
   lockMsg.classList.toggle('show', teacherLocked);
   okMsg.classList.toggle('show', !teacherLocked);
-  var cur = tones.find(function(x){return x.id===currentTone;}) || tones[0];
-  document.getElementById('currentToneName').innerText = isEn ? cur.nameEn : cur.name;
+  // زرار الرفع يختفي لو المستر قافل
+  document.getElementById('uploadToneBtn').style.display = teacherLocked ? 'none' : 'block';
+  var curName = '';
+  var all = tones.concat(customTones.map(function(c){ return {id:c.id, name:c.name, nameEn:c.name, isCustom:true}; }));
+  var cur = all.find(function(x){return x.id===currentTone;}) || tones[0];
+  curName = isEn ? cur.nameEn : cur.name;
+  document.getElementById('currentToneName').innerText = curName;
+  // النغمات الجاهزة
   tones.forEach(function(t){
     var div=document.createElement('div');
     div.className='tone-item'+(currentTone===t.id?' selected':'');
-    div.innerHTML='<b>'+(isEn?t.nameEn:t.name)+(currentTone===t.id?' ✅':'')+'</b><button onclick="trySelectTone(\''+t.id+'\', this)">▶ '+(isEn?'Play':'تشغيل')+'</button>';
-    div.onclick=function(){ trySelectTone(t.id, null); };
+    div.innerHTML='<b>'+(isEn?t.nameEn:t.name)+(currentTone===t.id?' ✅':'')+'</b><button onclick="event.stopPropagation(); playTone(\''+t.id+'\')">▶ '+(isEn?'Play':'تشغيل')+'</button>';
+    div.onclick=function(){ trySelectTone(t.id); };
     list.appendChild(div);
   });
+  // النغمات المرفوعة
+  if(customTones.length>0){
+    var h=document.createElement('div'); h.style.cssText='font-weight:bold;margin:12px 0 0;font-size:13px'; h.innerText = isEn ? '🎵 My Uploaded Tones' : '🎵 نغماتي اللي رفعتها'; list.appendChild(h);
+    customTones.forEach(function(c){
+      var div=document.createElement('div');
+      div.className='tone-item'+(currentTone===c.id?' selected':'');
+      div.innerHTML='<b>🎵 '+c.name+(currentTone===c.id?' ✅':'')+'</b><span><button onclick="event.stopPropagation(); playTone(\''+c.id+'\')">▶ '+(isEn?'Play':'تشغيل')+'</button> <button onclick="event.stopPropagation(); deleteCustomTone(\''+c.id+'\')" style="background:#FFEBEE;color:#C62828">🗑️</button></span>';
+      div.onclick=function(){ trySelectTone(c.id); };
+      list.appendChild(div);
+    });
+  }
 }
-function trySelectTone(toneId, btn){
+function trySelectTone(toneId){
   if(teacherLocked){
     alert(isEn?'This tone is from the teacher, you cannot change it. Ask the teacher to unlock it.':'النغمة دي من المستر، مش هتقدر تغيرها. كلم المستر يفتحها ليك.');
     playTone(currentTone);
@@ -219,8 +192,43 @@ function trySelectTone(toneId, btn){
   }
   currentTone=toneId;
   localStorage.setItem('studentTone', toneId);
-  if(btn){ btn.classList.add('playing'); setTimeout(function(){btn.classList.remove('playing');},800); }
   playTone(toneId);
+  renderTones();
+}
+function clickUploadTone(){
+  if(teacherLocked){
+    alert(isEn?'The teacher locked the tone.':'المستر قافل تغيير النغمة.');
+    return;
+  }
+  document.getElementById('toneFileInput').click();
+}
+function handleToneUpload(input){
+  if(teacherLocked){ alert('المستر قافل تغيير النغمة.'); input.value=''; return; }
+  var file = input.files[0]; if(!file) return;
+  if(!file.type.startsWith('audio/') && file.name.indexOf('.mp3')===-1 && file.name.indexOf('.wav')===-1){
+    alert(isEn?'Please choose an audio file (MP3 / WAV)':'اختار ملف صوت MP3 أو WAV');
+    input.value=''; return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var data = e.target.result;
+    var newTone = {id:'custom_'+Date.now(), name: file.name.replace(/\.[^/.]+$/,''), data: data};
+    customTones.push(newTone);
+    localStorage.setItem('customTones_'+stu.code, JSON.stringify(customTones));
+    currentTone = newTone.id;
+    localStorage.setItem('studentTone', newTone.id);
+    renderTones();
+    playTone(newTone.id);
+    alert(isEn?'Tone uploaded and selected!':'تم رفع النغمة واختيارها ✅');
+  };
+  reader.readAsDataURL(file);
+  input.value='';
+}
+function deleteCustomTone(id){
+  if(!confirm(isEn?'Delete this tone?':'تمسح النغمة دي؟')) return;
+  customTones = customTones.filter(function(x){return x.id!==id;});
+  localStorage.setItem('customTones_'+stu.code, JSON.stringify(customTones));
+  if(currentTone===id){ currentTone='default'; localStorage.setItem('studentTone','default'); }
   renderTones();
 }
 function toggleToneBox(){
@@ -235,38 +243,28 @@ function renderCalendar(){
   var weekDays = isEn ? ['Sat','Sun','Mon','Tue','Wed','Thu','Fri'] : ['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
   weekDays.forEach(function(d){var e=document.createElement('div');e.innerText=d;e.className='wd';grid.appendChild(e);});
   var y=today.getFullYear(),m=today.getMonth();
-  var firstDay=new Date(y,m,1).getDay();
-  var offset=(firstDay+1)%7;
+  var firstDay=new Date(y,m,1).getDay(); var offset=(firstDay+1)%7;
   for(var i=0;i<offset;i++){grid.appendChild(document.createElement('div'));}
   var lastDay=new Date(y,m+1,0).getDate();
-  for(var d=1;d<=lastDay;d++){
-    var e=document.createElement('div');
-    e.innerText = isEn ? String(d) : d.toLocaleString('ar-EG');
-    if(d===today.getDate())e.className='today';
-    grid.appendChild(e);
-  }
+  for(var d=1;d<=lastDay;d++){ var e=document.createElement('div'); e.innerText = isEn ? String(d) : d.toLocaleString('ar-EG'); if(d===today.getDate())e.className='today'; grid.appendChild(e); }
 }
 function applyLang(){
-  document.documentElement.lang = isEn ? 'en' : 'ar';
-  document.documentElement.dir = 'rtl';
+  document.documentElement.lang = isEn ? 'en' : 'ar'; document.documentElement.dir = 'rtl';
   document.querySelectorAll('[data-ar]').forEach(function(el){ el.innerText = isEn ? el.getAttribute('data-en') : el.getAttribute('data-ar'); });
   document.getElementById('stuName').innerText = (isEn ? 'Welcome, ' : 'مرحبا بك يا ') + stu.name;
   document.getElementById('stuStage').innerText = (isEn ? 'Stage: ' : 'المرحلة: ') + stu.stage;
   document.getElementById('lastLogin').innerText = (isEn ? 'Last login: ' : 'آخر دخول: ') + (localStorage.getItem('lastLogin')||'');
-  quotes = isEn ? quotesEn : quotesAr;
-  document.getElementById('motivationText').innerText = quotes[qi];
+  quotes = isEn ? quotesEn : quotesAr; document.getElementById('motivationText').innerText = quotes[qi];
   renderCalendar();
   var fontSel=document.getElementById('fontSel');
-  if(isEn){ fontSel.options[0].text='Small'; fontSel.options[1].text='Medium'; fontSel.options[2].text='Large'; }
-  else { fontSel.options[0].text='صغير'; fontSel.options[1].text='متوسط'; fontSel.options[2].text='كبير'; }
+  if(isEn){ fontSel.options[0].text='Small'; fontSel.options[1].text='Medium'; fontSel.options[2].text='Large'; } else { fontSel.options[0].text='صغير'; fontSel.options[1].text='متوسط'; fontSel.options[2].text='كبير'; }
   var sw=document.getElementById('langSwitch'); if(sw) sw.checked = isEn;
   renderTones();
 }
 function renderSidePhoto(){
   var photo = localStorage.getItem('studentPhoto') || stu.photo || '';
   var wrap=document.getElementById('sidePhotoWrap');
-  if(photo){ wrap.innerHTML='<img src="'+photo+'">'; }
-  else { var first = (stu.name||'ط').trim().charAt(0); wrap.innerHTML='<div class="no-photo">'+first+'</div>'; }
+  if(photo){ wrap.innerHTML='<img src="'+photo+'">'; } else { var first = (stu.name||'ط').trim().charAt(0); wrap.innerHTML='<div class="no-photo">'+first+'</div>'; }
 }
 document.getElementById('stuCode').innerText=stu.code;
 document.getElementById('sideName').innerText=stu.name;document.getElementById('sideCode').innerText=stu.code;
@@ -276,16 +274,8 @@ setInterval(function(){qi=(qi+1)%quotes.length;var el=document.getElementById('m
 function toggleSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('overlay').classList.add('show');}
 function toggleNotif(){document.getElementById('notifPanel').classList.add('open');document.getElementById('overlay').classList.add('show');loadNotifs();}
 function closeAll(){document.querySelectorAll('.sidebar,.notif-panel').forEach(function(e){e.classList.remove('open')});document.getElementById('overlay').classList.remove('show');}
-function changeFont(v){
-  var app=document.getElementById('app');
-  app.classList.remove('font-small','font-medium','font-large');
-  app.classList.add(v);
-  localStorage.setItem('font',v);
-}
-var savedFont = localStorage.getItem('font') || 'font-medium';
-document.getElementById('app').classList.remove('font-small','font-medium','font-large');
-document.getElementById('app').classList.add(savedFont);
-document.getElementById('fontSel').value = savedFont;
+function changeFont(v){ var app=document.getElementById('app'); app.classList.remove('font-small','font-medium','font-large'); app.classList.add(v); localStorage.setItem('font',v); }
+var savedFont = localStorage.getItem('font') || 'font-medium'; document.getElementById('app').classList.remove('font-small','font-medium','font-large'); document.getElementById('app').classList.add(savedFont); document.getElementById('fontSel').value = savedFont;
 function changeTheme(v){if(v==='dark')document.getElementById('app').classList.add('dark');else document.getElementById('app').classList.remove('dark');localStorage.setItem('theme',v);}
 if(localStorage.getItem('theme')==='dark') document.getElementById('app').classList.add('dark');
 function toggleLangSwitch(checked){ isEn = checked; localStorage.setItem('lang', isEn?'en':'ar'); applyLang(); }
@@ -296,7 +286,6 @@ function acceptWarning(){if(!document.getElementById('agreeCheck').checked){aler
 if(!localStorage.getItem('acceptedWarning')){document.getElementById('warningModal').classList.add('show');}
 function loadNotifs(){
   var list=document.getElementById('notifList');var arr=JSON.parse(localStorage.getItem('stuNotifs')||'[]');
-  // لو فيه إشعار جديد، شغل النغمة
   if(arr.length>0 && arr[0].playTone){ playTone(currentTone); arr[0].playTone=false; localStorage.setItem('stuNotifs',JSON.stringify(arr)); }
   if(arr.length===0){list.innerHTML='<p style="text-align:center;color:#888">لسه مفيش إشعارات</p>';return;}
   list.innerHTML='';arr.forEach(function(n){list.innerHTML+='<div style="padding:10px;border-bottom:1px solid #EEE"><b>'+n.title+'</b><p>'+n.body+'</p><small>'+n.time+'</small></div>';});
