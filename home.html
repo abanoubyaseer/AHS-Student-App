@@ -10,23 +10,22 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;padding-bottom:72px}
 .app.dark{background:#141A33;color:#fff}
 .app.dark .top,.app.dark .cal,.app.dark .sidebar,.app.dark .notif-panel,.app.dark .bottom-nav{background:#1E2447;color:#fff}
-/* الشريط اللي فوق ثابت - LTR عشان الشمال يفضل شمال بجد */
-.top{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;background:#fff;border-bottom:1px solid #EEE;direction:ltr}
-.left-side{display:flex;gap:6px}
-.right-side{display:flex;gap:6px}
+/* الشريط فوق - تثبيت بالمكان مش بالفليكس */
+.top{height:60px;position:relative;background:#fff;border-bottom:1px solid #EEE}
+.hamburger-btn{position:absolute;left:10px;top:9px;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:22px;background:#FFF3E0;display:flex;align-items:center;justify-content:center;z-index:10}
+.top-right-icons{position:absolute;right:10px;top:9px;display:flex;gap:6px;z-index:10}
 .icon-btn{width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:20px;background:#FFF3E0;display:flex;align-items:center;justify-content:center}
-.center{flex:1;text-align:center}
+.center{position:absolute;left:0;right:0;top:4px;text-align:center}
 .center img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00}
 .center b{font-size:12px}.center small{font-size:10px;color:#888}
-/* البطاقة - متوزعة مش تحت بعض */
-.welcome{margin:10px 12px 0;background:linear-gradient(135deg,#0B1026,#1A237E 60%,#FF6B00);color:#fff;border-radius:14px;padding:12px}
-.welcome-row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
-.welcome-row .right-txt{text-align:right;flex:1}
-.welcome-row .left-code{text-align:left;flex-shrink:0}
-.welcome h2{margin:2px 0;font-size:17px}
-.welcome .code{display:inline-block;background:#fff;color:#0B1026;font-weight:900;font-size:16px;letter-spacing:2px;padding:5px 10px;border-radius:8px;direction:ltr}
-.welcome .code-label{font-size:11px;opacity:.9;margin-bottom:4px}
-.welcome .meta{display:flex;justify-content:space-between;gap:10px;font-size:11px;line-height:1.6;opacity:.9;margin-top:8px;border-top:1px solid rgba(255,255,255,.25);padding-top:6px}
+/* البطاقة - الكود متثبت على الشمال، والاسم على اليمين */
+.welcome{margin:10px 12px 0;background:linear-gradient(135deg,#0B1026,#1A237E 60%,#FF6B00);color:#fff;border-radius:14px;padding:12px;position:relative;min-height:92px}
+.welcome-name{position:absolute;right:14px;top:12px;text-align:right}
+.welcome-name h2{margin:2px 0;font-size:17px}
+.welcome-code{position:absolute;left:14px;top:12px;text-align:center}
+.welcome-code .code{display:block;background:#fff;color:#0B1026;font-weight:900;font-size:16px;letter-spacing:2px;padding:5px 10px;border-radius:8px;direction:ltr}
+.welcome-code .code-label{font-size:11px;opacity:.9;margin-bottom:4px}
+.welcome .meta{position:absolute;right:14px;left:14px;bottom:10px;display:flex;justify-content:space-between;gap:10px;font-size:11px;opacity:.9;border-top:1px solid rgba(255,255,255,.25);padding-top:6px}
 .motivation{margin:10px 12px 0;text-align:center;padding:12px;background:#FFF3E0;border-radius:14px;border:1px dashed #FFB74D}
 .app.dark .motivation{background:#1E2447;border-color:#FF6B00}
 .motivation p{font-size:14px;font-weight:bold;margin:5px 0 0;line-height:1.6}
@@ -36,11 +35,11 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .cal-grid div{padding:7px 0;border-radius:9px}
 .cal-grid .wd{font-weight:bold;color:#888}
 .cal-grid .today{background:#FF6B00;color:#fff;font-weight:bold}
-.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20;direction:rtl}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}
 .nav-item .ico{font-size:22px;line-height:1}
 .nav-item.active{background:#FFF3E0;color:#FF6B00}
-/* القايمة - على الشمال وبتفتح من الشمال */
+/* القايمة - على الشمال وبتفتح من الشمال - تثبيت */
 .sidebar{position:absolute;top:0;left:0;width:280px;height:100%;background:#fff;z-index:50;transform:translateX(-110%);transition:.35s;padding:14px;overflow:auto}
 .sidebar.open{transform:translateX(0)}
 .sidebar .head{display:flex;justify-content:space-between;align-items:center}
@@ -52,7 +51,7 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .sidebar .menu-btn{width:100%;padding:11px;border:none;border-radius:12px;cursor:pointer;font-weight:bold;margin-top:8px;text-align:right}
 .btn-dark{background:#0B1026;color:#fff}.btn-orange{background:#FF6B00;color:#fff}.btn-red{background:#FFEBEE;color:#C62828}.btn-lang{background:#E8EAF6;color:#0B1026}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:none;z-index:40}.overlay.show{display:block}
-/* الاشعارات - على اليمين وبتفتح من اليمين */
+/* الاشعارات - على اليمين وبتفتح من اليمين - تثبيت */
 .notif-panel{position:absolute;top:0;right:0;width:300px;height:100%;background:#fff;z-index:60;transform:translateX(110%);transition:.35s;padding:14px;overflow:auto}
 .notif-panel.open{transform:translateX(0)}
 .warning{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}
@@ -67,16 +66,14 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <body>
 <div class="app" id="app">
 <div class="top">
-<div class="left-side"><button class="icon-btn" onclick="toggleSidebar()" title="القايمة">☰</button></div>
+<button class="hamburger-btn" onclick="toggleSidebar()" title="القايمة">☰</button>
 <div class="center"><img src="teacher.jpg"><br><b>Mr Romany Faheam</b><br><small>MRF English</small></div>
-<div class="right-side"><button class="icon-btn" onclick="toggleNotif()">🔔</button><button class="icon-btn" onclick="goPage('notes.html')">📝</button></div>
+<div class="top-right-icons"><button class="icon-btn" onclick="toggleNotif()">🔔</button><button class="icon-btn" onclick="goPage('notes.html')">📝</button></div>
 </div>
 
 <div class="welcome">
-<div class="welcome-row">
-<div class="right-txt"><div style="font-size:11px" data-ar="مرحبا بك يا بطل 👋" data-en="Welcome, Champion 👋">مرحبا بك يا بطل 👋</div><h2 id="stuName">مرحبا بك</h2></div>
-<div class="left-code"><div class="code-label" data-ar="كودك الخاص" data-en="Your Code">كودك الخاص</div><div class="code" id="stuCode">------</div></div>
-</div>
+<div class="welcome-name"><div style="font-size:11px" data-ar="مرحبا بك يا بطل 👋" data-en="Welcome, Champion 👋">مرحبا بك يا بطل 👋</div><h2 id="stuName">مرحبا بك</h2></div>
+<div class="welcome-code"><div class="code-label" data-ar="كودك الخاص" data-en="Your Code">كودك الخاص</div><span class="code" id="stuCode">------</span></div>
 <div class="meta"><span id="stuStage"></span><span id="lastLogin"></span></div>
 </div>
 
@@ -113,17 +110,11 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 </div>
 <script>
 function goPage(page){
-  // في المعاينة بنمنع فتح الكود الخام، في التطبيق الحقيقي هيفتح الصفحة عادي
   if(window.location.href.indexOf('htmlpreview')>-1){
-    var base = window.location.href.split('?')[1] || '';
-    // لو احنا في المعاينة، هنفتح نفس المعاينة بس بالصفحة الجديدة
-    // بنجيب رابط الجيت هاب من الرابط الاصلي
     try{
-      var gh = decodeURIComponent(base).replace('https://github.com/','https://htmlpreview.github.io/?https://github.com/');
-      // نبدل اسم الملف بس
+      var gh = decodeURIComponent(window.location.href.split('?')[1]||'');
       var newUrl = gh.replace(/home\.html|index\.html|notes\.html|exams\.html|homework\.html|chat\.html|reports\.html|settings\.html/g, page);
       if(gh.indexOf('home.html')===-1 && gh.indexOf(page)===-1){
-        // لو الرابط مش فيه اسم ملف، نضيفه
         newUrl = 'https://htmlpreview.github.io/?https://github.com/abanoubyaseer/AHS-Student-App/blob/main/' + page;
       }
       window.location.href = newUrl;
@@ -132,11 +123,7 @@ function goPage(page){
   }
   window.location.href = page;
 }
-function goHome(){
-  // البيت مش بيفتح صفحة جديدة، بيطلع لفوق بس، عشان ميفتحش كود
-  window.scrollTo({top:0,behavior:'smooth'});
-  closeAll();
-}
+function goHome(){ window.scrollTo({top:0,behavior:'smooth'}); closeAll(); }
 var stu=JSON.parse(localStorage.getItem('currentStudent')||'null');
 if(!stu){stu={name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا'};}
 var isEn = localStorage.getItem('lang')==='en';
