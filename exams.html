@@ -13,7 +13,6 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .card h3{margin:0}.card .meta{font-size:12px;color:#888;margin:8px 0;line-height:1.8}
 .card .enter{width:100%;padding:13px;border:none;border-radius:12px;background:#FF6B00;color:#fff;font-weight:bold;cursor:pointer;font-size:14px}
 .empty{text-align:center;color:#888;padding:30px}.empty .big{font-size:44px}.empty b{color:#0B1026;font-size:16px}
-.clear-btn{margin:10px 12px;padding:12px;border:2px dashed #FF6B00;border-radius:12px;background:#FFF3E0;color:#FF6B00;font-weight:bold;cursor:pointer;width:calc(100% - 24px)}
 .modal{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}.modal.show{display:flex}
 .modal-box{background:#fff;border-radius:20px;padding:18px;width:100%;max-height:92%;overflow:auto;text-align:center}
 .modal-box input{width:100%;padding:13px;border-radius:12px;border:1px solid #EEE;text-align:center;font-size:18px;letter-spacing:3px;font-weight:900;margin:10px 0;outline:none}
@@ -34,7 +33,6 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <div class="app" id="app">
 <div class="top"><button class="back" onclick="location.href='home.html'">→</button><b>📝 الامتحانات</b><span style="width:38px"></span></div>
 <div id="listView"></div>
-<button class="clear-btn" onclick="clearAllFake()">🗑️ امسح الامتحان التجريبي الوهمي من هنا</button>
 <div class="timer" id="timerBar"><span>⏳ الوقت المتبقي</span><span class="time" id="timerText">05:00</span><span id="pageInfo" style="font-size:12px"></span></div>
 <div id="examView" style="display:none"></div>
 <div class="nav-row" id="examNav" style="display:none"><button class="btn-prev" onclick="prevPage()">← السابق</button><button class="btn-next" id="nextBtn" onclick="nextPage()">التالي →</button><button class="btn-submit" id="submitBtn" onclick="submitExam()" style="display:none">تسليم ✅</button></div>
@@ -51,15 +49,7 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 </div>
 <script>
 var stu=JSON.parse(localStorage.getItem('currentStudent')||'null')||{name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا'};
-// أول ما الصفحة تفتح، امسح أي امتحان تجريبي وهمي قديم لوحده
 var exams=JSON.parse(localStorage.getItem('teacherExams')||'[]');
-exams = exams.filter(function(e){ return e.title.indexOf('تجريبي')===-1 && e.title.indexOf('Unit 1')===-1 && e.title.indexOf('Unit')===-1; });
-localStorage.setItem('teacherExams', JSON.stringify(exams));
-function clearAllFake(){
-  localStorage.removeItem('teacherExams'); localStorage.removeItem('teacherHomeworks'); localStorage.removeItem('studentReports');
-  alert('اتمسح يا باشا ✅');
-  location.reload();
-}
 var currentExam=null, answers={}, currentPage=0, timerInt=null, timeLeft=0, enterTime=null, cheatCount=0;
 function renderList(){
   var el=document.getElementById('listView'); el.innerHTML='';
