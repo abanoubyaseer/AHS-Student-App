@@ -3,98 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MRF English - MRF English</title>
+<title>MRF English</title>
 <style>
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
-body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
-.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.hero{background:linear-gradient(135deg,#0B1026,#FF6B00);color:#fff;padding:28px 18px 20px;text-align:center;border-radius:0 0 28px 28px}
-.hero img{width:72px;height:72px;border-radius:50%;border:3px solid #fff;object-fit:cover;background:#fff}
-.hero h1{margin:10px 0 4px;font-size:22px}.hero p{margin:0;opacity:.9;font-size:13px}
-.tabs{display:flex;gap:8px;margin:16px 12px 0}.tabs button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;cursor:pointer;background:#EEE}.tabs button.active{background:#0B1026;color:#fff}
-.form{margin:12px;background:#fff;border-radius:18px;padding:16px;border:1px solid #FFE0B2}
-.form label{display:block;font-size:12px;font-weight:bold;margin:12px 0 6px;color:#333}.form label:first-child{margin-top:0}
-.form input,.form select{width:100%;padding:13px;border-radius:12px;border:1px solid #EEE;outline:none;font-size:14px;background:#fff}
-.form input:focus,.form select:focus{border-color:#FF6B00}
-.hint{font-size:11px;color:#888;margin-top:4px;line-height:1.6}
+body{margin:0;background:#0F0F0F;display:flex;justify-content:center;overflow-x:hidden}
+.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;display:flex;flex-direction:column;overflow:hidden}
+@keyframes up{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes fromRight{from{transform:translateX(60px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes fromLeft{from{transform:translateX(-60px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes zoom{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.hero{background:linear-gradient(135deg,#0B1026,#FF6B00);color:#fff;padding:26px 16px 20px;text-align:center;border-radius:0 0 28px 28px;position:relative;overflow:hidden}
+.hero img{width:78px;height:78px;border-radius:50%;border:3px solid #fff;object-fit:cover;background:#fff;animation:up .8s ease both}
+.hero h1{margin:12px 0 4px;font-size:24px;animation:fromRight .8s .2s ease both}
+.hero p{margin:0;opacity:.9;font-size:13px;animation:fromLeft .8s .3s ease both}
+.tabs{display:flex;gap:8px;margin:16px 12px 0;animation:zoom .6s .4s ease both}
+.tabs button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;cursor:pointer;background:#E0E0E0}
+.tabs button.active{background:#0B1026;color:#fff}
+.form{margin:12px;background:#fff;border-radius:18px;padding:16px;border:1px solid #FFE0B2;animation:up .7s .5s ease both}
+.form label{display:block;font-size:12px;font-weight:bold;margin:12px 0 6px;color:#333;animation:fromRight .6s ease both}
+.form label:first-child{margin-top:0}
+.form input,.form select{width:100%;padding:13px;border-radius:12px;border:1px solid #E0E0E0;outline:none;font-size:14px;background:#fff}
+.form input:focus{border-color:#FF6B00}
+.hint{font-size:11px;color:#888;margin-top:4px}
 .code-box{background:#FFF3E0;border:2px dashed #FF6B00;border-radius:14px;padding:14px;text-align:center;margin:12px 0;display:none}
-.code-box b{font-size:26px;letter-spacing:4px;color:#0B1026}.code-box p{margin:6px 0 0;font-size:12px;color:#666}
-.btn{width:100%;padding:14px;border:none;border-radius:12px;background:#FF6B00;color:#fff;font-weight:bold;cursor:pointer;font-size:15px;margin-top:12px}.btn:disabled{background:#FFCC80;color:#666;cursor:not-allowed}
-.btn-green{background:#2E7D32}.btn-green:disabled{background:#C8E6C9;color:#666}
-.forgot{text-align:center;margin-top:10px;font-size:13px}.forgot a{color:#0B1026;font-weight:bold;text-decoration:none}
+.code-box b{font-size:26px;letter-spacing:4px;color:#0B1026}
+.code-box p{margin:6px 0 0;font-size:12px;color:#666}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;background:#FF6B00;color:#fff;font-weight:bold;cursor:pointer;font-size:15px;margin-top:12px}
+.btn-green{background:#2E7D32}
+.btn-green:disabled{background:#C8E6C9;color:#666}
+.forgot{text-align:center;margin-top:10px;font-size:13px}
+.forgot a{color:#0B1026;font-weight:bold;text-decoration:none}
 .check-row{display:flex;gap:8px;align-items:flex-start;background:#FFF8F0;padding:12px;border-radius:12px;margin-top:12px;font-size:12px;line-height:1.7;font-weight:bold}
 .check-row input{width:18px;height:18px;margin-top:2px;flex-shrink:0}
 .warn-box{background:#FFF3E0;border:1px solid #FFCC80;border-radius:12px;padding:12px;font-size:12px;line-height:1.8;margin-top:12px;display:none}
-.warn-box b{color:#C62828}
 .err{color:#C62828;font-size:12px;margin-top:6px;display:none}
-.footer{text-align:center;font-size:11px;color:#999;padding:12px}
+.footer{text-align:center;font-size:11px;color:#999;padding:12px;animation:fromLeft .7s ease both}
 </style>
 </head>
 <body>
 <div class="app">
 <div class="hero">
-<img src="teacher.jpg" onerror="this.src='https://via.placeholder.com/72'">
+<img src="teacher.jpg" onerror="this.style.display='none'">
 <h1>MRF English</h1>
 <p>مستر روماني فهيم - لغة إنجليزية</p>
 </div>
+
 <div class="tabs">
 <button id="tabSignup" class="active" onclick="showTab('signup')">إنشاء حساب ✨</button>
 <button id="tabLogin" onclick="showTab('login')">تسجيل دخول 🔐</button>
 </div>
+
 <div id="signupView">
 <div class="form">
 <label>الاسم بالكامل - 4 أجزاء *</label>
-<input id="suName" placeholder="مثال: محمد أحمد علي حسن">
-<div class="hint">لازم 4 أجزاء، زي شهادة الميلاد بالظبط</div>
+<input id="suName" placeholder="اكتب اسمك بالكامل">
+<div class="hint">لازم 4 أجزاء</div>
 <div class="err" id="errName">اكتب اسمك كامل 4 أجزاء</div>
+
 <label>رقم واتساب *</label>
-<input id="suPhone" placeholder="01xxxxxxxxx" inputmode="numeric" maxlength="11">
+<input id="suPhone" placeholder="اكتب رقم الواتساب" inputmode="numeric" maxlength="11">
 <div class="err" id="errPhone">اكتب رقم واتساب صح، 11 رقم، يبدأ بـ 01</div>
+
 <label>المرحلة *</label>
 <select id="suStage">
 <option value="أولى بكالوريا">أولى بكالوريا</option>
 <option value="تانية بكالوريا">تانية بكالوريا</option>
 <option value="تالتة بكالوريا">تالتة بكالوريا</option>
 </select>
+
 <label>كلمة السر *</label>
-<input id="suPass" type="password" placeholder="اختار كلمة سر قوية">
+<input id="suPass" type="password" placeholder="اختار كلمة سر">
 <label>تأكيد كلمة السر *</label>
-<input id="suPass2" type="password" placeholder="اكتبها تاني">
+<input id="suPass2" type="password" placeholder="اكتب كلمة السر تاني">
 <div class="err" id="errPass">كلمة السر مش متطابقة، أو أقل من 4 حروف</div>
+
 <div class="code-box" id="codeBox">
 <div style="font-size:13px">كودك الخاص 🔐</div>
-<b id="myCode">------</b>
-<p>احفظ الكود ده، هتدخل بيه الامتحان والواجب<br>محدش يعرفه غيرك</p>
+<b id="myCode"></b>
+<p>احفظ الكود ده، هتدخل بيه الامتحان والواجب</p>
 </div>
+
 <div class="warn-box" id="warnBox">
 <b>⚠️ تحذير مهم قبل ما تدخل:</b><br>
 - ممنوع الغش في الامتحان أو الواجب.<br>
-- لو حاولت تغش، هيوصل للمستر، وهتتسحب الدرجة، والامتحان هيضيع عليك.<br>
-- ممنوع الخروج من الامتحان، ممنوع فتح أي تطبيق تاني، ممنوع الاسكرين شوت.<br>
+- لو حاولت تغش، هيوصل للمستر، وهتتسحب الدرجة.<br>
+- ممنوع الخروج من الامتحان، ممنوع الاسكرين شوت.<br>
 - حل بنفسك، واجمد يا بطل 💪
 </div>
+
 <label class="check-row"><input type="checkbox" id="agreeCheck" onchange="checkAgree()"> أنا قرأت التحذير وفهمته، وموافق على كل التعليمات</label>
+
 <button class="btn btn-green" id="createBtn" disabled onclick="createAccount()">فهمت ✅ - إنشاء الحساب ودخول</button>
 <div class="err" id="errGeneral" style="text-align:center"></div>
 </div>
 </div>
+
 <div id="loginView" style="display:none">
 <div class="form">
-<label>ادخل بأي حاجة من دول *</label>
-<input id="liUser" placeholder="الاسم بالكامل أو رقم الواتساب أو الكود">
-<div class="hint">مثال: محمد أحمد علي حسن - أو 01123456789 - أو X7K9Q2</div>
+<label>ادخل بالاسم أو الرقم أو الكود *</label>
+<input id="liUser" placeholder="الاسم أو رقم الواتساب أو الكود">
 <label>كلمة السر *</label>
 <input id="liPass" type="password" placeholder="كلمة السر بتاعتك">
-<div class="err" id="errLogin">البيانات غلط، اتأكد من الاسم / الرقم / الكود وكلمة السر</div>
+<div class="err" id="errLogin">البيانات غلط، اتأكد من البيانات وكلمة السر</div>
 <button class="btn" onclick="doLogin()">دخول على الرئيسية →</button>
-<div class="forgot">نسيت كلمة السر؟ <a href="tel:01145471688">كلم الدعم: 01145471688 📞</a></div>
+<div class="forgot">نسيت كلمة السر؟ <a href="tel:01145471688">كلم الدعم 📞</a></div>
 </div>
 </div>
+
 <div class="footer">MRF English - مستر روماني فهيم<br>الدعم: 01145471688</div>
 </div>
+
 <script>
-var already = JSON.parse(localStorage.getItem('currentStudent')||'null');
-if(already && already.code){ location.href='home.html'; }
 function showTab(t){
   document.getElementById('tabSignup').classList.toggle('active', t==='signup');
   document.getElementById('tabLogin').classList.toggle('active', t==='login');
