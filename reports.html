@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRF English - تقاريري</title>
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
+.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;padding-bottom:72px}
+.app.dark{background:#141A33;color:#fff}.app.dark .top,.app.dark .card,.app.dark .bottom-nav,.app.dark .detail{background:#1E2447;color:#fff}
+.top{height:60px;background:#fff;border-bottom:1px solid #EEE;display:flex;align-items:center;padding:0 12px}.top .back{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px}.top b{flex:1;text-align:center}
+.section{margin:12px 12px 0;background:#fff;border-radius:16px;overflow:hidden}
+.section-head{padding:14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:bold}
+.section-head small{color:#888;font-weight:normal}
+.section-body{display:none;padding:0 12px 12px}.section-body.open{display:block}
+.exam-item{padding:12px;border:1px solid #EEE;border-radius:12px;margin-top:8px;cursor:pointer}
+.exam-item b{display:block}.exam-item span{font-size:12px;color:#888;line-height:1.7}
+.detail{margin:12px;background:#fff;border-radius:18px;padding:16px;text-align:center;display:none}.detail.show{display:block}.detail.pass{border:2px solid #2E7D32}.detail.fail{border:2px solid #C62828}
+.balloons{font-size:36px;animation:bounce 1s infinite}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.ans-card{margin:10px 0;background:#FFF8F0;border-radius:12px;padding:10px;text-align:right;font-size:13px;line-height:1.7}
+.wallet{margin:12px;background:#0B1026;color:#fff;border-radius:18px;padding:16px;text-align:center}
+.wallet .points{font-size:36px;font-weight:900;color:#FFD54F}
+.wallet .note{font-size:12px;color:#CCC;line-height:1.7}
+.empty{text-align:center;color:#888;padding:20px}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}.nav-item .ico{font-size:22px}.nav-item.active{background:#FFF3E0;color:#FF6B00}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<div class="top"><button class="back" onclick="location.href='home.html'">→</button><b>📊 تقاريري</b><span style="width:38px"></span></div>
+
+<!-- الخانة الأولى: الواجبات -->
+<div class="section">
+<div class="section-head" onclick="toggleSection('hwBody', this)"><span>📚 الواجبات <small id="hwCount"></small></span><span id="hwArrow">▼</span></div>
+<div class="section-body" id="hwBody"></div>
+</div>
+
+<!-- الخانة التانية: الامتحانات -->
+<div class="section">
+<div class="section-head" onclick="toggleSection('exBody', this)"><span>📝 الامتحانات <small id="exCount"></small></span><span id="exArrow">▼</span></div>
+<div class="section-body" id="exBody"></div>
+</div>
+
+<div class="detail" id="detail"></div>
+
+<!-- المحفظة - زي لوحة التحكم -->
+<div class="wallet">
+<div>👛 محفظتي</div>
+<div class="points" id="walletPoints">0 نقطة</div>
+<div class="note" id="walletNote">لسه مفيش نقط. لما المستر يبعتلك نقط، هتظهر هنا.<br>النقط = خصم على الحصة أو المذكرة</div>
+<div id="walletHistory" style="text-align:right;font-size:12px;line-height:1.8;margin-top:10px"></div>
+</div>
+
+<div class="bottom-nav">
+<button class="nav-item" onclick="location.href='exams.html'"><span class="ico">📝</span><span>امتحان جديد</span></button>
+<button class="nav-item" onclick="location.href='homework.html'"><span class="ico">📚</span><span>واجب جديد</span></button>
+<button class="nav-item" onclick="location.href='home.html'"><span class="ico">🏠</span><span>الرئيسية</span></button>
+<button class="nav-item" onclick="location.href='chat.html'"><span class="ico">💬</span><span>المنتدى</span></button>
+<button class="nav-item active" onclick="location.href='reports.html'"><span class="ico">📊</span><span>تقاريري</span></button>
+</div>
+</div>
+<script>
+var stu=JSON.parse(localStorage.getItem('currentStudent')||'null')||{name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا'};
+// التقارير الحقيقية بس - اللي الطالب امتحنها بجد
+var reports=JSON.parse(localStorage.getItem('studentReports')||'[]');
+function toggleSection(id, head){
+  var body=document.getElementById(id);
+  var isOpen=body.classList.contains('open');
+  document.querySelectorAll('.section-body').forEach(function(b){ b.classList.remove('open'); });
+  document.getElementById('hwArrow').innerText='▼'; document.getElementById('exArrow').innerText='▼';
+  if(!isOpen){ body.classList.add('open'); head.querySelector('span:last-child').innerText='▲'; }
+  document.getElementById('detail').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function renderLists(){
+  var hw=reports.filter(function(r){ return r.type==='homework' || r.type==='واجب'; });
+  var ex=reports.filter(function(r){ return r.type==='exam' || r.type==='امتحان' || !r.type; });
+  document.getElementById('hwCount').innerText='('+hw.length+')';
+  document.getElementById('exCount').innerText='('+ex.length+')';
+  var hwEl=document.getElementById('hwBody');
+  var exEl=document.getElementById('exBody');
+  if(hw.length===0){ hwEl.innerHTML='<div class="empty">لسه مفيش واجبات امتحنتها.</div>'; }
+  else { hwEl.innerHTML=''; hw.forEach(function(r,i){ hwEl.appendChild(makeItem(r, 'hw_'+i)); }); }
+  if(ex.length===0){ exEl.innerHTML='<div class="empty">لسه مفيش امتحانات امتحنتها.<br>لما تمتحن، هتظهر هنا.</div>'; }
+  else { exEl.innerHTML=''; ex.forEach(function(r,i){ exEl.appendChild(makeItem(r, 'ex_'+i)); }); }
+}
+function makeItem(r, key){
+  var div=document.createElement('div'); div.className='exam-item';
+  // تاريخ نزول الامتحان / تاريخ الامتحان
+  var examDate = r.enter || (r.date ? new Date(r.date).toLocaleString('ar-EG') : '');
+  div.innerHTML='<b>'+(r.title||'امتحان')+'</b><span>📅 تاريخ الامتحان: '+examDate+'<br>🏆 الدرجة: '+(r.grade||0)+' / '+(r.total||0)+' ('+(r.percent||0)+'%)<br>'+(r.passed ? '✅ نجحت' : '❌ لم تنجح')+'</span>';
+  div.onclick=function(){ showDetail(r); };
+  // نحفظ index عشان نجيب التقرير كامل
+  div.dataset.key=key;
+  return div;
+}
+function showDetail(r){
+  var d=document.getElementById('detail');
+  d.classList.add('show');
+  d.className='detail show '+(r.passed?'pass':'fail');
+  var html='';
+  if(r.passed){ html+='<div class="balloons">🎉 🎈 🎊 🎈 🎉</div><h2 style="color:#2E7D32;margin:6px 0">عاش يا بطل! 🎉</h2>'; }
+  else { html+='<div style="font-size:44px">🥺 😔</div><h2 style="color:#C62828;margin:6px 0">معلش يا بطل، متزعلش</h2>'; }
+  html+='<div style="text-align:right;line-height:1.9;font-size:13px;background:#FFF8F0;padding:12px;border-radius:12px;margin-top:10px"><b>الطالب:</b> '+(r.name||stu.name)+'<br><b>الكود:</b> '+(r.code||stu.code)+'<br><b>الامتحان:</b> '+(r.title||'')+'<br><b>📅 تاريخ الامتحان:</b> '+(r.enter||'')+'<br><b>دخول الامتحان:</b> '+(r.enter||'')+'<br><b>تم إنهاء الامتحان في مدة تقريبية:</b> '+(r.duration||0)+' دقيقة<br><b>الدرجة النهائية:</b> '+(r.grade||0)+' / '+(r.total||0)+' ('+(r.percent||0)+'%)<br><b>محاولات غش:</b> '+(r.cheat||0)+'</div>';
+  if(r.questions && r.questions.length>0){
+    r.questions.forEach(function(q,idx){
+      var stuAns = (r.answers && r.answers[idx]!==undefined) ? (q.options ? q.options[r.answers[idx]] : r.answers[idx]) : 'لم يجب';
+      var correctAns = q.options ? q.options[q.correct] : 'إجابة مقالية - يراجعها المستر';
+      var isOk = r.answers && r.answers[idx]===q.correct;
+      html+='<div class="ans-card"><b>سؤال '+(idx+1)+':</b> '+q.q+'<br>👤 <b>إجابتك:</b> '+stuAns+'<br>✅ <b>الإجابة الصح:</b> '+correctAns+'<br>'+(isOk?'✅ صح':'❌ غلط')+'</div>';
+    });
+  }
+  html+='<button onclick="document.getElementById(\'detail\').classList.remove(\'show\')" style="width:100%;padding:12px;border:none;border-radius:12px;background:#0B1026;color:#fff;font-weight:bold;cursor:pointer;margin-top:10px">إغلاق</button>';
+  d.innerHTML=html;
+  d.scrollIntoView({behavior:'smooth'});
+}
+function renderWallet(){
+  var wallet=JSON.parse(localStorage.getItem('studentWallet_'+stu.code) || localStorage.getItem('studentWallet') || '{"points":0,"history":[]}');
+  document.getElementById('walletPoints').innerText=(wallet.points||0)+' نقطة';
+  if(wallet.history && wallet.history.length>0){
+    var h='<b>آخر النقط:</b><br>';
+    wallet.history.forEach(function(x){ h+='• '+x+'<br>'; });
+    document.getElementById('walletHistory').innerHTML=h;
+  }
+}
+if(localStorage.getItem('theme')==='dark') document.getElementById('app').classList.add('dark');
+renderLists();
+renderWallet();
+</script>
+</body>
+</html>
