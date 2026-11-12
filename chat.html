@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRF English - المنتدى</title>
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
+.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;padding-bottom:120px}
+.app.dark{background:#141A33;color:#fff}.app.dark .top,.app.dark .bottom-nav,.app.dark .input-bar{background:#1E2447;color:#fff}
+.top{height:60px;background:#fff;border-bottom:1px solid #EEE;display:flex;align-items:center;padding:0 12px}.top .back{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px}.top b{flex:1;text-align:center}
+.group-head{margin:10px 12px 0;background:#0B1026;color:#fff;border-radius:16px;padding:12px;display:flex;gap:10px;align-items:center}
+.group-head img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00}.group-head .t b{display:block}.group-head .t small{color:#FFD54F}
+.msgs{padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:82%;padding:10px 12px;border-radius:14px;font-size:13px;line-height:1.6;position:relative}
+.msg.me{background:#DCF8C6;align-self:flex-start;border-bottom-left-radius:4px}
+.msg.other{background:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.msg.teacher{background:#FFF3E0;border:1px solid #FFCC80;align-self:flex-end}
+.msg .who{font-size:11px;font-weight:bold;color:#0B1026;display:flex;gap:6px;align-items:center}
+.msg .who img{width:22px;height:22px;border-radius:50%;object-fit:cover}
+.msg .time{font-size:10px;color:#888;text-align:left;margin-top:4px}
+.msg .actions{font-size:11px;display:flex;gap:6px;margin-top:6px}.msg .actions button{border:none;background:#EEE;padding:4px 8px;border-radius:20px;cursor:pointer}
+.pinned{margin:10px 12px 0;background:#FFF9C4;border-radius:12px;padding:10px;font-size:12px}
+.input-bar{position:absolute;bottom:68px;left:0;right:0;background:#fff;border-top:1px solid #EEE;padding:8px;display:flex;gap:6px;align-items:center}
+.input-bar input{flex:1;padding:11px;border-radius:20px;border:1px solid #EEE;outline:none}
+.input-bar button{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;font-size:18px;background:#FFF3E0}
+.input-bar .send{background:#FF6B00;color:#fff}
+.stickers{position:absolute;bottom:118px;left:10px;right:10px;background:#fff;border-radius:14px;padding:10px;display:none;z-index:30;box-shadow:0 4px 20px rgba(0,0,0,.15)}.stickers.show{display:block}.stickers button{font-size:24px;border:none;background:none;cursor:pointer;padding:6px}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}.nav-item .ico{font-size:22px}.nav-item.active{background:#FFF3E0;color:#FF6B00}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<div class="top"><button class="back" onclick="location.href='home.html'">→</button><b>💬 المنتدى</b><span style="width:38px"></span></div>
+<div class="group-head"><img src="teacher.jpg"><div class="t"><b>منتدى MRF English</b><small>المستر + كل الطلاب - انت بتظهر بالكود بس</small></div></div>
+<div class="pinned" id="pinnedBox" style="display:none"></div>
+<div class="msgs" id="msgs"></div>
+<div class="stickers" id="stickers">
+<button onclick="sendSticker('😂')">😂</button><button onclick="sendSticker('❤️')">❤️</button><button onclick="sendSticker('🔥')">🔥</button><button onclick="sendSticker('👏')">👏</button><button onclick="sendSticker('💪')">💪</button><button onclick="sendSticker('🎉')">🎉</button><button onclick="sendSticker('📚')">📚</button><button onclick="sendSticker('🤔')">🤔</button><button onclick="sendSticker('✅')">✅</button><button onclick="sendSticker('🥺')">🥺</button>
+</div>
+<div class="input-bar">
+<button onclick="toggleStickers()">😀</button>
+<button onclick="document.getElementById('fileInput').click()">📎</button>
+<input type="file" id="fileInput" accept="image/*,video/*" style="display:none" onchange="sendFile(this)">
+<input id="msgInput" placeholder="اكتب رسالتك..." onkeydown="if(event.key==='Enter') sendMsg()">
+<button onclick="startVoice()">🎤</button>
+<button class="send" onclick="sendMsg()">➤</button>
+</div>
+<div class="bottom-nav">
+<button class="nav-item" onclick="location.href='exams.html'"><span class="ico">📝</span><span>امتحان جديد</span></button>
+<button class="nav-item" onclick="location.href='homework.html'"><span class="ico">📚</span><span>واجب جديد</span></button>
+<button class="nav-item" onclick="location.href='home.html'"><span class="ico">🏠</span><span>الرئيسية</span></button>
+<button class="nav-item active" onclick="location.href='chat.html'"><span class="ico">💬</span><span>المنتدى</span></button>
+<button class="nav-item" onclick="location.href='reports.html'"><span class="ico">📊</span><span>تقاريري</span></button>
+</div>
+</div>
+<script>
+var stu=JSON.parse(localStorage.getItem('currentStudent')||'null')||{name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا'};
+var msgs=JSON.parse(localStorage.getItem('forumMsgs')||'[]');
+if(msgs.length===0){
+  msgs=[{id:'m1', who:'teacher', name:'Mr Romany Faheam', text:'أهلا بيكم يا أبطال في منتدى MRF English 💪 هنا هنذاكر مع بعض، وهنسأل، وهنساعد بعض. اللي عنده سؤال، يكتبه هنا.', time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})}];
+  localStorage.setItem('forumMsgs', JSON.stringify(msgs));
+}
+function save(){ localStorage.setItem('forumMsgs', JSON.stringify(msgs)); }
+function render(){
+  var el=document.getElementById('msgs'); el.innerHTML='';
+  var pinned=msgs.find(function(m){return m.pinned;});
+  var pb=document.getElementById('pinnedBox');
+  if(pinned){ pb.style.display='block'; pb.innerHTML='📌 <b>مثبت:</b> '+pinned.text; } else { pb.style.display='none'; }
+  msgs.forEach(function(m){
+    var div=document.createElement('div');
+    div.className='msg '+(m.who==='me'?'me':(m.who==='teacher'?'teacher':'other'));
+    var whoHtml = m.who==='teacher' ? '<div class="who"><img src="teacher.jpg"> Mr Romany Faheam 👑</div>' : (m.who==='me' ? '<div class="who">انت - '+stu.code+'</div>' : '<div class="who">طالب - '+m.code+'</div>');
+    var react = m.reaction ? '<div>❤️ '+m.reaction+'</div>' : '';
+    var content = m.type==='file' ? (m.fileType==='image' ? '<img src="'+m.text+'" style="width:100%;border-radius:10px">' : '<video src="'+m.text+'" controls style="width:100%;border-radius:10px"></video>') : m.text;
+    div.innerHTML=whoHtml+'<div>'+content+'</div>'+react+'<div class="time">'+m.time+'</div><div class="actions"><button onclick="reactMsg(\''+m.id+'\')">❤️</button><button onclick="replyMsg(\''+m.id+'\')">↩️ رد</button><button onclick="pinMsg(\''+m.id+'\')">📌</button>'+(m.who==='me' ? '<button onclick="deleteMsg(\''+m.id+'\')">🗑️</button>' : '')+'</div>';
+    el.appendChild(div);
+  });
+  window.scrollTo(0, document.body.scrollHeight);
+}
+function sendMsg(){
+  var inp=document.getElementById('msgInput'); var t=inp.value.trim(); if(!t) return;
+  msgs.push({id:'m'+Date.now(), who:'me', code:stu.code, text:t, time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})});
+  inp.value=''; save(); render();
+}
+function sendSticker(s){
+  msgs.push({id:'m'+Date.now(), who:'me', code:stu.code, text:s, time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})});
+  document.getElementById('stickers').classList.remove('show'); save(); render();
+}
+function toggleStickers(){ document.getElementById('stickers').classList.toggle('show'); }
+function reactMsg(id){ var m=msgs.find(function(x){return x.id===id;}); if(!m) return; m.reaction=(m.reaction||0)+1; save(); render(); }
+function replyMsg(id){ var m=msgs.find(function(x){return x.id===id;}); if(!m) return; document.getElementById('msgInput').value='رد على: '+m.text.substring(0,20)+'... '; document.getElementById('msgInput').focus(); }
+function pinMsg(id){ msgs.forEach(function(m){ m.pinned = (m.id===id); }); save(); render(); }
+function deleteMsg(id){ if(!confirm('تمسح رسالتك؟')) return; msgs=msgs.filter(function(m){return m.id!==id;}); save(); render(); }
+function sendFile(input){
+  var f=input.files[0]; if(!f) return;
+  if(f.type.startsWith('video/')){
+    // فيديو أقل من 50 ثانية - هننبه الطالب
+    alert('خلي بالك، الفيديو لازم يكون أقل من 50 ثانية');
+  }
+  var r=new FileReader(); r.onload=function(e){ msgs.push({id:'m'+Date.now(), who:'me', code:stu.code, text:e.target.result, type:'file', fileType: f.type.startsWith('image/')?'image':'video', time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})}); save(); render(); }; r.readAsDataURL(f); input.value='';
+}
+function startVoice(){ alert('دوس مطولاً عشان تسجل فويس - في النسخة الكاملة هتسجل وتتبعت على طول'); }
+if(localStorage.getItem('theme')==='dark') document.getElementById('app').classList.add('dark');
+render();
+</script>
+</body>
+</html>
