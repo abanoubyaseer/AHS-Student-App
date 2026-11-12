@@ -3,125 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>AHS - تطبيق الطالب</title>
+<title>AHS</title>
 <style>
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:#0F2A44;display:flex;justify-content:center;min-height:100vh}
-/* ده اللي بيخلي التطبيق بمقاس التليفون، مش عريض */
-.app{width:100%;max-width:430px;background:#F8F9FA;min-height:100vh;position:relative;display:flex;flex-direction:column;box-shadow:0 0 30px rgba(0,0,0,.4)}
-.header{background:linear-gradient(135deg,#0F2A44,#1A237E);color:white;padding:28px 20px 20px;text-align:center;border-radius:0 0 28px 28px}
-.header img{width:84px;height:84px;border-radius:50%;object-fit:cover;border:3px solid #FFC107;background:white}
-.header h1{margin:10px 0 2px;font-size:22px}
-.header p{margin:0;font-size:13px;opacity:.85}
-.tabs{display:flex;background:white;margin:16px 16px 0;border-radius:14px;padding:4px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.tabs button{flex:1;padding:12px;border:none;border-radius:10px;cursor:pointer;font-weight:bold;background:transparent;color:#555}
-.tabs button.active{background:#0F2A44;color:white}
-.form{padding:16px}
-.form label{font-size:13px;font-weight:bold;color:#333;display:block;margin:12px 0 4px}
-.form input,.form select{width:100%;padding:13px;border:1px solid #E0E0E0;border-radius:12px;font-size:15px;outline:none;background:white}
-.form input:focus{border-color:#0F2A44}
-.btn{width:100%;background:#0F2A44;color:white;border:none;padding:15px;border-radius:14px;cursor:pointer;font-weight:bold;font-size:16px;margin-top:16px}
-.btn-green{background:#1B5E20}
-.code-box{background:#FFFDE7;border:2px dashed #C9A227;padding:14px;border-radius:14px;text-align:center;margin-top:14px;display:none}
-.code-box b{font-size:28px;letter-spacing:4px;color:#0F2A44}
-.code-box p{font-size:12px;color:#666;margin:6px 0 0}
-.hint{background:#E8EAF6;padding:10px;border-radius:10px;font-size:12px;color:#333;line-height:1.6;margin-top:12px}
-.bottom{margin-top:auto;padding:14px;text-align:center;font-size:12px;color:#888}
-.show-pass{position:relative}
-.show-pass button{position:absolute;left:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px}
+body{margin:0;background:#0B1026;display:flex;justify-content:center;min-height:100vh;overflow:hidden}
+.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column}
+/* شاشة البداية */
+.splash{position:absolute;inset:0;background:linear-gradient(180deg,#0B1026 0%,#1A237E 55%,#FF6B00 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;transition:transform .8s cubic-bezier(.7,0,.3,1)}
+.splash.hide{transform:translateY(-100%)}
+.teacher-photo{width:150px;height:150px;border-radius:50%;object-fit:cover;border:5px solid #FFC107;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:up 1s ease forwards;opacity:0}
+@keyframes up{from{transform:translateY(80px);opacity:0}to{transform:translateY(0);opacity:1}}
+.teacher-name{color:white;font-size:26px;font-weight:bold;margin:16px 0 4px;animation:fromLeft 1s .3s ease forwards;opacity:0;transform:translateX(-60px)}
+@keyframes fromLeft{to{transform:translateX(0);opacity:1}}
+.teacher-sub{color:#FFC107;font-size:14px;animation:fromRight 1s .5s ease forwards;opacity:0;transform:translateX(60px)}
+@keyframes fromRight{to{transform:translateX(0);opacity:1}}
+.brand{color:white;font-size:44px;font-weight:900;letter-spacing:8px;margin-top:18px;animation:up 1s .6s ease forwards;opacity:0}
+.dots{display:flex;gap:8px;margin-top:22px}
+.dots span{width:10px;height:10px;background:white;border-radius:50%;animation:dot 1s infinite}
+.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-8px);opacity:1}}
+.splash p{color:rgba(255,255,255,.7);font-size:12px;margin-top:14px}
+/* صفحة التسجيل */
+.main{flex:1;display:flex;flex-direction:column;padding:0 18px 16px;animation:up .7s ease}
+.top-mini{display:flex;align-items:center;gap:12px;padding:16px 0 8px}
+.top-mini img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00}
+.top-mini b{font-size:17px;color:#0B1026}
+.top-mini small{color:#777;display:block;font-size:12px}
+.tabs{display:flex;background:white;border-radius:16px;padding:4px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin:10px 0}
+.tabs button{flex:1;padding:12px;border:none;border-radius:12px;cursor:pointer;font-weight:bold;background:transparent;color:#666;font-size:14px}
+.tabs button.active{background:#0B1026;color:white}
+label{font-size:13px;font-weight:bold;color:#333;display:block;margin:12px 0 5px}
+input,select{width:100%;padding:14px;border:1.5px solid #EEE;border-radius:14px;font-size:15px;outline:none;background:white}
+input:focus,select:focus{border-color:#FF6B00}
+.pass-wrap{position:relative}
+.pass-wrap button{position:absolute;left:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:24px;line-height:1}
+.btn{width:100%;background:#0B1026;color:white;border:none;padding:15px;border-radius:16px;cursor:pointer;font-weight:bold;font-size:16px;margin-top:18px;box-shadow:0 6px 16px rgba(11,16,38,.25)}
+.btn-orange{background:#FF6B00;box-shadow:0 6px 16px rgba(255,107,0,.3)}
+.code-box{background:#FFFDE7;border:2px dashed #C9A227;padding:16px;border-radius:16px;text-align:center;margin-top:14px;display:none}
+.code-box b{font-size:30px;letter-spacing:5px;color:#0B1026}
+.code-box p{font-size:12px;color:#666;margin:6px 0}
+.forgot{background:none;border:none;color:#0B1026;font-weight:bold;cursor:pointer;font-size:13px;margin-top:10px;text-decoration:underline}
+.support-box{background:#E8EAF6;padding:12px;border-radius:12px;font-size:12px;line-height:1.7;margin-top:12px;display:none}
+.support-box b{color:#0B1026}
+.bottom{text-align:center;font-size:11px;color:#999;padding:10px}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="header">
-    <img src="https://via.placeholder.com/84" alt="Mr Romany Faheam">
-    <h1>AHS - تطبيق الطالب</h1>
-    <p>Mr Romany Faheam • أولى / تانية / تالتة بكالوريا</p>
+  <div class="splash" id="splash">
+    <img class="teacher-photo" src="teacher.jpg" onerror="this.src='https://via.placeholder.com/150'">
+    <div class="teacher-name">Mr Romany Faheam</div>
+    <div class="teacher-sub">أستاذ التاريخ • بكالوريا</div>
+    <div class="brand">AHS</div>
+    <div class="dots"><span></span><span></span><span></span></div>
+    <p>بيحمل ...</p>
   </div>
 
-  <div class="tabs">
-    <button id="tabSignup" class="active" onclick="showTab('signup')">📝 حساب جديد</button>
-    <button id="tabLogin" onclick="showTab('login')">🔑 دخول</button>
-  </div>
+  <div class="main">
+    <div class="top-mini">
+      <img src="teacher.jpg" onerror="this.src='https://via.placeholder.com/52'">
+      <div><b>Mr Romany Faheam</b><small>AHS</small></div>
+    </div>
 
-  <div class="form" id="signupForm">
-    <label>👤 الاسم بالكامل - أربع أسماء</label>
-    <input id="fullName" placeholder="مثال: أحمد محمد علي حسن">
-    <label>📱 رقم الواتساب</label>
-    <input id="phone" placeholder="مثال: 01000000000" inputmode="numeric">
-    <label>🎓 المرحلة الدراسية</label>
-    <select id="stage"><option>أولى بكالوريا</option><option>تانية بكالوريا</option><option>تالتة بكالوريا</option></select>
-    <label>🔒 كلمة السر</label>
-    <div class="show-pass"><input type="password" id="pass1" placeholder="اختار كلمة سر"><button onclick="togglePass('pass1')">👁️</button></div>
-    <label>🔒 تأكيد كلمة السر</label>
-    <div class="show-pass"><input type="password" id="pass2" placeholder="اكتبها تاني"><button onclick="togglePass('pass2')">👁️</button></div>
-    <button class="btn" onclick="signup()">📝 سجل حسابي - وطلعلي الكود</button>
-    <div class="code-box" id="codeBox"><p>🎉 كودك الخاص - احفظه، هتدخل بيه كل مرة</p><b id="myCode">------</b><p>الكود ده هو اللي بيظهر لزمايلك في الشات، مش اسمك ولا رقمك<br>محدش هيعرف انت مين غير المستر</p><button class="btn btn-green" onclick="goHome()">➡️ ادخل التطبيق بكودي</button></div>
-    <div class="hint">🔒 <b>خصوصية:</b> اسمك ورقمك مش بيظهروا لحد، اللي بيظهر لزمايلك هو الكود بس. المستر بس اللي شايف بياناتك.<br>📵 <b>في الامتحان:</b> السكرين شوت ممنوع، والخروج من التطبيق ممنوع.</div>
-  </div>
+    <div class="tabs">
+      <button id="tabSignup" class="active" onclick="showTab('signup')">إنشاء حساب</button>
+      <button id="tabLogin" onclick="showTab('login')">تسجيل دخول</button>
+    </div>
 
-  <div class="form" id="loginForm" style="display:none">
-    <label>🔑 الكود بتاعك - 6 خانات</label>
-    <input id="loginCode" placeholder="مثال: AH1234">
-    <label>🔒 كلمة السر</label>
-    <div class="show-pass"><input type="password" id="loginPass" placeholder="كلمة السر"><button onclick="togglePass('loginPass')">👁️</button></div>
-    <button class="btn" onclick="login()">🔑 ادخل التطبيق</button>
-    <p style="font-size:12px;color:#888;text-align:center;margin-top:12px">نسيت الكود؟ كلم المستر على الواتساب، وهو هيجيبهولك</p>
-  </div>
+    <div id="signupForm">
+      <label>الاسم الرباعي</label>
+      <input id="fullName" placeholder="اكتب اسمك الرباعي">
+      <label>رقم التليفون عليه واتساب</label>
+      <input id="phone" placeholder="رقم التليفون" inputmode="numeric">
+      <label>المرحلة الدراسية</label>
+      <select id="stage"><option>أولى بكالوريا</option><option>تانية بكالوريا</option><option>تالتة بكالوريا</option></select>
+      <label>كلمة السر</label>
+      <div class="pass-wrap"><input type="password" id="pass1" placeholder="كلمة السر"><button onclick="togglePass('pass1',this)">🙈</button></div>
+      <label>تأكيد كلمة السر</label>
+      <div class="pass-wrap"><input type="password" id="pass2" placeholder="تأكيد كلمة السر"><button onclick="togglePass('pass2',this)">🙈</button></div>
+      <button class="btn btn-orange" onclick="signup()">إنشاء حساب</button>
+      <div class="code-box" id="codeBox"><p>كودك الخاص</p><b id="myCode">------</b><p>احفظ الكود ده، هتدخل بيه بعد كده<br>الكود ده هو اللي بيظهر لزمايلك، مش اسمك ولا رقمك</p><button class="btn" onclick="goHome()">ادخل التطبيق</button></div>
+    </div>
 
-  <div class="bottom">AHS • Mr Romany Faheam • تطبيق الطالب الحقيقي</div>
+    <div id="loginForm" style="display:none">
+      <label>الاسم أو رقم التليفون</label>
+      <input id="loginId" placeholder="الاسم أو رقم التليفون">
+      <label>كلمة السر</label>
+      <div class="pass-wrap"><input type="password" id="loginPass" placeholder="كلمة السر"><button onclick="togglePass('loginPass',this)">🙈</button></div>
+      <button class="btn" onclick="login()">دخول</button>
+      <button class="forgot" onclick="showSupport()">نسيت الباسورد ؟</button>
+      <div class="support-box" id="supportBox"><b>نسيت الباسورد ؟</b><br>اتصل على رقم الدعم، والمستر هيساعدك ترجع حسابك<br>رقم الدعم هو رقم المستر اللي بتتواصل معاه على الواتساب</div>
+    </div>
+
+    <div class="bottom">AHS</div>
+  </div>
 </div>
 
 <script>
-// منع السكرين شوت - في التطبيق الحقيقي هيتمنع 100% بـ Capacitor
-document.addEventListener('contextmenu', e=>e.preventDefault());
-function showTab(t){
-  document.getElementById('signupForm').style.display=t==='signup'?'block':'none';
-  document.getElementById('loginForm').style.display=t==='login'?'block':'none';
-  document.getElementById('tabSignup').className=t==='signup'?'active':'';
-  document.getElementById('tabLogin').className=t==='login'?'active':'';
-}
-function togglePass(id){ var el=document.getElementById(id); el.type=el.type==='password'?'text':'password'; }
-function makeCode(){
-  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  var c='AH';
-  for(var i=0;i<4;i++) c+=chars[Math.floor(Math.random()*chars.length)];
-  return c;
-}
+setTimeout(function(){ document.getElementById('splash').classList.add('hide'); }, 2600);
+function showTab(t){document.getElementById('signupForm').style.display=t==='signup'?'block':'none';document.getElementById('loginForm').style.display=t==='login'?'block':'none';document.getElementById('tabSignup').className=t==='signup'?'active':'';document.getElementById('tabLogin').className=t==='login'?'active':'';}
+function togglePass(id,btn){var el=document.getElementById(id);if(el.type==='password'){el.type='text';btn.innerText='🐵';}else{el.type='password';btn.innerText='🙈';}}
+function showSupport(){document.getElementById('supportBox').style.display='block';}
+function makeCode(){var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';var c='AH';for(var i=0;i<4;i++)c+=chars[Math.floor(Math.random()*chars.length)];return c;}
 function signup(){
   var name=document.getElementById('fullName').value.trim();
   var phone=document.getElementById('phone').value.trim();
   var stage=document.getElementById('stage').value;
-  var p1=document.getElementById('pass1').value;
-  var p2=document.getElementById('pass2').value;
-  if(!name||name.split(' ').filter(Boolean).length<3){ alert('اكتب اسمك بالكامل - أربع أسماء'); return; }
-  if(!phone||phone.length<10){ alert('اكتب رقم الواتساب صح'); return; }
-  if(!p1||p1.length<4){ alert('اختار كلمة سر 4 حروف على الأقل'); return; }
-  if(p1!==p2){ alert('كلمة السر مش زي بعض، اكتبها تاني'); return; }
+  var p1=document.getElementById('pass1').value;var p2=document.getElementById('pass2').value;
+  if(!name||name.split(' ').filter(Boolean).length<4){alert('اكتب اسمك الرباعي');return;}
+  if(!phone||phone.length<10){alert('اكتب رقم التليفون');return;}
+  if(!p1||p1.length<4){alert('اختار كلمة سر');return;}
+  if(p1!==p2){alert('كلمة السر مش زي بعض');return;}
   var code=makeCode();
-  var stu={code:code, name:name, phone:phone, stage:stage, pass:p1, joinedAt:new Date().toLocaleString('ar-EG'), joinedISO:new Date().toISOString()};
-  var all=JSON.parse(localStorage.getItem('realStudents')||'[]');
-  // لو الكود اتكرر، نعمل واحد جديد
-  while(all.some(function(s){ return s.code===code; })) code=makeCode();
-  stu.code=code;
-  all.push(stu); localStorage.setItem('realStudents', JSON.stringify(all));
-  localStorage.setItem('currentStudent', JSON.stringify(stu));
-  document.getElementById('myCode').innerText=code;
-  document.getElementById('codeBox').style.display='block';
-  document.getElementById('codeBox').scrollIntoView({behavior:'smooth'});
-  alert('تم التسجيل ✅ كودك هو: '+code+'\nاحفظه، هتدخل بيه كل مرة');
+  var stu={code:code,name:name,phone:phone,stage:stage,pass:p1,joinedAt:new Date().toLocaleString('ar-EG')};
+  var all=JSON.parse(localStorage.getItem('realStudents')||'[]');all.push(stu);localStorage.setItem('realStudents',JSON.stringify(all));localStorage.setItem('currentStudent',JSON.stringify(stu));
+  document.getElementById('myCode').innerText=code;document.getElementById('codeBox').style.display='block';document.getElementById('codeBox').scrollIntoView({behavior:'smooth'});
+  alert('تم إنشاء حسابك، كودك هو: '+code);
 }
 function login(){
-  var code=document.getElementById('loginCode').value.trim().toUpperCase();
-  var pass=document.getElementById('loginPass').value;
-  if(!code||!pass){ alert('اكتب الكود وكلمة السر'); return; }
-  var all=JSON.parse(localStorage.getItem('realStudents')||'[]');
-  var stu=null; for(var i=0;i<all.length;i++){ if(all[i].code===code && all[i].pass===pass) stu=all[i]; }
-  if(!stu){ alert('الكود أو كلمة السر غلط'); return; }
-  localStorage.setItem('currentStudent', JSON.stringify(stu));
-  goHome();
+  var id=document.getElementById('loginId').value.trim();var pass=document.getElementById('loginPass').value;
+  if(!id||!pass){alert('اكتب الاسم أو رقم التليفون وكلمة السر');return;}
+  var all=JSON.parse(localStorage.getItem('realStudents')||'[]');var stu=null;
+  for(var i=0;i<all.length;i++){if((all[i].name===id||all[i].phone===id||all[i].code===id)&&all[i].pass===pass)stu=all[i];}
+  if(!stu){alert('البيانات غلط');return;}
+  localStorage.setItem('currentStudent',JSON.stringify(stu));goHome();
 }
-function goHome(){ window.location.href='home.html'; }
+function goHome(){window.location.href='home.html';}
 </script>
 </body>
 </html>
