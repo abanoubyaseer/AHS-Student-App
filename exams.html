@@ -44,14 +44,16 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <button class="nav-item" onclick="location.href='chat.html'"><span class="ico">💬</span><span>المنتدى</span></button>
 <button class="nav-item" onclick="location.href='reports.html'"><span class="ico">📊</span><span>تقاريري</span></button>
 </div>
-<div class="modal" id="codeModal"><div class="modal-box"><div style="font-size:40px">🔐</div><h2>اكتب كودك</h2><input id="codeInput" placeholder="مثال: X7K9Q2" maxlength="6"><div id="codeError" style="color:#C62828;font-size:12px;display:none">الكود غلط</div><button class="btn-green" onclick="checkCode()">دخول ✅</button></div></div>
+<div class="modal" id="codeModal"><div class="modal-box"><div style="font-size:40px">🔐</div><h2>اكتب كودك</h2><input id="codeInput" placeholder="اكتب الكود" maxlength="6"><div id="codeError" style="color:#C62828;font-size:12px;display:none">الكود غلط</div><button class="btn-green" onclick="checkCode()">دخول ✅</button></div></div>
 <div class="modal" id="warnModal"><div class="modal-box"><div style="font-size:40px">⚠️</div><h2>تعليمات الامتحان</h2><div id="warnInfo" style="text-align:right;font-size:13px;line-height:1.8;background:#FFF8F0;padding:12px;border-radius:12px;margin:10px 0"></div><ul style="text-align:right;line-height:1.8;font-size:13px"><li><b>لو حاولت تغش، هيوصل للمستر، وهتتسحب الدرجة.</b></li><li>ممنوع الخروج، ممنوع الاسكرين شوت.</li><li>حل بنفسك، واجمد يا بطل 💪</li></ul><label class="check-row"><input type="checkbox" id="agreeCheck" onchange="document.getElementById('understoodBtn').disabled=!this.checked"> أنا قرأت وفهمت، وموافق</label><button class="btn-green" id="understoodBtn" disabled onclick="startExam()">فهمت ✅</button></div></div>
 </div>
 <script>
-var stu=JSON.parse(localStorage.getItem('currentStudent')||'null')||{name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا'};
+if(!localStorage.getItem('currentStudent')){ location.href='index.html'; }
+var stu=JSON.parse(localStorage.getItem('currentStudent')||'{}');
 var exams=JSON.parse(localStorage.getItem('teacherExams')||'[]');
 var currentExam=null, answers={}, currentPage=0, timerInt=null, timeLeft=0, enterTime=null, cheatCount=0;
 function renderList(){
+  exams=JSON.parse(localStorage.getItem('teacherExams')||'[]');
   var el=document.getElementById('listView'); el.innerHTML='';
   var list=exams.filter(function(e){ return !e.stage || e.stage===stu.stage || e.stage==='all'; });
   if(list.length===0){
@@ -130,6 +132,18 @@ function submitExam(){
 }
 if(localStorage.getItem('theme')==='dark') document.getElementById('app').classList.add('dark');
 renderList();
+</script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+<script src="sync.js"></script>
+<script>
+  if(typeof firebase !== 'undefined' && typeof firebaseConfig !== 'undefined'){
+    try{
+      firebase.initializeApp(firebaseConfig);
+      window.firebaseDB = firebase.database();
+      setTimeout(function(){ if(typeof syncPull === 'function'){ syncPull(); syncPushAll(); } }, 500);
+    }catch(e){}
+  }
 </script>
 </body>
 </html>
