@@ -19,9 +19,16 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .msg.teacher{background:#FFF3E0;border:1px solid #FFCC80;align-self:flex-end}
 .msg .who{font-size:11px;font-weight:bold;color:#0B1026;display:flex;gap:6px;align-items:center}
 .msg .who img{width:22px;height:22px;border-radius:50%;object-fit:cover}
+.msg .reply-box{background:rgba(0,0,0,.06);border-right:3px solid #FF6B00;padding:6px 8px;border-radius:8px;font-size:11px;margin-bottom:6px;color:#333}
 .msg .time{font-size:10px;color:#888;text-align:left;margin-top:4px}
-.msg .actions{font-size:11px;display:flex;gap:6px;margin-top:6px}.msg .actions button{border:none;background:#EEE;padding:4px 8px;border-radius:20px;cursor:pointer}
-.pinned{margin:10px 12px 0;background:#FFF9C4;border-radius:12px;padding:10px;font-size:12px}
+.msg .actions{font-size:11px;display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}.msg .actions button{border:none;background:#EEE;padding:5px 9px;border-radius:20px;cursor:pointer;font-size:11px}
+.msg .actions button.active{background:#FF6B00;color:#fff}
+.msg .actions button.pinned-active{background:#FFD54F;color:#000}
+.pinned{margin:10px 12px 0;background:#FFF9C4;border-radius:12px;padding:10px;font-size:12px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.pinned button{border:none;background:#fff;padding:5px 10px;border-radius:20px;cursor:pointer;font-weight:bold}
+.empty{text-align:center;color:#888;padding:30px}.empty .big{font-size:44px}
+.reply-preview{background:#FFF3E0;border-radius:12px;margin:8px 12px 0;padding:10px;display:none;justify-content:space-between;align-items:center;font-size:12px}
+.reply-preview.show{display:flex}.reply-preview button{border:none;background:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer}
 .input-bar{position:absolute;bottom:68px;left:0;right:0;background:#fff;border-top:1px solid #EEE;padding:8px;display:flex;gap:6px;align-items:center}
 .input-bar input{flex:1;padding:11px;border-radius:20px;border:1px solid #EEE;outline:none}
 .input-bar button{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;font-size:18px;background:#FFF3E0}
@@ -37,6 +44,9 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <div class="group-head"><img src="teacher.jpg"><div class="t"><b>منتدى MRF English</b><small>المستر + كل الطلاب - انت بتظهر بالكود بس</small></div></div>
 <div class="pinned" id="pinnedBox" style="display:none"></div>
 <div class="msgs" id="msgs"></div>
+
+<div class="reply-preview" id="replyPreview"><span id="replyText"></span><button onclick="cancelReply()">✕</button></div>
+
 <div class="stickers" id="stickers">
 <button onclick="sendSticker('😂')">😂</button><button onclick="sendSticker('❤️')">❤️</button><button onclick="sendSticker('🔥')">🔥</button><button onclick="sendSticker('👏')">👏</button><button onclick="sendSticker('💪')">💪</button><button onclick="sendSticker('🎉')">🎉</button><button onclick="sendSticker('📚')">📚</button><button onclick="sendSticker('🤔')">🤔</button><button onclick="sendSticker('✅')">✅</button><button onclick="sendSticker('🥺')">🥺</button>
 </div>
@@ -58,49 +68,92 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 </div>
 <script>
 var stu=JSON.parse(localStorage.getItem('currentStudent')||'null')||{name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا'};
+// مفيش أي رسائل وهمية - اللي هيتكتب هو اللي هيظهر بس
 var msgs=JSON.parse(localStorage.getItem('forumMsgs')||'[]');
-if(msgs.length===0){
-  msgs=[{id:'m1', who:'teacher', name:'Mr Romany Faheam', text:'أهلا بيكم يا أبطال في منتدى MRF English 💪 هنا هنذاكر مع بعض، وهنسأل، وهنساعد بعض. اللي عنده سؤال، يكتبه هنا.', time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})}];
-  localStorage.setItem('forumMsgs', JSON.stringify(msgs));
-}
+var replyToId=null;
 function save(){ localStorage.setItem('forumMsgs', JSON.stringify(msgs)); }
+function getText(m){
+  if(m.type==='file') return m.fileType==='image' ? '📷 صورة' : '🎥 فيديو';
+  return m.text||'';
+}
 function render(){
   var el=document.getElementById('msgs'); el.innerHTML='';
+  if(msgs.length===0){
+    el.innerHTML='<div class="empty"><div class="big">💬</div><p>لسه مفيش رسائل.<br>اكتب أول رسالة، وهتظهر هنا.</p></div>';
+    document.getElementById('pinnedBox').style.display='none';
+    return;
+  }
   var pinned=msgs.find(function(m){return m.pinned;});
   var pb=document.getElementById('pinnedBox');
-  if(pinned){ pb.style.display='block'; pb.innerHTML='📌 <b>مثبت:</b> '+pinned.text; } else { pb.style.display='none'; }
+  if(pinned){
+    pb.style.display='flex';
+    pb.innerHTML='<span>📌 <b>مثبت:</b> '+escapeHtml(getText(pinned).substring(0,60))+'</span><button onclick="unpinMsg()">إلغاء التثبيت ✕</button>';
+  } else { pb.style.display='none'; }
   msgs.forEach(function(m){
     var div=document.createElement('div');
     div.className='msg '+(m.who==='me'?'me':(m.who==='teacher'?'teacher':'other'));
-    var whoHtml = m.who==='teacher' ? '<div class="who"><img src="teacher.jpg"> Mr Romany Faheam 👑</div>' : (m.who==='me' ? '<div class="who">انت - '+stu.code+'</div>' : '<div class="who">طالب - '+m.code+'</div>');
-    var react = m.reaction ? '<div>❤️ '+m.reaction+'</div>' : '';
-    var content = m.type==='file' ? (m.fileType==='image' ? '<img src="'+m.text+'" style="width:100%;border-radius:10px">' : '<video src="'+m.text+'" controls style="width:100%;border-radius:10px"></video>') : m.text;
-    div.innerHTML=whoHtml+'<div>'+content+'</div>'+react+'<div class="time">'+m.time+'</div><div class="actions"><button onclick="reactMsg(\''+m.id+'\')">❤️</button><button onclick="replyMsg(\''+m.id+'\')">↩️ رد</button><button onclick="pinMsg(\''+m.id+'\')">📌</button>'+(m.who==='me' ? '<button onclick="deleteMsg(\''+m.id+'\')">🗑️</button>' : '')+'</div>';
+    var whoHtml = m.who==='teacher' ? '<div class="who"><img src="teacher.jpg"> Mr Romany Faheam 👑</div>' : (m.who==='me' ? '<div class="who">انت - '+stu.code+'</div>' : '<div class="who">طالب - '+(m.code||'------')+'</div>');
+    var replyHtml='';
+    if(m.replyTo){
+      var orig=msgs.find(function(x){return x.id===m.replyTo;});
+      var origText = orig ? getText(orig) : 'رسالة محذوفة';
+      var origWho = orig ? (orig.who==='teacher' ? 'Mr Romany Faheam' : (orig.who==='me' ? 'انت' : 'طالب - '+(orig.code||''))) : '';
+      replyHtml='<div class="reply-box">↩️ رد على <b>'+origWho+'</b><br>'+escapeHtml(origText.substring(0,80))+'</div>';
+    }
+    var content = m.type==='file' ? (m.fileType==='image' ? '<img src="'+m.text+'" style="width:100%;border-radius:10px">' : '<video src="'+m.text+'" controls style="width:100%;border-radius:10px"></video>') : escapeHtml(m.text||'');
+    var reactHtml = (m.reactions && m.reactions.length>0) ? '<div style="font-size:12px;margin-top:4px">❤️ '+m.reactions.length+'</div>' : '';
+    var iReacted = m.reactions && m.reactions.indexOf(stu.code)!==-1;
+    var isPinned = !!m.pinned;
+    div.innerHTML=whoHtml+replyHtml+'<div>'+content+'</div>'+reactHtml+'<div class="time">'+(m.time||'')+'</div><div class="actions"><button class="'+(iReacted?'active':'')+'" onclick="toggleReact(\''+m.id+'\')">'+(iReacted?'❤️ إلغاء الريأكشن':'🤍 ريأكشن')+'</button><button onclick="replyMsg(\''+m.id+'\')">↩️ رد</button><button class="'+(isPinned?'pinned-active':'')+'" onclick="togglePin(\''+m.id+'\')">'+(isPinned?'📌 إلغاء التثبيت':'📌 تثبيت')+'</button>'+(m.who==='me' ? '<button onclick="deleteMsg(\''+m.id+'\')">🗑️ حذف</button>' : '')+'</div>';
     el.appendChild(div);
   });
-  window.scrollTo(0, document.body.scrollHeight);
 }
+function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function sendMsg(){
   var inp=document.getElementById('msgInput'); var t=inp.value.trim(); if(!t) return;
-  msgs.push({id:'m'+Date.now(), who:'me', code:stu.code, text:t, time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})});
-  inp.value=''; save(); render();
+  var newMsg={id:'m'+Date.now(), who:'me', code:stu.code, text:t, time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}), reactions:[]};
+  if(replyToId){ newMsg.replyTo=replyToId; }
+  msgs.push(newMsg);
+  inp.value=''; cancelReply(); save(); render();
 }
 function sendSticker(s){
-  msgs.push({id:'m'+Date.now(), who:'me', code:stu.code, text:s, time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})});
-  document.getElementById('stickers').classList.remove('show'); save(); render();
+  var newMsg={id:'m'+Date.now(), who:'me', code:stu.code, text:s, time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}), reactions:[]};
+  if(replyToId){ newMsg.replyTo=replyToId; }
+  msgs.push(newMsg);
+  document.getElementById('stickers').classList.remove('show'); cancelReply(); save(); render();
 }
 function toggleStickers(){ document.getElementById('stickers').classList.toggle('show'); }
-function reactMsg(id){ var m=msgs.find(function(x){return x.id===id;}); if(!m) return; m.reaction=(m.reaction||0)+1; save(); render(); }
-function replyMsg(id){ var m=msgs.find(function(x){return x.id===id;}); if(!m) return; document.getElementById('msgInput').value='رد على: '+m.text.substring(0,20)+'... '; document.getElementById('msgInput').focus(); }
-function pinMsg(id){ msgs.forEach(function(m){ m.pinned = (m.id===id); }); save(); render(); }
+// ريأكشن - دوس تاني يلغي
+function toggleReact(id){
+  var m=msgs.find(function(x){return x.id===id;}); if(!m) return;
+  if(!m.reactions) m.reactions=[];
+  var idx=m.reactions.indexOf(stu.code);
+  if(idx!==-1){ m.reactions.splice(idx,1); } else { m.reactions.push(stu.code); }
+  save(); render();
+}
+// تثبيت - دوس تاني يلغي
+function togglePin(id){
+  var m=msgs.find(function(x){return x.id===id;}); if(!m) return;
+  if(m.pinned){ m.pinned=false; }
+  else { msgs.forEach(function(x){ x.pinned=false; }); m.pinned=true; }
+  save(); render();
+}
+function unpinMsg(){ msgs.forEach(function(x){ x.pinned=false; }); save(); render(); }
+// رد - زي الواتساب، الرسالة الأصلية بتظهر فوق رسالتك، مش بتتلخبط في الكلام
+function replyMsg(id){
+  var m=msgs.find(function(x){return x.id===id;}); if(!m) return;
+  replyToId=id;
+  var who = m.who==='teacher' ? 'Mr Romany Faheam' : (m.who==='me' ? 'انت' : 'طالب - '+(m.code||''));
+  document.getElementById('replyText').innerHTML='↩️ رد على <b>'+escapeHtml(who)+'</b>: '+escapeHtml(getText(m).substring(0,60));
+  document.getElementById('replyPreview').classList.add('show');
+  document.getElementById('msgInput').focus();
+}
+function cancelReply(){ replyToId=null; document.getElementById('replyPreview').classList.remove('show'); }
 function deleteMsg(id){ if(!confirm('تمسح رسالتك؟')) return; msgs=msgs.filter(function(m){return m.id!==id;}); save(); render(); }
 function sendFile(input){
   var f=input.files[0]; if(!f) return;
-  if(f.type.startsWith('video/')){
-    // فيديو أقل من 50 ثانية - هننبه الطالب
-    alert('خلي بالك، الفيديو لازم يكون أقل من 50 ثانية');
-  }
-  var r=new FileReader(); r.onload=function(e){ msgs.push({id:'m'+Date.now(), who:'me', code:stu.code, text:e.target.result, type:'file', fileType: f.type.startsWith('image/')?'image':'video', time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'})}); save(); render(); }; r.readAsDataURL(f); input.value='';
+  if(f.type.startsWith('video/')){ alert('خلي بالك، الفيديو لازم يكون أقل من 50 ثانية'); }
+  var r=new FileReader(); r.onload=function(e){ var newMsg={id:'m'+Date.now(), who:'me', code:stu.code, text:e.target.result, type:'file', fileType: f.type.startsWith('image/')?'image':'video', time:new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}), reactions:[]}; if(replyToId) newMsg.replyTo=replyToId; msgs.push(newMsg); cancelReply(); save(); render(); }; r.readAsDataURL(f); input.value='';
 }
 function startVoice(){ alert('دوس مطولاً عشان تسجل فويس - في النسخة الكاملة هتسجل وتتبعت على طول'); }
 if(localStorage.getItem('theme')==='dark') document.getElementById('app').classList.add('dark');
