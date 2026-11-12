@@ -2,92 +2,163 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>MRF English</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRF English - MRF English</title>
 <style>
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
-body{margin:0;background:#0B1026;display:flex;justify-content:center;min-height:100vh;overflow:hidden}
+body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.splash{position:absolute;inset:0;background:linear-gradient(180deg,#0B1026 0%,#1A237E 55%,#FF6B00 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;transition:transform 1s ease}
-.splash.hide{transform:translateY(-100%)}
-.teacher-photo{width:150px;height:150px;border-radius:50%;object-fit:cover;border:5px solid #FFC107;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:up 1.8s ease forwards;opacity:0}
-@keyframes up{from{transform:translateY(90px);opacity:0}to{transform:translateY(0);opacity:1}}
-.teacher-name{color:white;font-size:26px;font-weight:bold;margin:16px 0 4px;animation:fromLeft 1.8s .4s ease forwards;opacity:0;transform:translateX(-70px)}
-@keyframes fromLeft{to{transform:translateX(0);opacity:1}}
-.teacher-sub{color:#FFC107;font-size:15px;font-weight:bold;animation:fromRight 1.8s .7s ease forwards;opacity:0;transform:translateX(70px)}
-@keyframes fromRight{to{transform:translateX(0);opacity:1}}
-.brand{color:white;font-size:52px;font-weight:900;letter-spacing:8px;margin-top:18px;animation:up 1.8s .9s ease forwards;opacity:0;line-height:1;text-align:center}
-.brand small{display:block;font-size:16px;letter-spacing:6px;color:#FFC107;font-weight:bold;margin-top:4px}
-.dots{display:flex;gap:8px;margin-top:24px}
-.dots span{width:10px;height:10px;background:white;border-radius:50%;animation:dot 1.2s infinite}
-.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
-@keyframes dot{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-8px);opacity:1}}
-.splash p{color:rgba(255,255,255,.7);font-size:12px;margin-top:14px}
-.main{flex:1;display:flex;flex-direction:column;padding:0 18px 16px;overflow:auto}
-.top-mini{display:flex;align-items:center;gap:12px;padding:16px 0 8px}
-.top-mini img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00}
-.top-mini b{font-size:17px;color:#0B1026}
-.top-mini small{color:#777;display:block;font-size:12px}
-.tabs{display:flex;background:white;border-radius:16px;padding:4px;margin:10px 0}
-.tabs button{flex:1;padding:12px;border:none;border-radius:12px;cursor:pointer;font-weight:bold;background:transparent;color:#666}
-.tabs button.active{background:#0B1026;color:white}
-label{font-size:13px;font-weight:bold;display:block;margin:12px 0 5px}
-input,select{width:100%;padding:14px;border:1.5px solid #EEE;border-radius:14px;font-size:15px;outline:none;background:white}
-input:focus,select:focus{border-color:#FF6B00}
-.pass-wrap{position:relative}
-.pass-wrap button{position:absolute;left:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:24px;line-height:1}
-.btn{width:100%;background:#0B1026;color:white;border:none;padding:15px;border-radius:16px;cursor:pointer;font-weight:bold;font-size:16px;margin-top:18px}
-.btn-orange{background:#FF6B00}
-.code-box{background:#FFFDE7;border:2px dashed #C9A227;padding:16px;border-radius:16px;text-align:center;margin-top:14px;display:none}
-.code-box b{font-size:28px;letter-spacing:2px;color:#0B1026}
-.code-box p{font-size:12px;color:#666;margin:6px 0}
-.forgot{background:none;border:none;color:#0B1026;font-weight:bold;cursor:pointer;font-size:13px;margin-top:10px;text-decoration:underline}
-.support-box{background:#E8EAF6;padding:14px;border-radius:12px;font-size:13px;line-height:1.8;margin-top:12px;display:none}
-.support-box a{color:#1A237E;font-weight:bold;font-size:16px;direction:ltr;display:inline-block}
-.bottom{text-align:center;font-size:11px;color:#999;padding:10px}
+.hero{background:linear-gradient(135deg,#0B1026,#FF6B00);color:#fff;padding:28px 18px 20px;text-align:center;border-radius:0 0 28px 28px}
+.hero img{width:72px;height:72px;border-radius:50%;border:3px solid #fff;object-fit:cover;background:#fff}
+.hero h1{margin:10px 0 4px;font-size:22px}.hero p{margin:0;opacity:.9;font-size:13px}
+.tabs{display:flex;gap:8px;margin:16px 12px 0}.tabs button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;cursor:pointer;background:#EEE}.tabs button.active{background:#0B1026;color:#fff}
+.form{margin:12px;background:#fff;border-radius:18px;padding:16px;border:1px solid #FFE0B2}
+.form label{display:block;font-size:12px;font-weight:bold;margin:12px 0 6px;color:#333}.form label:first-child{margin-top:0}
+.form input,.form select{width:100%;padding:13px;border-radius:12px;border:1px solid #EEE;outline:none;font-size:14px;background:#fff}
+.form input:focus,.form select:focus{border-color:#FF6B00}
+.hint{font-size:11px;color:#888;margin-top:4px;line-height:1.6}
+.code-box{background:#FFF3E0;border:2px dashed #FF6B00;border-radius:14px;padding:14px;text-align:center;margin:12px 0;display:none}
+.code-box b{font-size:26px;letter-spacing:4px;color:#0B1026}.code-box p{margin:6px 0 0;font-size:12px;color:#666}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;background:#FF6B00;color:#fff;font-weight:bold;cursor:pointer;font-size:15px;margin-top:12px}.btn:disabled{background:#FFCC80;color:#666;cursor:not-allowed}
+.btn-green{background:#2E7D32}.btn-green:disabled{background:#C8E6C9;color:#666}
+.forgot{text-align:center;margin-top:10px;font-size:13px}.forgot a{color:#0B1026;font-weight:bold;text-decoration:none}
+.check-row{display:flex;gap:8px;align-items:flex-start;background:#FFF8F0;padding:12px;border-radius:12px;margin-top:12px;font-size:12px;line-height:1.7;font-weight:bold}
+.check-row input{width:18px;height:18px;margin-top:2px;flex-shrink:0}
+.warn-box{background:#FFF3E0;border:1px solid #FFCC80;border-radius:12px;padding:12px;font-size:12px;line-height:1.8;margin-top:12px;display:none}
+.warn-box b{color:#C62828}
+.err{color:#C62828;font-size:12px;margin-top:6px;display:none}
+.footer{text-align:center;font-size:11px;color:#999;padding:12px}
 </style>
 </head>
 <body>
 <div class="app">
-<div class="splash" id="splash">
-<img class="teacher-photo" src="teacher.jpg">
-<div class="teacher-name">Mr Romany Faheam</div>
-<div class="teacher-sub">مستر الـ English • أستاذ اللغة الإنجليزية</div>
-<div class="brand">MRF<small>ENGLISH</small></div>
-<div class="dots"><span></span><span></span><span></span></div>
-<p>بيحمل ...</p>
+<div class="hero">
+<img src="teacher.jpg" onerror="this.src='https://via.placeholder.com/72'">
+<h1>MRF English</h1>
+<p>مستر روماني فهيم - لغة إنجليزية</p>
 </div>
-<div class="main">
-<div class="top-mini"><img src="teacher.jpg"><div><b>Mr Romany Faheam</b><small>MRF English • مستر الـ English</small></div></div>
-<div class="tabs"><button id="tabSignup" class="active" onclick="showTab('signup')">إنشاء حساب</button><button id="tabLogin" onclick="showTab('login')">تسجيل دخول</button></div>
-<div id="signupForm">
-<label>الاسم الرباعي</label><input id="fullName" placeholder="اكتب اسمك الرباعي">
-<label>رقم التليفون عليه واتساب</label><input id="phone" placeholder="رقم التليفون" inputmode="numeric">
-<label>المرحلة الدراسية</label><select id="stage"><option>أولى بكالوريا</option><option>تانية بكالوريا</option><option>تالتة بكالوريا</option></select>
-<label>كلمة السر</label><div class="pass-wrap"><input type="password" id="pass1" placeholder="كلمة السر"><button onclick="togglePass('pass1',this)">🙈</button></div>
-<label>تأكيد كلمة السر</label><div class="pass-wrap"><input type="password" id="pass2" placeholder="تأكيد كلمة السر"><button onclick="togglePass('pass2',this)">🙈</button></div>
-<button class="btn btn-orange" onclick="signup()">إنشاء حساب</button>
-<div class="code-box" id="codeBox"><p>كودك الخاص - احفظه</p><b id="myCode">------</b><p>احفظ الكود ده، هتدخل بيه بعد كده<br>الكود ده هو اللي بيظهر لزمايلك، مش اسمك ولا رقمك</p><button class="btn" onclick="goHome()">ادخل التطبيق</button></div>
+<div class="tabs">
+<button id="tabSignup" class="active" onclick="showTab('signup')">إنشاء حساب ✨</button>
+<button id="tabLogin" onclick="showTab('login')">تسجيل دخول 🔐</button>
 </div>
-<div id="loginForm" style="display:none">
-<label>الاسم أو رقم التليفون</label><input id="loginId" placeholder="الاسم أو رقم التليفون">
-<label>كلمة السر</label><div class="pass-wrap"><input type="password" id="loginPass" placeholder="كلمة السر"><button onclick="togglePass('loginPass',this)">🙈</button></div>
-<button class="btn" onclick="login()">دخول</button>
-<button class="forgot" onclick="showSupport()">نسيت الباسورد ؟</button>
-<div class="support-box" id="supportBox"><b>نسيت الباسورد ؟</b><br>اتصل على رقم الدعم:<br><a href="tel:01145471688">01145471688</a><br>دوس على الرقم عشان تتصل على طول</div>
+<div id="signupView">
+<div class="form">
+<label>الاسم بالكامل - 4 أجزاء *</label>
+<input id="suName" placeholder="مثال: محمد أحمد علي حسن">
+<div class="hint">لازم 4 أجزاء، زي شهادة الميلاد بالظبط</div>
+<div class="err" id="errName">اكتب اسمك كامل 4 أجزاء</div>
+<label>رقم واتساب *</label>
+<input id="suPhone" placeholder="01xxxxxxxxx" inputmode="numeric" maxlength="11">
+<div class="err" id="errPhone">اكتب رقم واتساب صح، 11 رقم، يبدأ بـ 01</div>
+<label>المرحلة *</label>
+<select id="suStage">
+<option value="أولى بكالوريا">أولى بكالوريا</option>
+<option value="تانية بكالوريا">تانية بكالوريا</option>
+<option value="تالتة بكالوريا">تالتة بكالوريا</option>
+</select>
+<label>كلمة السر *</label>
+<input id="suPass" type="password" placeholder="اختار كلمة سر قوية">
+<label>تأكيد كلمة السر *</label>
+<input id="suPass2" type="password" placeholder="اكتبها تاني">
+<div class="err" id="errPass">كلمة السر مش متطابقة، أو أقل من 4 حروف</div>
+<div class="code-box" id="codeBox">
+<div style="font-size:13px">كودك الخاص 🔐</div>
+<b id="myCode">------</b>
+<p>احفظ الكود ده، هتدخل بيه الامتحان والواجب<br>محدش يعرفه غيرك</p>
 </div>
-<div class="bottom">MRF English • Mr Romany Faheam</div>
+<div class="warn-box" id="warnBox">
+<b>⚠️ تحذير مهم قبل ما تدخل:</b><br>
+- ممنوع الغش في الامتحان أو الواجب.<br>
+- لو حاولت تغش، هيوصل للمستر، وهتتسحب الدرجة، والامتحان هيضيع عليك.<br>
+- ممنوع الخروج من الامتحان، ممنوع فتح أي تطبيق تاني، ممنوع الاسكرين شوت.<br>
+- حل بنفسك، واجمد يا بطل 💪
 </div>
+<label class="check-row"><input type="checkbox" id="agreeCheck" onchange="checkAgree()"> أنا قرأت التحذير وفهمته، وموافق على كل التعليمات</label>
+<button class="btn btn-green" id="createBtn" disabled onclick="createAccount()">فهمت ✅ - إنشاء الحساب ودخول</button>
+<div class="err" id="errGeneral" style="text-align:center"></div>
+</div>
+</div>
+<div id="loginView" style="display:none">
+<div class="form">
+<label>ادخل بأي حاجة من دول *</label>
+<input id="liUser" placeholder="الاسم بالكامل أو رقم الواتساب أو الكود">
+<div class="hint">مثال: محمد أحمد علي حسن - أو 01123456789 - أو X7K9Q2</div>
+<label>كلمة السر *</label>
+<input id="liPass" type="password" placeholder="كلمة السر بتاعتك">
+<div class="err" id="errLogin">البيانات غلط، اتأكد من الاسم / الرقم / الكود وكلمة السر</div>
+<button class="btn" onclick="doLogin()">دخول على الرئيسية →</button>
+<div class="forgot">نسيت كلمة السر؟ <a href="tel:01145471688">كلم الدعم: 01145471688 📞</a></div>
+</div>
+</div>
+<div class="footer">MRF English - مستر روماني فهيم<br>الدعم: 01145471688</div>
 </div>
 <script>
-setTimeout(function(){document.getElementById('splash').classList.add('hide');},3400);
-function showTab(t){document.getElementById('signupForm').style.display=t==='signup'?'block':'none';document.getElementById('loginForm').style.display=t==='login'?'block':'none';document.getElementById('tabSignup').className=t==='signup'?'active':'';document.getElementById('tabLogin').className=t==='login'?'active':'';}
-function togglePass(id,btn){var el=document.getElementById(id);if(el.type==='password'){el.type='text';btn.innerText='🐵';}else{el.type='password';btn.innerText='🙈';}}
-function showSupport(){document.getElementById('supportBox').style.display='block';}
-function makeCode(){var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';var c='';for(var i=0;i<6;i++){c+=chars[Math.floor(Math.random()*chars.length)];}return c;}
-function signup(){var name=document.getElementById('fullName').value.trim();var phone=document.getElementById('phone').value.trim();var stage=document.getElementById('stage').value;var p1=document.getElementById('pass1').value;var p2=document.getElementById('pass2').value;if(!name||name.split(' ').filter(Boolean).length<4){alert('اكتب اسمك الرباعي');return;}if(!phone||phone.length<10){alert('اكتب رقم التليفون');return;}if(!p1||p1.length<4){alert('اختار كلمة سر');return;}if(p1!==p2){alert('كلمة السر مش زي بعض');return;}var code=makeCode();var stu={code:code,name:name,phone:phone,stage:stage,pass:p1,joinedAt:new Date().toLocaleString('ar-EG')};var all=JSON.parse(localStorage.getItem('realStudents')||'[]');all.push(stu);localStorage.setItem('realStudents',JSON.stringify(all));localStorage.setItem('currentStudent',JSON.stringify(stu));document.getElementById('myCode').innerText=code;document.getElementById('codeBox').style.display='block';document.getElementById('codeBox').scrollIntoView({behavior:'smooth'});alert('تم إنشاء حسابك، كودك هو: '+code);}
-function login(){var id=document.getElementById('loginId').value.trim();var pass=document.getElementById('loginPass').value;if(!id||!pass){alert('اكتب الاسم أو رقم التليفون وكلمة السر');return;}var all=JSON.parse(localStorage.getItem('realStudents')||'[]');var stu=null;for(var i=0;i<all.length;i++){if((all[i].name===id||all[i].phone===id||all[i].code===id)&&all[i].pass===pass)stu=all[i];}if(!stu){alert('البيانات غلط');return;}localStorage.setItem('currentStudent',JSON.stringify(stu));goHome();}
-function goHome(){window.location.href='home.html';}
+var already = JSON.parse(localStorage.getItem('currentStudent')||'null');
+if(already && already.code){ location.href='home.html'; }
+function showTab(t){
+  document.getElementById('tabSignup').classList.toggle('active', t==='signup');
+  document.getElementById('tabLogin').classList.toggle('active', t==='login');
+  document.getElementById('signupView').style.display = t==='signup' ? 'block':'none';
+  document.getElementById('loginView').style.display = t==='login' ? 'block':'none';
+}
+function makeCode(){
+  var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var c='';
+  for(var i=0;i<6;i++){ c+=chars[Math.floor(Math.random()*chars.length)]; }
+  return c;
+}
+function checkAgree(){
+  var checked = document.getElementById('agreeCheck').checked;
+  document.getElementById('warnBox').style.display = checked ? 'block':'none';
+  document.getElementById('createBtn').disabled = !checked;
+}
+function createAccount(){
+  var name=document.getElementById('suName').value.trim();
+  var phone=document.getElementById('suPhone').value.trim();
+  var stage=document.getElementById('suStage').value;
+  var p1=document.getElementById('suPass').value;
+  var p2=document.getElementById('suPass2').value;
+  var ok=true;
+  document.getElementById('errName').style.display = name.split(/\s+/).filter(Boolean).length < 4 ? 'block':'none';
+  if(name.split(/\s+/).filter(Boolean).length < 4) ok=false;
+  document.getElementById('errPhone').style.display = !/^01[0-9]{9}$/.test(phone) ? 'block':'none';
+  if(!/^01[0-9]{9}$/.test(phone)) ok=false;
+  document.getElementById('errPass').style.display = (p1.length<4 || p1!==p2) ? 'block':'none';
+  if(p1.length<4 || p1!==p2) ok=false;
+  if(!ok) return;
+  var students=JSON.parse(localStorage.getItem('students')||'[]');
+  var exists = students.find(function(s){ return s.phone===phone || s.name===name; });
+  if(exists){
+    document.getElementById('errGeneral').innerText='الحساب ده متسجل قبل كده، ادخل من "تسجيل دخول"';
+    document.getElementById('errGeneral').style.display='block';
+    showTab('login');
+    return;
+  }
+  var code = makeCode();
+  while(students.find(function(s){ return s.code===code; })){ code=makeCode(); }
+  var stu={name:name, phone:phone, stage:stage, pass:p1, code:code, photo:'', created:Date.now()};
+  students.push(stu);
+  localStorage.setItem('students', JSON.stringify(students));
+  localStorage.setItem('currentStudent', JSON.stringify(stu));
+  document.getElementById('myCode').innerText=code;
+  document.getElementById('codeBox').style.display='block';
+  document.getElementById('createBtn').innerText='تمام، ادخل على الرئيسية →';
+  document.getElementById('createBtn').onclick=function(){ location.href='home.html'; };
+  alert('مبروك يا بطل! 🎉\nكودك هو: '+code+'\nاحفظه، هتدخل بيه الامتحان');
+}
+function doLogin(){
+  var u=document.getElementById('liUser').value.trim();
+  var p=document.getElementById('liPass').value;
+  var students=JSON.parse(localStorage.getItem('students')||'[]');
+  var stu=students.find(function(s){ return (s.name===u || s.phone===u || s.code.toUpperCase()===u.toUpperCase()) && s.pass===p; });
+  if(!stu){
+    document.getElementById('errLogin').style.display='block';
+    return;
+  }
+  document.getElementById('errLogin').style.display='none';
+  localStorage.setItem('currentStudent', JSON.stringify(stu));
+  location.href='home.html';
+}
 </script>
 </body>
 </html>
