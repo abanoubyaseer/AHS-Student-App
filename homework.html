@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRF English - الواجبات</title>
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
+.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;padding-bottom:72px}
+.app.dark{background:#141A33;color:#fff}.app.dark .top,.app.dark .card,.app.dark .bottom-nav,.app.dark .q-card{background:#1E2447;color:#fff}
+.top{height:60px;background:#fff;border-bottom:1px solid #EEE;display:flex;align-items:center;padding:0 12px}.top .back{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px}.top b{flex:1;text-align:center}
+.card{margin:12px;background:#fff;border-radius:18px;padding:16px;border:1px solid #FFE0B2}
+.card h3{margin:0}.card .meta{font-size:12px;color:#888;margin:8px 0;line-height:1.8}
+.card .enter{width:100%;padding:13px;border:none;border-radius:12px;background:#FF6B00;color:#fff;font-weight:bold;cursor:pointer;font-size:14px}
+.empty{text-align:center;color:#888;padding:30px}.empty .big{font-size:44px}.empty b{color:#0B1026;font-size:16px}
+.modal{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}.modal.show{display:flex}
+.modal-box{background:#fff;border-radius:20px;padding:18px;width:100%;max-height:92%;overflow:auto;text-align:center}
+.modal-box h2{margin:0}.modal-box ul{text-align:right;line-height:1.8;font-size:13px}
+.modal-box input{width:100%;padding:13px;border-radius:12px;border:1px solid #EEE;text-align:center;font-size:18px;letter-spacing:3px;font-weight:900;margin:10px 0;outline:none}
+.btn-green{width:100%;padding:13px;border:none;border-radius:12px;background:#2E7D32;color:#fff;font-weight:bold;cursor:pointer}.btn-green:disabled{background:#C8E6C9;color:#666;cursor:not-allowed}
+.check-row{display:flex;gap:8px;justify-content:center;background:#F5F5F5;padding:10px;border-radius:12px;margin:12px 0;font-size:13px;font-weight:bold}
+.timer{margin:10px 12px 0;background:#0B1026;color:#fff;border-radius:14px;padding:12px;display:none;justify-content:space-between;align-items:center;font-weight:bold}.timer.show{display:flex}.timer .time{font-size:20px;letter-spacing:2px;color:#FFD54F}
+.q-card{margin:12px;background:#fff;border-radius:16px;padding:14px}.q-card h4{margin:0 0 10px;line-height:1.6}
+.opt{display:block;width:100%;text-align:right;padding:12px;border:2px solid #EEE;border-radius:12px;margin-top:8px;cursor:pointer;background:#fff;font-size:13px}.opt.selected{border-color:#FF6B00;background:#FFF3E0}
+.nav-row{display:flex;gap:8px;margin:0 12px 12px}.nav-row button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;cursor:pointer}.btn-prev{background:#EEE}.btn-next{background:#0B1026;color:#fff}.btn-submit{background:#2E7D32;color:#fff}
+.result{margin:12px;background:#fff;border-radius:18px;padding:16px;text-align:center}.result.pass{border:2px solid #2E7D32}.result.fail{border:2px solid #C62828}
+.balloons{font-size:36px;animation:bounce 1s infinite}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.ans-card{margin:10px 12px;background:#fff;border-radius:14px;padding:12px;text-align:right;font-size:13px;line-height:1.7}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}.nav-item .ico{font-size:22px}.nav-item.active{background:#FFF3E0;color:#FF6B00}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<div class="top"><button class="back" onclick="location.href='home.html'">→</button><b>📚 الواجبات</b><span style="width:38px"></span></div>
+<div id="listView"></div>
+<div class="timer" id="timerBar"><span>⏳ الوقت المتبقي</span><span class="time" id="timerText">05:00</span><span id="pageInfo" style="font-size:12px"></span></div>
+<div id="examView" style="display:none"></div>
+<div class="nav-row" id="examNav" style="display:none"><button class="btn-prev" onclick="prevPage()">← السابق</button><button class="btn-next" id="nextBtn" onclick="nextPage()">التالي →</button><button class="btn-submit" id="submitBtn" onclick="submitExam()" style="display:none">تسليم ✅</button></div>
+<div id="resultView"></div>
+<div class="bottom-nav">
+<button class="nav-item" onclick="location.href='exams.html'"><span class="ico">📝</span><span>امتحان جديد</span></button>
+<button class="nav-item active" onclick="location.href='homework.html'"><span class="ico">📚</span><span>واجب جديد</span></button>
+<button class="nav-item" onclick="location.href='home.html'"><span class="ico">🏠</span><span>الرئيسية</span></button>
+<button class="nav-item" onclick="location.href='chat.html'"><span class="ico">💬</span><span>المنتدى</span></button>
+<button class="nav-item" onclick="location.href='reports.html'"><span class="ico">📊</span><span>تقاريري</span></button>
+</div>
+<div class="modal" id="codeModal"><div class="modal-box"><div style="font-size:40px">🔐</div><h2>اكتب كودك</h2><p style="font-size:13px;color:#666;line-height:1.7">عشان نتأكد ان انت اللي بتحل، اكتب الكود الخاص بيك</p><input id="codeInput" placeholder="مثال: X7K9Q2" maxlength="6"><div id="codeError" style="color:#C62828;font-size:12px;display:none">الكود غلط، اتأكد منه تاني</div><button class="btn-green" onclick="checkCode()">دخول ✅</button></div></div>
+<div class="modal" id="warnModal"><div class="modal-box"><div style="font-size:40px">⚠️</div><h2>تعليمات الواجب</h2><div id="warnInfo" style="text-align:right;font-size:13px;line-height:1.8;background:#FFF8F0;padding:12px;border-radius:12px;margin:10px 0"></div><ul><li><b>لو حاولت تغش، هيوصل للمستر، وهتتسحب الدرجة، والواجب هيضيع عليك.</b></li><li>ممنوع الخروج من الواجب، ممنوع فتح أي تطبيق تاني.</li><li>ممنوع الاسكرين شوت، ممنوع النسخ.</li><li>في عداد تنازلي فوق، لما يخلص، الواجب هيتسلم لوحده.</li><li>حل بنفسك، واجمد يا بطل 💪</li></ul><label class="check-row"><input type="checkbox" id="agreeCheck" onchange="document.getElementById('understoodBtn').disabled=!this.checked"> أنا قرأت وفهمت، وموافق</label><button class="btn-green" id="understoodBtn" disabled onclick="startExam()">فهمت ✅</button></div></div>
+</div>
+<script>
+var stu=JSON.parse(localStorage.getItem('currentStudent')||'null')||{name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا'};
+// مفيش أي واجب وهمي - اللي المستر يعمله هو اللي هيظهر بس
+var exams=JSON.parse(localStorage.getItem('teacherHomeworks')||'[]');
+var currentExam=null, answers={}, currentPage=0, timerInt=null, timeLeft=0, enterTime=null, cheatCount=0;
+function renderList(){
+  var el=document.getElementById('listView'); el.innerHTML='';
+  var list=exams.filter(function(e){ return !e.stage || e.stage===stu.stage || e.stage==='all'; });
+  if(list.length===0){
+    el.innerHTML='<div class="empty"><div class="big">📚 💪 ✨</div><b>ذاكر، الواجب قرب 📚</b><p>لسه مفيش واجب جديد.<br>لما المستر ينزل واجب، هيظهر هنا على طول.<br>استغل الوقت وذاكر، واجمد يا بطل 💪</p></div>';
+    return;
+  }
+  list.forEach(function(ex){
+    var div=document.createElement('div'); div.className='card';
+    div.innerHTML='<h3>📚 '+ex.title+'</h3><div class="meta">⏰ المدة: '+ex.duration+' دقيقة<br>❓ عدد الأسئلة: '+ex.questions.length+' سؤال<br>🏆 درجة النجاح: '+ex.passGrade+'%<br>📚 المرحلة: '+(ex.stage||'الكل')+'</div><button class="enter" onclick="openExam(\''+ex.id+'\')">الدخول إلى الواجب →</button>';
+    el.appendChild(div);
+  });
+}
+function openExam(id){ currentExam=exams.find(function(x){return x.id===id;}); if(!currentExam) return; document.getElementById('codeModal').classList.add('show'); setTimeout(function(){ document.getElementById('codeInput').focus(); },100); }
+function checkCode(){
+  var v=document.getElementById('codeInput').value.trim().toUpperCase();
+  if(v!==stu.code.toUpperCase()){ document.getElementById('codeError').style.display='block'; return; }
+  document.getElementById('codeError').style.display='none'; document.getElementById('codeModal').classList.remove('show');
+  document.getElementById('warnInfo').innerHTML='<b>عنوان الواجب:</b> '+currentExam.title+'<br><b>المدة:</b> '+currentExam.duration+' دقيقة<br><b>عدد الأسئلة:</b> '+currentExam.questions.length+' سؤال<br><b>درجة النجاح:</b> '+currentExam.passGrade+'%<br><b>ملاحظة المستر:</b> '+(currentExam.note||'ركز، وحل بنفسك.');
+  document.getElementById('warnModal').classList.add('show');
+}
+function startExam(){
+  document.getElementById('warnModal').classList.remove('show');
+  document.getElementById('listView').style.display='none';
+  document.getElementById('examView').style.display='block';
+  document.getElementById('examNav').style.display='flex';
+  document.getElementById('timerBar').classList.add('show');
+  currentPage=0; answers={}; enterTime=new Date(); timeLeft=currentExam.duration*60;
+  updateTimer(); renderPage();
+  clearInterval(timerInt);
+  timerInt=setInterval(function(){ timeLeft--; updateTimer(); if(timeLeft<=0){ clearInterval(timerInt); alert('الوقت خلص، الواجب هيتسلم لوحده'); submitExam(); } },1000);
+  document.addEventListener('visibilitychange', onHide);
+}
+function onHide(){ if(document.hidden){ cheatCount++; alert('⚠️ تحذير '+cheatCount+': ممنوع الخروج من الواجب، هيوصل للمستر!'); } }
+function updateTimer(){
+  var m=Math.floor(timeLeft/60), s=timeLeft%60;
+  document.getElementById('timerText').innerText=(m<10?'0'+m:m)+':'+(s<10?'0'+s:s);
+  var totalPages=Math.ceil(currentExam.questions.length / (currentExam.perPage||1));
+  document.getElementById('pageInfo').innerText='صفحة '+(currentPage+1)+' من '+totalPages;
+}
+function renderPage(){
+  var per=currentExam.perPage||1; var start=currentPage*per, end=Math.min(start+per, currentExam.questions.length);
+  var el=document.getElementById('examView'); el.innerHTML='';
+  for(var i=start;i<end;i++){ (function(idx){
+    var q=currentExam.questions[idx]; var div=document.createElement('div'); div.className='q-card';
+    var html='<h4>سؤال '+(idx+1)+': '+q.q+'</h4>';
+    q.options.forEach(function(opt,oi){ var sel=answers[idx]===oi?' selected':''; html+='<button class="opt'+sel+'" onclick="selectAns('+idx+','+oi+',this)">'+opt+'</button>'; });
+    div.innerHTML=html; el.appendChild(div);
+  })(i); }
+  var totalPages=Math.ceil(currentExam.questions.length/per);
+  document.getElementById('nextBtn').style.display = currentPage<totalPages-1 ? 'block':'none';
+  document.getElementById('submitBtn').style.display = currentPage===totalPages-1 ? 'block':'none';
+  updateTimer();
+}
+function selectAns(idx, oi, btn){ answers[idx]=oi; var parent=btn.parentElement; parent.querySelectorAll('.opt').forEach(function(b){ b.classList.remove('selected'); }); btn.classList.add('selected'); }
+function nextPage(){ currentPage++; renderPage(); window.scrollTo({top:0,behavior:'smooth'}); }
+function prevPage(){ if(currentPage>0){ currentPage--; renderPage(); } }
+function submitExam(){
+  clearInterval(timerInt); document.removeEventListener('visibilitychange', onHide);
+  var total=0, got=0;
+  currentExam.questions.forEach(function(q,idx){ total+=(q.grade||5); if(answers[idx]===q.correct) got+=(q.grade||5); });
+  var percent=Math.round((got/total)*100); var passed=percent>=currentExam.passGrade;
+  var endTime=new Date(); var durMin=Math.max(1, Math.round((endTime-enterTime)/60000));
+  document.getElementById('examView').style.display='none'; document.getElementById('examNav').style.display='none'; document.getElementById('timerBar').classList.remove('show');
+  var res=document.getElementById('resultView'); var html='';
+  if(passed){ html+='<div class="result pass"><div class="balloons">🎉 🎈 🎊 🎈 🎉</div><h2 style="color:#2E7D32">عاش يا بطل! 🎉</h2><p>عديت درجة النجاح</p>'; }
+  else { html+='<div class="result fail"><div style="font-size:44px">🥺 😔</div><h2 style="color:#C62828">معلش يا بطل، متزعلش</h2><p>معدتش درجة النجاح، بس تقدر تعوضها</p>'; }
+  html+='<div style="text-align:right;line-height:1.9;font-size:13px;background:#FFF8F0;padding:12px;border-radius:12px;margin-top:10px"><b>الطالب:</b> '+stu.name+'<br><b>الكود:</b> '+stu.code+'<br><b>الواجب:</b> '+currentExam.title+'<br><b>دخول الواجب:</b> '+enterTime.toLocaleString('ar-EG')+'<br><b>تم إنهاء الواجب في مدة تقريبية:</b> '+durMin+' دقيقة<br><b>الدرجة النهائية:</b> '+got+' / '+total+' ('+percent+'%)<br><b>محاولات غش:</b> '+cheatCount+'</div></div>';
+  currentExam.questions.forEach(function(q,idx){
+    var stuAns = answers[idx]!==undefined ? q.options[answers[idx]] : 'لم يجب';
+    var correctAns = q.options[q.correct]; var isOk = answers[idx]===q.correct;
+    html+='<div class="ans-card" style="border:1px solid '+(isOk?'#C8E6C9':'#FFCDD2')+'"><b>سؤال '+(idx+1)+':</b> '+q.q+'<br>👤 <b>إجابتك:</b> '+stuAns+'<br>✅ <b>الإجابة الصح:</b> '+correctAns+'<br>'+(isOk?'✅ صح':'❌ غلط')+'</div>';
+  });
+  html+='<button class="btn-green" onclick="goReports()" style="margin:10px 12px;width:calc(100% - 24px)">أوكي ✅</button>';
+  res.innerHTML=html;
+  var reports=JSON.parse(localStorage.getItem('studentReports')||'[]');
+  reports.unshift({type:'homework', title:currentExam.title, name:stu.name, code:stu.code, stage:stu.stage, enter:enterTime.toLocaleString('ar-EG'), duration:durMin, grade:got, total:total, percent:percent, passed:passed, cheat:cheatCount, answers:answers, questions:currentExam.questions, date:Date.now()});
+  localStorage.setItem('studentReports', JSON.stringify(reports));
+}
+function goReports(){ location.href='reports.html'; }
+if(localStorage.getItem('theme')==='dark') document.getElementById('app').classList.add('dark');
+renderList();
+</script>
+</body>
+</html>
