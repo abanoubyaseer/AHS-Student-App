@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRF English - ملاحظاتي</title>
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
+.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;padding-bottom:72px;font-size:15px}
+.app.font-small{font-size:13px}.app.font-large{font-size:18px}
+.app.dark{background:#141A33;color:#fff}.app.dark .top,.app.dark .card,.app.dark .bottom-nav,.app.dark .editor,.app.dark .note-card{background:#1E2447;color:#fff}
+.top{height:60px;position:relative;background:#fff;border-bottom:1px solid #EEE;display:flex;align-items:center;padding:0 12px}
+.top .back{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px}
+.top b{flex:1;text-align:center}
+.top .add-btn{background:#FF6B00;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;cursor:pointer;font-size:13px}
+.search-box{margin:10px 12px 0;background:#fff;border-radius:12px;padding:10px;display:flex;gap:8px;align-items:center}
+.app.dark .search-box{background:#1E2447}
+.search-box input{flex:1;border:none;outline:none;background:transparent;font-size:14px}
+.filter-row{display:flex;gap:8px;margin:10px 12px 0;overflow:auto;padding-bottom:2px}
+.filter-row button{flex-shrink:0;border:none;padding:8px 14px;border-radius:20px;cursor:pointer;font-weight:bold;background:#fff;font-size:12px;white-space:nowrap}
+.filter-row button.active{background:#0B1026;color:#fff}
+.app.dark .filter-row button{background:#1E2447;color:#fff}
+.notes-list{margin:10px 12px 0;display:flex;flex-direction:column;gap:10px}
+.note-card{border-radius:16px;padding:14px;position:relative;cursor:pointer}
+.note-card.yellow{background:#FFF9C4}.note-card.pink{background:#FCE4EC}.note-card.green{background:#E8F5E9}.note-card.blue{background:#E3F2FD}.note-card.orange{background:#FFF3E0}.note-card.purple{background:#F3E5F5}
+.app.dark .note-card{filter:brightness(.9)}
+.note-card h4{margin:0 0 6px;font-size:15px;line-height:1.4}
+.note-card p{margin:0;font-size:13px;line-height:1.6;color:#333;white-space:pre-wrap;word-break:break-word}
+.app.dark .note-card p{color:#222}
+.note-card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:11px;color:#888}
+.note-card .actions{display:flex;gap:6px}
+.note-card .actions button{border:none;background:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+.empty{text-align:center;color:#888;padding:30px 12px}
+.empty .big{font-size:40px}
+.editor{position:absolute;inset:0;background:#FFF8F0;z-index:60;display:none;flex-direction:column;padding:12px;overflow:auto}
+.app.dark .editor{background:#141A33}
+.editor.show{display:flex}
+.editor .head{display:flex;justify-content:space-between;align-items:center}
+.editor .head button{border:none;cursor:pointer;padding:9px 14px;border-radius:12px;font-weight:bold}
+.btn-cancel{background:#EEE}.btn-save{background:#FF6B00;color:#fff}
+.editor input.title{border:none;outline:none;font-size:20px;font-weight:bold;padding:12px 4px;background:transparent;width:100%}
+.editor textarea{flex:1;border:none;outline:none;font-size:15px;line-height:1.7;padding:10px 4px;background:transparent;resize:none;min-height:220px}
+.colors{display:flex;gap:8px;margin:10px 0}
+.colors button{width:32px;height:32px;border-radius:50%;border:2px solid transparent;cursor:pointer}
+.colors button.selected{border-color:#0B1026;transform:scale(1.15)}
+.pin-row{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:12px;border-radius:12px;margin:6px 0}
+.app.dark .pin-row{background:#1E2447}
+.switch{position:relative;width:52px;height:28px;display:inline-block;flex-shrink:0}
+.switch input{display:none}
+.slider{position:absolute;inset:0;background:#ccc;border-radius:30px;cursor:pointer;transition:.3s}
+.slider:before{content:"";position:absolute;width:22px;height:22px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.3s}
+.switch input:checked + .slider{background:#FF6B00}
+.switch input:checked + .slider:before{transform:translateX(24px)}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}
+.nav-item .ico{font-size:22px}
+.nav-item.active{background:#FFF3E0;color:#FF6B00}
+</style>
+</head>
+<body>
+<div class="app font-medium" id="app">
+<div class="top"><button class="back" onclick="location.href='home.html'">→</button><b data-ar="📝 ملاحظاتي" data-en="📝 My Notes">📝 ملاحظاتي</b><button class="add-btn" onclick="newNote()" data-ar="+ جديدة" data-en="+ New">+ جديدة</button></div>
+
+<div class="search-box"><span>🔍</span><input id="searchInput" oninput="renderNotes()" placeholder="ابحث في ملاحظاتك..." data-ar-placeholder="ابحث في ملاحظاتك..." data-en-placeholder="Search your notes..."></div>
+
+<div class="filter-row">
+<button class="active" id="filterAll" onclick="setFilter('all')" data-ar="الكل" data-en="All">الكل</button>
+<button id="filterPinned" onclick="setFilter('pinned')" data-ar="📌 المثبتة" data-en="📌 Pinned">📌 المثبتة</button>
+<button id="filterToday" onclick="setFilter('today')" data-ar="📅 النهاردة" data-en="📅 Today">📅 النهاردة</button>
+</div>
+
+<div class="notes-list" id="notesList"></div>
+
+<div class="editor" id="editor">
+<div class="head"><button class="btn-cancel" onclick="closeEditor()" data-ar="إلغاء" data-en="Cancel">إلغاء</button><b data-ar="ملاحظة" data-en="Note">ملاحظة</b><button class="btn-save" onclick="saveNote()" data-ar="حفظ" data-en="Save">حفظ</button></div>
+<input class="title" id="noteTitle" placeholder="عنوان الملاحظة..." data-ar-placeholder="عنوان الملاحظة..." data-en-placeholder="Note title...">
+<textarea id="noteText" placeholder="اكتب ملاحظتك هنا...&#10;مثال: مراجعة Unit 3، صفحة 20، قبل الامتحان"></textarea>
+<div style="font-size:13px;font-weight:bold" data-ar="🎨 لون الملاحظة" data-en="🎨 Note Color">🎨 لون الملاحظة</div>
+<div class="colors" id="colorRow"></div>
+<div class="pin-row"><b data-ar="📌 تثبيت الملاحظة فوق" data-en="📌 Pin this note on top">📌 تثبيت الملاحظة فوق</b><label class="switch"><input type="checkbox" id="pinCheck"><span class="slider"></span></label></div>
+<div style="display:flex;gap:8px"><button onclick="deleteCurrent()" style="flex:1;padding:12px;border:none;border-radius:12px;background:#FFEBEE;color:#C62828;font-weight:bold;cursor:pointer" data-ar="🗑️ حذف الملاحظة" data-en="🗑️ Delete Note">🗑️ حذف الملاحظة</button><button onclick="closeEditor()" style="flex:1;padding:12px;border:none;border-radius:12px;background:#EEE;font-weight:bold;cursor:pointer" data-ar="إغلاق" data-en="Close">إغلاق</button></div>
+</div>
+
+<div class="bottom-nav">
+<button class="nav-item" onclick="location.href='exams.html'"><span class="ico">📝</span><span data-ar="امتحان جديد" data-en="New Exam">امتحان جديد</span></button>
+<button class="nav-item" onclick="location.href='homework.html'"><span class="ico">📚</span><span data-ar="واجب جديد" data-en="New Homework">واجب جديد</span></button>
+<button class="nav-item" onclick="location.href='home.html'"><span class="ico">🏠</span><span data-ar="الرئيسية" data-en="Home">الرئيسية</span></button>
+<button class="nav-item" onclick="location.href='chat.html'"><span class="ico">💬</span><span data-ar="المنتدى" data-en="Forum">المنتدى</span></button>
+<button class="nav-item" onclick="location.href='reports.html'"><span class="ico">📊</span><span data-ar="تقاريري" data-en="My Reports">تقاريري</span></button>
+</div>
+</div>
+<script>
+var stu=JSON.parse(localStorage.getItem('currentStudent')||'null');
+if(!stu){stu={name:'طالب',code:'X7K9Q2'};}
+var isEn = localStorage.getItem('lang')==='en';
+var notes = JSON.parse(localStorage.getItem('studentNotes_'+stu.code) || localStorage.getItem('studentNotes') || '[]');
+var currentFilter='all';
+var editingId=null;
+var selectedColor='yellow';
+var colors=[
+  {id:'yellow',bg:'#FFF9C4',name:'أصفر'},
+  {id:'pink',bg:'#FCE4EC',name:'وردي'},
+  {id:'green',bg:'#E8F5E9',name:'أخضر'},
+  {id:'blue',bg:'#E3F2FD',name:'أزرق'},
+  {id:'orange',bg:'#FFF3E0',name:'برتقالي'},
+  {id:'purple',bg:'#F3E5F5',name:'بنفسجي'},
+];
+function applyLang(){
+  document.documentElement.lang = isEn ? 'en' : 'ar';
+  document.querySelectorAll('[data-ar]').forEach(function(el){ el.innerText = isEn ? el.getAttribute('data-en') : el.getAttribute('data-ar'); });
+  document.querySelectorAll('[data-ar-placeholder]').forEach(function(el){ el.placeholder = isEn ? el.getAttribute('data-en-placeholder') : el.getAttribute('data-ar-placeholder'); });
+}
+function saveNotes(){ localStorage.setItem('studentNotes_'+stu.code, JSON.stringify(notes)); localStorage.setItem('studentNotes', JSON.stringify(notes)); }
+function setFilter(f){
+  currentFilter=f;
+  document.getElementById('filterAll').classList.toggle('active',f==='all');
+  document.getElementById('filterPinned').classList.toggle('active',f==='pinned');
+  document.getElementById('filterToday').classList.toggle('active',f==='today');
+  renderNotes();
+}
+function renderNotes(){
+  var q=(document.getElementById('searchInput').value||'').toLowerCase();
+  var list=document.getElementById('notesList');
+  var filtered=notes.filter(function(n){
+    if(currentFilter==='pinned' && !n.pinned) return false;
+    if(currentFilter==='today'){ var today=new Date().toLocaleDateString('ar-EG'); if(n.date!==today && n.date!==new Date().toLocaleDateString('en-EG')) return false; }
+    if(q && (n.title||'').toLowerCase().indexOf(q)===-1 && (n.text||'').toLowerCase().indexOf(q)===-1) return false;
+    return true;
+  });
+  filtered.sort(function(a,b){ if(a.pinned!==b.pinned) return b.pinned-a.pinned; return b.created - a.created; });
+  if(filtered.length===0){
+    list.innerHTML='<div class="empty"><div class="big">📝</div><p>'+(isEn?'No notes yet.<br>Tap + New to add your first note.':'لسه مفيش ملاحظات.<br>دوس + جديدة عشان تضيف أول ملاحظة.')+'</p></div>';
+    return;
+  }
+  list.innerHTML='';
+  filtered.forEach(function(n){
+    var div=document.createElement('div');
+    div.className='note-card '+n.color;
+    div.onclick=function(){ openNote(n.id); };
+    var preview = (n.text||'').length>120 ? (n.text||'').substring(0,120)+'...' : (n.text||'');
+    div.innerHTML='<h4>'+(n.pinned?'📌 ':'')+escapeHtml(n.title|| (isEn?'Untitled':'بدون عنوان'))+'</h4><p>'+escapeHtml(preview)+'</p><div class="meta"><span>'+(n.date||'')+' - '+(n.time||'')+'</span><span class="actions"><button onclick="event.stopPropagation();togglePin(\''+n.id+'\')">'+(n.pinned?'📌':'📍')+'</button><button onclick="event.stopPropagation();deleteNote(\''+n.id+'\')">🗑️</button></span></div>';
+    list.appendChild(div);
+  });
+}
+function escapeHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function renderColors(){
+  var row=document.getElementById('colorRow'); row.innerHTML='';
+  colors.forEach(function(c){
+    var b=document.createElement('button');
+    b.style.background=c.bg; b.className = c.id===selectedColor ? 'selected' : '';
+    b.onclick=function(){ selectedColor=c.id; renderColors(); };
+    row.appendChild(b);
+  });
+}
+function newNote(){
+  editingId=null;
+  document.getElementById('noteTitle').value='';
+  document.getElementById('noteText').value='';
+  document.getElementById('pinCheck').checked=false;
+  selectedColor='yellow'; renderColors();
+  document.getElementById('editor').classList.add('show');
+  setTimeout(function(){ document.getElementById('noteTitle').focus(); },100);
+}
+function openNote(id){
+  var n=notes.find(function(x){return x.id===id;}); if(!n) return;
+  editingId=id;
+  document.getElementById('noteTitle').value=n.title||'';
+  document.getElementById('noteText').value=n.text||'';
+  document.getElementById('pinCheck').checked=!!n.pinned;
+  selectedColor=n.color||'yellow'; renderColors();
+  document.getElementById('editor').classList.add('show');
+}
+function closeEditor(){ document.getElementById('editor').classList.remove('show'); }
+function saveNote(){
+  var title=document.getElementById('noteTitle').value.trim();
+  var text=document.getElementById('noteText').value.trim();
+  if(!title && !text){ alert(isEn?'Write something first':'اكتب حاجة الأول'); return; }
+  var now=new Date();
+  var dateStr=now.toLocaleDateString(isEn?'en-EG':'ar-EG');
+  var timeStr=now.toLocaleTimeString(isEn?'en-EG':'ar-EG',{hour:'2-digit',minute:'2-digit'});
+  if(editingId){
+    var n=notes.find(function(x){return x.id===editingId;});
+    if(n){ n.title=title; n.text=text; n.color=selectedColor; n.pinned=document.getElementById('pinCheck').checked; n.date=dateStr; n.time=timeStr; }
+  } else {
+    notes.unshift({id:'N'+Date.now(), title:title, text:text, color:selectedColor, pinned:document.getElementById('pinCheck').checked, date:dateStr, time:timeStr, created:Date.now()});
+  }
+  saveNotes(); closeEditor(); renderNotes();
+}
+function togglePin(id){
+  var n=notes.find(function(x){return x.id===id;}); if(!n) return;
+  n.pinned=!n.pinned; saveNotes(); renderNotes();
+}
+function deleteNote(id){
+  if(!confirm(isEn?'Delete this note?':'تمسح الملاحظة دي؟')) return;
+  notes=notes.filter(function(x){return x.id!==id;});
+  saveNotes(); renderNotes();
+}
+function deleteCurrent(){
+  if(!editingId){ closeEditor(); return; }
+  deleteNote(editingId); closeEditor();
+}
+var savedFont=localStorage.getItem('font')||'font-medium';
+document.getElementById('app').classList.remove('font-small','font-medium','font-large'); document.getElementById('app').classList.add(savedFont);
+if(localStorage.getItem('theme')==='dark') document.getElementById('app').classList.add('dark');
+renderColors();
+renderNotes();
+applyLang();
+</script>
+</body>
+</html>
