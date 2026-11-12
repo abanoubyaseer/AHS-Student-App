@@ -7,36 +7,35 @@
 <style>
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
 body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
-.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;padding-bottom:72px}
 .app.dark{background:#141A33;color:#fff}
-.app.dark .top,.app.dark .cal,.app.dark .sidebar,.app.dark .notif-panel{background:#1E2447;color:#fff}
+.app.dark .top,.app.dark .cal,.app.dark .sidebar,.app.dark .notif-panel,.app.dark .bottom-nav{background:#1E2447;color:#fff}
 .top{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;background:#fff;border-bottom:1px solid #EEE}
-.left-icons{display:flex;gap:6px}
-.right-icons{display:flex;gap:6px}
+.left-side{display:flex;gap:6px}
+.right-side{display:flex;gap:6px}
 .icon-btn{width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:20px;background:#FFF3E0;display:flex;align-items:center;justify-content:center}
 .center{flex:1;text-align:center}
 .center img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00}
 .center b{font-size:12px}.center small{font-size:10px;color:#888}
-.welcome{margin:10px 12px 0;background:linear-gradient(135deg,#0B1026,#1A237E 60%,#FF6B00);color:#fff;border-radius:18px;padding:12px 14px}
-.welcome h2{margin:3px 0;font-size:19px}
-.welcome .code{display:inline-block;background:#fff;color:#0B1026;font-weight:900;font-size:18px;letter-spacing:2px;padding:5px 12px;border-radius:10px;margin:5px 0;direction:ltr}
-.welcome .meta{font-size:11px;line-height:1.7;opacity:.9}
+.welcome{margin:10px 12px 0;background:linear-gradient(135deg,#0B1026,#1A237E 60%,#FF6B00);color:#fff;border-radius:14px;padding:10px 12px}
+.welcome h2{margin:2px 0;font-size:17px}
+.welcome .code{display:inline-block;background:#fff;color:#0B1026;font-weight:900;font-size:16px;letter-spacing:2px;padding:4px 10px;border-radius:8px;margin:4px 0;direction:ltr}
+.welcome .meta{font-size:11px;line-height:1.6;opacity:.9}
+.motivation{margin:10px 12px 0;text-align:center;padding:12px;background:#FFF3E0;border-radius:14px;border:1px dashed #FFB74D}
+.app.dark .motivation{background:#1E2447;border-color:#FF6B00}
+.motivation p{font-size:14px;font-weight:bold;margin:5px 0 0;line-height:1.6}
 .cal{margin:10px 12px 0;background:#fff;border-radius:16px;padding:12px}
-.cal-head{display:flex;justify-content:space-between;font-weight:bold}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:8px;text-align:center;font-size:12px;direction:ltr}
+.cal-head{display:flex;justify-content:space-between;font-weight:bold;font-size:14px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:8px;text-align:center;font-size:12px;direction:rtl}
 .cal-grid div{padding:7px 0;border-radius:9px}
 .cal-grid .wd{font-weight:bold;color:#888}
 .cal-grid .today{background:#FF6B00;color:#fff;font-weight:bold}
-.motivation{margin:10px 12px;text-align:center;padding:14px;background:#FFF3E0;border-radius:16px;border:1px dashed #FFB74D}
-.motivation p{font-size:15px;font-weight:bold;margin:6px 0 0;line-height:1.6}
-.bottom-area{position:relative;height:120px;direction:ltr}
-.fab{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);width:58px;height:58px;border-radius:50%;background:#FF6B00;color:#fff;border:none;font-size:30px;cursor:pointer;z-index:5;box-shadow:0 8px 18px rgba(255,107,0,.4)}
-.fab.open{transform:translateX(-50%) rotate(45deg);background:#0B1026}
-.fan-btn{position:absolute;bottom:20px;left:50%;border:none;cursor:pointer;padding:9px 12px;border-radius:14px;font-weight:bold;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.2);white-space:nowrap;opacity:0;pointer-events:none;transition:.35s;font-size:13px}
-.fan-btn.show{opacity:1;pointer-events:auto}
-.chat-fab{position:absolute;bottom:20px;left:12px;width:52px;height:52px;border-radius:50%;background:#0B1026;color:#fff;border:none;font-size:22px;cursor:pointer;z-index:5}
-/* القايمة - زي لوحة التحكم */
-.sidebar{position:absolute;top:0;right:0;width:280px;height:100%;background:#fff;z-index:50;transform:translateX(110%);transition:.35s;padding:14px;overflow:auto}
+/* شريط تحت - زي الواتساب */
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}
+.nav-item .ico{font-size:22px;line-height:1}
+.nav-item.active{background:#FFF3E0;color:#FF6B00}
+.sidebar{position:absolute;top:0;left:0;width:280px;height:100%;background:#fff;z-index:50;transform:translateX(-110%);transition:.35s;padding:14px;overflow:auto}
 .sidebar.open{transform:translateX(0)}
 .sidebar .head{display:flex;justify-content:space-between;align-items:center}
 .sidebar .head button{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px}
@@ -47,7 +46,7 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .sidebar .menu-btn{width:100%;padding:11px;border:none;border-radius:12px;cursor:pointer;font-weight:bold;margin-top:8px;text-align:right}
 .btn-dark{background:#0B1026;color:#fff}.btn-orange{background:#FF6B00;color:#fff}.btn-red{background:#FFEBEE;color:#C62828}.btn-lang{background:#E8EAF6;color:#0B1026}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:none;z-index:40}.overlay.show{display:block}
-.notif-panel{position:absolute;top:0;left:0;width:300px;height:100%;background:#fff;z-index:60;transform:translateX(-110%);transition:.35s;padding:14px;overflow:auto}
+.notif-panel{position:absolute;top:0;right:0;width:300px;height:100%;background:#fff;z-index:60;transform:translateX(110%);transition:.35s;padding:14px;overflow:auto}
 .notif-panel.open{transform:translateX(0)}
 .warning{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}
 .warning.show{display:flex}
@@ -61,37 +60,37 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <body>
 <div class="app" id="app">
 <div class="top">
-<div class="left-icons"><button class="icon-btn" onclick="toggleNotif()">🔔</button><button class="icon-btn" onclick="location.href='notes.html'">📝</button></div>
+<div class="left-side"><button class="icon-btn" onclick="toggleSidebar()">☰</button></div>
 <div class="center"><img src="teacher.jpg"><br><b>Mr Romany Faheam</b><br><small>MRF English</small></div>
-<div class="right-icons"><button class="icon-btn" onclick="toggleSidebar()">☰</button></div>
+<div class="right-side"><button class="icon-btn" onclick="toggleNotif()">🔔</button><button class="icon-btn" onclick="location.href='notes.html'">📝</button></div>
 </div>
 
-<div class="welcome"><div style="font-size:12px" data-ar="مرحبا بك يا بطل 👋" data-en="Welcome, Champion 👋">مرحبا بك يا بطل 👋</div><h2 id="stuName">مرحبا بك</h2><div style="font-size:11px" data-ar="كودك الخاص" data-en="Your Code">كودك الخاص</div><div class="code" id="stuCode">------</div><div class="meta"><div id="lastLogin"></div><div id="stuStage"></div></div></div>
-
-<div class="cal"><div class="cal-head"><span data-ar="📅 التقويم" data-en="📅 Calendar">📅 التقويم</span><span id="calTitle"></span></div><div class="cal-grid" id="calGrid"></div></div>
+<div class="welcome"><div style="font-size:11px" data-ar="مرحبا بك يا بطل 👋" data-en="Welcome, Champion 👋">مرحبا بك يا بطل 👋</div><h2 id="stuName">مرحبا بك</h2><div style="font-size:11px" data-ar="كودك الخاص" data-en="Your Code">كودك الخاص</div><div class="code" id="stuCode">------</div><div class="meta"><div id="lastLogin"></div><div id="stuStage"></div></div></div>
 
 <div class="motivation"><div>✨ 📖 💪</div><p id="motivationText">اجمد يا بطل، اللي جاي أحسن</p></div>
 
-<div class="bottom-area">
-<button class="fan-btn" id="fan1" data-ar="📚 واجب جديد" data-en="📚 New Homework" onclick="location.href='homework.html'">📚 واجب جديد</button>
-<button class="fan-btn" id="fan2" data-ar="📝 امتحان جديد" data-en="📝 New Exam" onclick="location.href='exams.html'">📝 امتحان جديد</button>
-<button class="fan-btn" id="fan3" data-ar="📊 تقاريري" data-en="📊 My Reports" onclick="location.href='reports.html'">📊 تقاريري</button>
-<button class="fab" id="fabBtn" onclick="toggleFab()">+</button>
-<button class="chat-fab" onclick="location.href='chat.html'">💬</button>
+<div class="cal"><div class="cal-head"><span data-ar="📅 التقويم" data-en="📅 Calendar">📅 التقويم</span><span id="calTitle"></span></div><div class="cal-grid" id="calGrid"></div></div>
+
+<div class="bottom-nav">
+<button class="nav-item" onclick="location.href='exams.html'"><span class="ico">📝</span><span data-ar="امتحان جديد" data-en="New Exam">امتحان جديد</span></button>
+<button class="nav-item" onclick="location.href='homework.html'"><span class="ico">📚</span><span data-ar="واجب جديد" data-en="New Homework">واجب جديد</span></button>
+<button class="nav-item active" onclick="location.href='home.html'"><span class="ico">🏠</span><span data-ar="الرئيسية" data-en="Home">الرئيسية</span></button>
+<button class="nav-item" onclick="location.href='chat.html'"><span class="ico">💬</span><span data-ar="المنتدى" data-en="Forum">المنتدى</span></button>
+<button class="nav-item" onclick="location.href='reports.html'"><span class="ico">📊</span><span data-ar="تقاريري" data-en="My Reports">تقاريري</span></button>
 </div>
 
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
 <div class="sidebar" id="sidebar">
-<div class="head"><h3 id="menuTitle" data-ar="القايمة" data-en="Menu">القايمة</h3><button onclick="closeAll()">←</button></div>
+<div class="head"><h3 data-ar="القايمة" data-en="Menu">القايمة</h3><button onclick="closeAll()">→</button></div>
 <div class="profile"><img src="teacher.jpg"><p id="sideName" style="font-weight:bold;margin:6px 0"></p><small id="sideCode"></small></div>
 <button class="menu-btn btn-dark" onclick="location.href='settings.html'" data-ar="⚙️ الإعدادات" data-en="⚙️ Settings">⚙️ الإعدادات</button>
 <button class="menu-btn btn-orange" onclick="location.href='notes.html'" data-ar="📝 ملاحظاتي" data-en="📝 My Notes">📝 ملاحظاتي</button>
-<button class="menu-btn btn-lang" onclick="toggleLang()" id="langBtn" data-ar="🌐 English" data-en="🌐 عربي">🌐 English</button>
+<button class="menu-btn btn-lang" onclick="toggleLang()" data-ar="🌐 English" data-en="🌐 عربي">🌐 English</button>
 <label data-ar="حجم الخط" data-en="Font Size">حجم الخط</label>
-<select id="fontSel" onchange="changeFont(this.value)"><option value="font-small" data-ar="صغير" data-en="Small">صغير</option><option value="font-medium" selected data-ar="متوسط" data-en="Medium">متوسط</option><option value="font-large" data-ar="كبير" data-en="Large">كبير</option></select>
+<select id="fontSel" onchange="changeFont(this.value)"><option value="font-small">صغير</option><option value="font-medium" selected>متوسط</option><option value="font-large">كبير</option></select>
 <label data-ar="المظهر" data-en="Theme">المظهر</label>
-<select onchange="changeTheme(this.value)"><option value="light" data-ar="فاتح" data-en="Light">فاتح</option><option value="dark" data-ar="غامق" data-en="Dark">غامق</option></select>
+<select onchange="changeTheme(this.value)"><option value="light">فاتح</option><option value="dark">غامق</option></select>
 <button class="menu-btn btn-red" onclick="logout()" data-ar="تسجيل خروج" data-en="Logout">تسجيل خروج</button>
 </div>
 
@@ -103,51 +102,48 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 var stu=JSON.parse(localStorage.getItem('currentStudent')||'null');
 if(!stu){stu={name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا'};}
 var isEn = localStorage.getItem('lang')==='en';
-function applyLang(){
-  document.documentElement.lang = isEn ? 'en' : 'ar';
-  document.documentElement.dir = isEn ? 'ltr' : 'rtl';
-  document.querySelectorAll('[data-ar]').forEach(function(el){
-    el.innerText = isEn ? el.getAttribute('data-en') : el.getAttribute('data-ar');
-  });
-  // اسم الطالب والكود مش بيترجموا
-  document.getElementById('stuName').innerText = (isEn ? 'Welcome, ' : 'مرحبا بك يا ') + stu.name;
-  document.getElementById('stuStage').innerText = (isEn ? 'Stage: ' : 'المرحلة: ') + stu.stage;
-  document.getElementById('lastLogin').innerText = (isEn ? 'Last login: ' : 'آخر مرة دخلت: ') + (localStorage.getItem('lastLogin')||'');
-  // الجمل التحفيزية بالإنجليزي
-  if(isEn){ quotes = quotesEn; } else { quotes = quotesAr; }
-  document.getElementById('motivationText').innerText = quotes[qi];
-}
 var quotesAr=["اجمد يا بطل، اللي جاي أحسن","ذاكر النهاردة، هتفرح بكرة","انت تقدر تجيب أعلى درجة","كل دقيقة مذاكرة، بتقربك من حلمك","الغش بيضيع تعبك، والمذاكرة بتبني مستقبلك","خليك واثق في نفسك، انت شاطر","ابدأ دلوقتي، متستناش بكرة","كل سؤال بتحله، بيخليك أقوى","النجاح مش صدفة، النجاح مجهود","انت بطل، والبطل مش بيستسلم","ركز، وذاكر، وهتوصل","مستقبلك يستاهل تتعب عشانه","لو تعبت النهاردة، هترتاح بكرة","مفيش مستحيل، فيه مذاكرة","كل يوم بتذاكر فيه، انت بتكسب"];
 var quotesEn=["Keep going, champion, the best is yet to come","Study today, be happy tomorrow","You can get the highest score","Every minute you study brings you closer to your dream","Cheating wastes your effort, studying builds your future","Believe in yourself, you are smart","Start now, don't wait for tomorrow","Every question you solve makes you stronger","Success is not luck, success is effort","You are a hero, heroes never give up","Focus, study, and you will make it","Your future deserves your effort","If you get tired today, you will rest tomorrow","Nothing is impossible, there is studying","Every day you study, you win"];
 var quotes = quotesAr;
 var qi=0;
+function renderCalendar(){
+  var today=new Date();
+  document.getElementById('calTitle').innerText = isEn ? today.toLocaleDateString('en-EG',{month:'long',year:'numeric'}) : today.toLocaleDateString('ar-EG',{month:'long',year:'numeric'});
+  var grid=document.getElementById('calGrid');grid.innerHTML='';
+  var weekDays = isEn ? ['Sat','Sun','Mon','Tue','Wed','Thu','Fri'] : ['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
+  weekDays.forEach(function(d){var e=document.createElement('div');e.innerText=d;e.className='wd';grid.appendChild(e);});
+  var y=today.getFullYear(),m=today.getMonth();
+  var firstDay=new Date(y,m,1).getDay();
+  var offset=(firstDay+1)%7;
+  for(var i=0;i<offset;i++){grid.appendChild(document.createElement('div'));}
+  var lastDay=new Date(y,m+1,0).getDate();
+  for(var d=1;d<=lastDay;d++){
+    var e=document.createElement('div');
+    e.innerText = isEn ? String(d) : d.toLocaleString('ar-EG');
+    if(d===today.getDate())e.className='today';
+    grid.appendChild(e);
+  }
+}
+function applyLang(){
+  // الاتجاه ثابت عربي، مش بيتغير
+  document.documentElement.lang = isEn ? 'en' : 'ar';
+  document.documentElement.dir = 'rtl';
+  document.querySelectorAll('[data-ar]').forEach(function(el){ el.innerText = isEn ? el.getAttribute('data-en') : el.getAttribute('data-ar'); });
+  document.getElementById('stuName').innerText = (isEn ? 'Welcome, ' : 'مرحبا بك يا ') + stu.name;
+  document.getElementById('stuStage').innerText = (isEn ? 'Stage: ' : 'المرحلة: ') + stu.stage;
+  document.getElementById('lastLogin').innerText = (isEn ? 'Last login: ' : 'آخر مرة دخلت: ') + (localStorage.getItem('lastLogin')||'');
+  quotes = isEn ? quotesEn : quotesAr;
+  document.getElementById('motivationText').innerText = quotes[qi];
+  renderCalendar();
+  // القايمة بتترجم بس، مش بتغير مكانها
+  var fontSel=document.getElementById('fontSel');
+  if(isEn){ fontSel.options[0].text='Small'; fontSel.options[1].text='Medium'; fontSel.options[2].text='Large'; }
+  else { fontSel.options[0].text='صغير'; fontSel.options[1].text='متوسط'; fontSel.options[2].text='كبير'; }
+}
 document.getElementById('stuCode').innerText=stu.code;
 document.getElementById('sideName').innerText=stu.name;document.getElementById('sideCode').innerText=stu.code;
 var now=new Date();if(!localStorage.getItem('lastLogin')) localStorage.setItem('lastLogin',now.toLocaleString('ar-EG'));
 setInterval(function(){qi=(qi+1)%quotes.length;var el=document.getElementById('motivationText');el.style.opacity=0;setTimeout(function(){el.innerText=quotes[qi];el.style.opacity=1;},300);},6000);
-var today=new Date();document.getElementById('calTitle').innerText=today.toLocaleDateString(isEn?'en-EG':'ar-EG',{month:'long',year:'numeric'});
-var grid=document.getElementById('calGrid');
-var weekDays=['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
-var weekDaysEn=['Sat','Sun','Mon','Tue','Wed','Thu','Fri'];
-var wd = isEn ? weekDaysEn : weekDays;
-wd.forEach(function(d){var e=document.createElement('div');e.innerText=d;e.className='wd';grid.appendChild(e);});
-var y=today.getFullYear(),m=today.getMonth();
-var firstDay=new Date(y,m,1).getDay();
-var offset=(firstDay+1)%7;
-for(var i=0;i<offset;i++){grid.appendChild(document.createElement('div'));}
-var lastDay=new Date(y,m+1,0).getDate();
-for(var d=1;d<=lastDay;d++){var e=document.createElement('div');e.innerText=d;if(d===today.getDate())e.className='today';grid.appendChild(e);}
-function toggleFab(){
-  var b=document.getElementById('fabBtn');b.classList.toggle('open');
-  var isOpen=b.classList.contains('open');
-  var btns=[document.getElementById('fan1'),document.getElementById('fan2'),document.getElementById('fan3')];
-  var angles=[150,90,30];
-  btns.forEach(function(btn,idx){
-    if(!isOpen){btn.classList.remove('show');btn.style.transform='';return;}
-    var ang=angles[idx]*Math.PI/180;var r=78;var x=Math.cos(ang)*r;var yy=Math.sin(ang)*r;
-    btn.classList.add('show');btn.style.transform='translate(calc(-50% + '+x+'px), '+(-yy)+'px)';
-  });
-}
 function toggleSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('overlay').classList.add('show');}
 function toggleNotif(){document.getElementById('notifPanel').classList.add('open');document.getElementById('overlay').classList.add('show');loadNotifs();}
 function closeAll(){document.querySelectorAll('.sidebar,.notif-panel').forEach(function(e){e.classList.remove('open')});document.getElementById('overlay').classList.remove('show');}
