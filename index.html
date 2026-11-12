@@ -8,23 +8,21 @@
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:#0B1026;display:flex;justify-content:center;min-height:100vh;overflow:hidden}
 .app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column}
-/* شاشة البداية */
-.splash{position:absolute;inset:0;background:linear-gradient(180deg,#0B1026 0%,#1A237E 55%,#FF6B00 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;transition:transform .8s cubic-bezier(.7,0,.3,1)}
+.splash{position:absolute;inset:0;background:linear-gradient(180deg,#0B1026 0%,#1A237E 55%,#FF6B00 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:20;transition:transform 1s ease}
 .splash.hide{transform:translateY(-100%)}
-.teacher-photo{width:150px;height:150px;border-radius:50%;object-fit:cover;border:5px solid #FFC107;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:up 1s ease forwards;opacity:0}
-@keyframes up{from{transform:translateY(80px);opacity:0}to{transform:translateY(0);opacity:1}}
-.teacher-name{color:white;font-size:26px;font-weight:bold;margin:16px 0 4px;animation:fromLeft 1s .3s ease forwards;opacity:0;transform:translateX(-60px)}
+.teacher-photo{width:150px;height:150px;border-radius:50%;object-fit:cover;border:5px solid #FFC107;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:up 1.8s ease forwards;opacity:0}
+@keyframes up{from{transform:translateY(90px);opacity:0}to{transform:translateY(0);opacity:1}}
+.teacher-name{color:white;font-size:26px;font-weight:bold;margin:16px 0 4px;animation:fromLeft 1.8s .4s ease forwards;opacity:0;transform:translateX(-70px)}
 @keyframes fromLeft{to{transform:translateX(0);opacity:1}}
-.teacher-sub{color:#FFC107;font-size:14px;animation:fromRight 1s .5s ease forwards;opacity:0;transform:translateX(60px)}
+.teacher-sub{color:#FFC107;font-size:15px;font-weight:bold;animation:fromRight 1.8s .7s ease forwards;opacity:0;transform:translateX(70px)}
 @keyframes fromRight{to{transform:translateX(0);opacity:1}}
-.brand{color:white;font-size:44px;font-weight:900;letter-spacing:8px;margin-top:18px;animation:up 1s .6s ease forwards;opacity:0}
-.dots{display:flex;gap:8px;margin-top:22px}
-.dots span{width:10px;height:10px;background:white;border-radius:50%;animation:dot 1s infinite}
+.brand{color:white;font-size:44px;font-weight:900;letter-spacing:8px;margin-top:18px;animation:up 1.8s .9s ease forwards;opacity:0}
+.dots{display:flex;gap:8px;margin-top:24px}
+.dots span{width:10px;height:10px;background:white;border-radius:50%;animation:dot 1.2s infinite}
 .dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
 @keyframes dot{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(-8px);opacity:1}}
 .splash p{color:rgba(255,255,255,.7);font-size:12px;margin-top:14px}
-/* صفحة التسجيل */
-.main{flex:1;display:flex;flex-direction:column;padding:0 18px 16px;animation:up .7s ease}
+.main{flex:1;display:flex;flex-direction:column;padding:0 18px 16px;animation:up 1.2s ease}
 .top-mini{display:flex;align-items:center;gap:12px;padding:16px 0 8px}
 .top-mini img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00}
 .top-mini b{font-size:17px;color:#0B1026}
@@ -43,8 +41,9 @@ input:focus,select:focus{border-color:#FF6B00}
 .code-box b{font-size:30px;letter-spacing:5px;color:#0B1026}
 .code-box p{font-size:12px;color:#666;margin:6px 0}
 .forgot{background:none;border:none;color:#0B1026;font-weight:bold;cursor:pointer;font-size:13px;margin-top:10px;text-decoration:underline}
-.support-box{background:#E8EAF6;padding:12px;border-radius:12px;font-size:12px;line-height:1.7;margin-top:12px;display:none}
+.support-box{background:#E8EAF6;padding:14px;border-radius:12px;font-size:13px;line-height:1.8;margin-top:12px;display:none}
 .support-box b{color:#0B1026}
+.support-box a{color:#1A237E;font-weight:bold;text-decoration:none;font-size:16px;direction:ltr;display:inline-block}
 .bottom{text-align:center;font-size:11px;color:#999;padding:10px}
 </style>
 </head>
@@ -53,7 +52,7 @@ input:focus,select:focus{border-color:#FF6B00}
   <div class="splash" id="splash">
     <img class="teacher-photo" src="teacher.jpg" onerror="this.src='https://via.placeholder.com/150'">
     <div class="teacher-name">Mr Romany Faheam</div>
-    <div class="teacher-sub">أستاذ التاريخ • بكالوريا</div>
+    <div class="teacher-sub">مستر الـ English • أستاذ اللغة الإنجليزية</div>
     <div class="brand">AHS</div>
     <div class="dots"><span></span><span></span><span></span></div>
     <p>بيحمل ...</p>
@@ -62,7 +61,7 @@ input:focus,select:focus{border-color:#FF6B00}
   <div class="main">
     <div class="top-mini">
       <img src="teacher.jpg" onerror="this.src='https://via.placeholder.com/52'">
-      <div><b>Mr Romany Faheam</b><small>AHS</small></div>
+      <div><b>Mr Romany Faheam</b><small>مستر الـ English • AHS</small></div>
     </div>
 
     <div class="tabs">
@@ -92,15 +91,15 @@ input:focus,select:focus{border-color:#FF6B00}
       <div class="pass-wrap"><input type="password" id="loginPass" placeholder="كلمة السر"><button onclick="togglePass('loginPass',this)">🙈</button></div>
       <button class="btn" onclick="login()">دخول</button>
       <button class="forgot" onclick="showSupport()">نسيت الباسورد ؟</button>
-      <div class="support-box" id="supportBox"><b>نسيت الباسورد ؟</b><br>اتصل على رقم الدعم، والمستر هيساعدك ترجع حسابك<br>رقم الدعم هو رقم المستر اللي بتتواصل معاه على الواتساب</div>
+      <div class="support-box" id="supportBox"><b>نسيت الباسورد ؟</b><br>اتصل على رقم الدعم، والمستر هيساعدك ترجع حسابك<br>رقم الدعم: <a href="tel:01145471688">01145471688</a><br><small>دوس على الرقم عشان تتصل على طول</small></div>
     </div>
 
-    <div class="bottom">AHS</div>
+    <div class="bottom">AHS • Mr Romany Faheam</div>
   </div>
 </div>
 
 <script>
-setTimeout(function(){ document.getElementById('splash').classList.add('hide'); }, 2600);
+setTimeout(function(){ document.getElementById('splash').classList.add('hide'); }, 3400);
 function showTab(t){document.getElementById('signupForm').style.display=t==='signup'?'block':'none';document.getElementById('loginForm').style.display=t==='login'?'block':'none';document.getElementById('tabSignup').className=t==='signup'?'active':'';document.getElementById('tabLogin').className=t==='login'?'active':'';}
 function togglePass(id,btn){var el=document.getElementById(id);if(el.type==='password'){el.type='text';btn.innerText='🐵';}else{el.type='password';btn.innerText='🙈';}}
 function showSupport(){document.getElementById('supportBox').style.display='block';}
