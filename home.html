@@ -10,48 +10,52 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;padding-bottom:72px}
 .app.dark{background:#141A33;color:#fff}
 .app.dark .top,.app.dark .cal,.app.dark .sidebar,.app.dark .notif-panel,.app.dark .bottom-nav{background:#1E2447;color:#fff}
-/* الشريط فوق - تثبيت بالمكان مش بالفليكس */
-.top{height:60px;position:relative;background:#fff;border-bottom:1px solid #EEE}
-.hamburger-btn{position:absolute;left:10px;top:9px;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:22px;background:#FFF3E0;display:flex;align-items:center;justify-content:center;z-index:10}
-.top-right-icons{position:absolute;right:10px;top:9px;display:flex;gap:6px;z-index:10}
+/* الشريط فوق - الاسم مظبوط فوق */
+.top{height:72px;position:relative;background:#fff;border-bottom:1px solid #EEE}
+.hamburger-btn{position:absolute;left:10px;top:15px;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:22px;background:#FFF3E0;display:flex;align-items:center;justify-content:center;z-index:10}
+.top-right-icons{position:absolute;right:10px;top:15px;display:flex;gap:6px;z-index:10}
 .icon-btn{width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:20px;background:#FFF3E0;display:flex;align-items:center;justify-content:center}
-.center{position:absolute;left:0;right:0;top:4px;text-align:center}
-.center img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00}
-.center b{font-size:12px}.center small{font-size:10px;color:#888}
-/* البطاقة - الكود متثبت على الشمال، والاسم على اليمين */
-.welcome{margin:10px 12px 0;background:linear-gradient(135deg,#0B1026,#1A237E 60%,#FF6B00);color:#fff;border-radius:14px;padding:12px;position:relative;min-height:92px}
-.welcome-name{position:absolute;right:14px;top:12px;text-align:right}
-.welcome-name h2{margin:2px 0;font-size:17px}
-.welcome-code{position:absolute;left:14px;top:12px;text-align:center}
-.welcome-code .code{display:block;background:#fff;color:#0B1026;font-weight:900;font-size:16px;letter-spacing:2px;padding:5px 10px;border-radius:8px;direction:ltr}
-.welcome-code .code-label{font-size:11px;opacity:.9;margin-bottom:4px}
-.welcome .meta{position:absolute;right:14px;left:14px;bottom:10px;display:flex;justify-content:space-between;gap:10px;font-size:11px;opacity:.9;border-top:1px solid rgba(255,255,255,.25);padding-top:6px}
-.motivation{margin:10px 12px 0;text-align:center;padding:12px;background:#FFF3E0;border-radius:14px;border:1px dashed #FFB74D}
+.center{position:absolute;left:0;right:0;top:6px;text-align:center;line-height:1.2}
+.center img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00;display:block;margin:0 auto 2px}
+.center b{font-size:12px;display:block}.center small{font-size:10px;color:#888;display:block}
+/* البطاقة - مرتاحة مش مضغوطة */
+.welcome{margin:10px 12px 0;background:linear-gradient(135deg,#0B1026,#1A237E 60%,#FF6B00);color:#fff;border-radius:16px;padding:16px}
+.welcome-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.welcome-name{text-align:right;flex:1}
+.welcome-name .hi{font-size:11px;opacity:.9}
+.welcome-name h2{margin:4px 0 0;font-size:18px;line-height:1.3}
+.welcome-code{text-align:center;flex-shrink:0}
+.welcome-code .code-label{font-size:11px;opacity:.9;margin-bottom:5px}
+.welcome-code .code{display:block;background:#fff;color:#0B1026;font-weight:900;font-size:16px;letter-spacing:2px;padding:7px 12px;border-radius:9px;direction:ltr}
+.welcome .meta{display:flex;justify-content:space-between;gap:10px;font-size:11px;opacity:.9;border-top:1px solid rgba(255,255,255,.25);padding-top:10px;margin-top:12px;line-height:1.6}
+.motivation{margin:10px 12px 0;text-align:center;padding:14px;background:#FFF3E0;border-radius:14px;border:1px dashed #FFB74D}
 .app.dark .motivation{background:#1E2447;border-color:#FF6B00}
-.motivation p{font-size:14px;font-weight:bold;margin:5px 0 0;line-height:1.6}
-.cal{margin:10px 12px 0;background:#fff;border-radius:16px;padding:12px}
+.motivation p{font-size:14px;font-weight:bold;margin:6px 0 0;line-height:1.6}
+.cal{margin:10px 12px 0;background:#fff;border-radius:16px;padding:14px}
 .cal-head{display:flex;justify-content:space-between;font-weight:bold;font-size:14px}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:8px;text-align:center;font-size:12px}
-.cal-grid div{padding:7px 0;border-radius:9px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:10px;text-align:center;font-size:12px}
+.cal-grid div{padding:8px 0;border-radius:9px}
 .cal-grid .wd{font-weight:bold;color:#888}
 .cal-grid .today{background:#FF6B00;color:#fff;font-weight:bold}
 .bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}
 .nav-item .ico{font-size:22px;line-height:1}
 .nav-item.active{background:#FFF3E0;color:#FF6B00}
-/* القايمة - على الشمال وبتفتح من الشمال - تثبيت */
-.sidebar{position:absolute;top:0;left:0;width:280px;height:100%;background:#fff;z-index:50;transform:translateX(-110%);transition:.35s;padding:14px;overflow:auto}
+/* القايمة - اتجاهها تمام، هنظبط اللي جواها */
+.sidebar{position:absolute;top:0;left:0;width:280px;height:100%;background:#fff;z-index:50;transform:translateX(-110%);transition:.35s;padding:16px;overflow:auto}
 .sidebar.open{transform:translateX(0)}
-.sidebar .head{display:flex;justify-content:space-between;align-items:center}
+.sidebar .head{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid #EEE}
 .sidebar .head button{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px}
-.sidebar .profile{text-align:center;margin:12px 0}
+.sidebar .profile{text-align:center;margin:16px 0 8px;padding:14px;background:#FFF8F0;border-radius:16px}
 .sidebar .profile img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00}
-.sidebar label{font-size:13px;font-weight:bold;display:block;margin-top:12px}
-.sidebar select{width:100%;padding:10px;border-radius:10px;margin-top:6px;border:1px solid #EEE}
-.sidebar .menu-btn{width:100%;padding:11px;border:none;border-radius:12px;cursor:pointer;font-weight:bold;margin-top:8px;text-align:right}
+.sidebar .profile b{display:block;margin-top:8px;font-size:14px}
+.sidebar .profile small{color:#888}
+.sidebar label{font-size:13px;font-weight:bold;display:block;margin-top:16px;margin-bottom:6px}
+.sidebar select{width:100%;padding:11px;border-radius:10px;border:1px solid #EEE;background:#fff;font-size:13px}
+.sidebar .menu-btn{width:100%;padding:12px;border:none;border-radius:12px;cursor:pointer;font-weight:bold;margin-top:10px;text-align:right;font-size:13px;display:flex;gap:8px;align-items:center}
 .btn-dark{background:#0B1026;color:#fff}.btn-orange{background:#FF6B00;color:#fff}.btn-red{background:#FFEBEE;color:#C62828}.btn-lang{background:#E8EAF6;color:#0B1026}
+.sidebar .divider{height:1px;background:#EEE;margin:16px 0}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:none;z-index:40}.overlay.show{display:block}
-/* الاشعارات - على اليمين وبتفتح من اليمين - تثبيت */
 .notif-panel{position:absolute;top:0;right:0;width:300px;height:100%;background:#fff;z-index:60;transform:translateX(110%);transition:.35s;padding:14px;overflow:auto}
 .notif-panel.open{transform:translateX(0)}
 .warning{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}
@@ -67,13 +71,15 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <div class="app" id="app">
 <div class="top">
 <button class="hamburger-btn" onclick="toggleSidebar()" title="القايمة">☰</button>
-<div class="center"><img src="teacher.jpg"><br><b>Mr Romany Faheam</b><br><small>MRF English</small></div>
+<div class="center"><img src="teacher.jpg"><b>Mr Romany Faheam</b><small>MRF English</small></div>
 <div class="top-right-icons"><button class="icon-btn" onclick="toggleNotif()">🔔</button><button class="icon-btn" onclick="goPage('notes.html')">📝</button></div>
 </div>
 
 <div class="welcome">
-<div class="welcome-name"><div style="font-size:11px" data-ar="مرحبا بك يا بطل 👋" data-en="Welcome, Champion 👋">مرحبا بك يا بطل 👋</div><h2 id="stuName">مرحبا بك</h2></div>
+<div class="welcome-row">
+<div class="welcome-name"><div class="hi" data-ar="مرحبا بك يا بطل 👋" data-en="Welcome, Champion 👋">مرحبا بك يا بطل 👋</div><h2 id="stuName">مرحبا بك</h2></div>
 <div class="welcome-code"><div class="code-label" data-ar="كودك الخاص" data-en="Your Code">كودك الخاص</div><span class="code" id="stuCode">------</span></div>
+</div>
 <div class="meta"><span id="stuStage"></span><span id="lastLogin"></span></div>
 </div>
 
@@ -93,15 +99,17 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 
 <div class="sidebar" id="sidebar">
 <div class="head"><h3 data-ar="القايمة" data-en="Menu">القايمة</h3><button onclick="closeAll()">→</button></div>
-<div class="profile"><img src="teacher.jpg"><p id="sideName" style="font-weight:bold;margin:6px 0"></p><small id="sideCode"></small></div>
-<button class="menu-btn btn-dark" onclick="goPage('settings.html')" data-ar="⚙️ الإعدادات" data-en="⚙️ Settings">⚙️ الإعدادات</button>
-<button class="menu-btn btn-orange" onclick="goPage('notes.html')" data-ar="📝 ملاحظاتي" data-en="📝 My Notes">📝 ملاحظاتي</button>
-<button class="menu-btn btn-lang" onclick="toggleLang()" data-ar="🌐 English" data-en="🌐 عربي">🌐 English</button>
+<div class="profile"><img src="teacher.jpg"><b id="sideName"></b><small id="sideCode"></small><div style="font-size:11px;color:#888;margin-top:4px">MRF English</div></div>
+<button class="menu-btn btn-dark" onclick="goPage('settings.html')"><span>⚙️</span><span data-ar="الإعدادات" data-en="Settings">الإعدادات</span></button>
+<button class="menu-btn btn-orange" onclick="goPage('notes.html')"><span>📝</span><span data-ar="ملاحظاتي" data-en="My Notes">ملاحظاتي</span></button>
+<button class="menu-btn btn-lang" onclick="toggleLang()"><span>🌐</span><span data-ar="English" data-en="عربي">English</span></button>
+<div class="divider"></div>
 <label data-ar="حجم الخط" data-en="Font Size">حجم الخط</label>
 <select id="fontSel" onchange="changeFont(this.value)"><option value="font-small">صغير</option><option value="font-medium" selected>متوسط</option><option value="font-large">كبير</option></select>
 <label data-ar="المظهر" data-en="Theme">المظهر</label>
 <select onchange="changeTheme(this.value)"><option value="light">فاتح</option><option value="dark">غامق</option></select>
-<button class="menu-btn btn-red" onclick="logout()" data-ar="تسجيل خروج" data-en="Logout">تسجيل خروج</button>
+<div class="divider"></div>
+<button class="menu-btn btn-red" onclick="logout()"><span>🚪</span><span data-ar="تسجيل خروج" data-en="Logout">تسجيل خروج</span></button>
 </div>
 
 <div class="notif-panel" id="notifPanel"><div style="display:flex;justify-content:space-between"><h3 data-ar="🔔 الإشعارات" data-en="🔔 Notifications">🔔 الإشعارات</h3><button onclick="closeAll()">✕</button></div><div id="notifList"></div></div>
