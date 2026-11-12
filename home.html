@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MRF English - V12</title>
+<title>MRF English - الرئيسية</title>
 <style>
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
 body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
@@ -28,7 +28,6 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .center img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00;display:block;margin:0 auto}
 .center b{font-size:15px;display:block;color:#0B1026;margin:2px 0 0;line-height:1}
 .center small{font-size:11px;color:#FF6B00;display:block;margin:1px 0 0;font-weight:bold}
-.version{position:absolute;right:10px;top:6px;font-size:11px;background:#C62828;color:#fff;padding:3px 8px;border-radius:10px;font-weight:bold}
 .welcome{margin:14px 12px 0;background:linear-gradient(135deg,#0B1026,#1A237E 60%,#FF6B00);color:#fff;border-radius:22px;padding:26px 20px 22px}
 .welcome-row{display:flex;justify-content:space-between;align-items:center;gap:14px}
 .welcome-name{text-align:right;flex:1}
@@ -55,15 +54,25 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .sidebar.open{transform:translateX(0)}
 .sidebar .head{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid #EEE}
 .sidebar .head button{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px}
-.sidebar .profile{text-align:center;margin:16px 0 8px;padding:14px;background:#FFF8F0;border-radius:16px}
-.sidebar .profile img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00}
-.sidebar .profile b{display:block;margin-top:8px;font-size:14px}
+.sidebar .profile{text-align:center;margin:16px 0 8px;padding:16px;background:#FFF8F0;border-radius:16px}
+.sidebar .profile img{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00;display:block;margin:0 auto}
+.sidebar .profile .no-photo{width:70px;height:70px;border-radius:50%;background:#0B1026;color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;margin:0 auto;border:2px solid #FF6B00}
+.sidebar .profile b{display:block;margin-top:10px;font-size:15px}
 .sidebar .profile small{color:#888}
 .sidebar label{font-size:13px;font-weight:bold;display:block;margin-top:16px;margin-bottom:6px}
 .sidebar select{width:100%;padding:11px;border-radius:10px;border:1px solid #EEE;background:#fff;font-size:13px}
 .sidebar .menu-btn{width:100%;padding:12px;border:none;border-radius:12px;cursor:pointer;font-weight:bold;margin-top:10px;text-align:right;font-size:13px;display:flex;gap:8px;align-items:center}
-.btn-dark{background:#0B1026;color:#fff}.btn-orange{background:#FF6B00;color:#fff}.btn-red{background:#FFEBEE;color:#C62828}.btn-lang{background:#E8EAF6;color:#0B1026}
+.btn-dark{background:#0B1026;color:#fff}.btn-red{background:#FFEBEE;color:#C62828}
 .sidebar .divider{height:1px;background:#EEE;margin:16px 0}
+/* زرار اللغة ON / OFF */
+.lang-row{display:flex;justify-content:space-between;align-items:center;background:#E8EAF6;padding:12px;border-radius:12px;margin-top:12px}
+.lang-row b{font-size:13px}
+.switch{position:relative;width:56px;height:30px;display:inline-block;flex-shrink:0}
+.switch input{display:none}
+.slider{position:absolute;inset:0;background:#ccc;border-radius:30px;cursor:pointer;transition:.3s}
+.slider:before{content:"";position:absolute;width:24px;height:24px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.3s}
+.switch input:checked + .slider{background:#FF6B00}
+.switch input:checked + .slider:before{transform:translateX(26px)}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.4);display:none;z-index:40}.overlay.show{display:block}
 .notif-panel{position:absolute;top:0;right:0;width:300px;height:100%;background:#fff;z-index:60;transform:translateX(110%);transition:.35s;padding:14px;overflow:auto}
 .notif-panel.open{transform:translateX(0)}
@@ -79,7 +88,6 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <body>
 <div class="app font-medium" id="app">
 <div class="top">
-<span class="version">V12</span>
 <button class="hamburger-btn" onclick="toggleSidebar()" title="القائمة">☰</button>
 <div class="center"><img src="teacher.jpg"><b>Mr Romany Faheam</b><small>MRF English</small></div>
 <div class="top-right-icons"><button class="icon-btn" onclick="toggleNotif()">🔔</button><button class="icon-btn" onclick="goPage('notes.html')">📝</button></div>
@@ -109,10 +117,9 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 
 <div class="sidebar" id="sidebar">
 <div class="head"><h3 data-ar="القائمة" data-en="Menu">القائمة</h3><button onclick="closeAll()">→</button></div>
-<div class="profile"><img src="teacher.jpg"><b id="sideName"></b><small id="sideCode"></small><div style="font-size:11px;color:#888;margin-top:4px">MRF English</div></div>
+<div class="profile"><div id="sidePhotoWrap"></div><b id="sideName"></b><small id="sideCode"></small><div style="font-size:11px;color:#888;margin-top:4px">MRF English</div></div>
 <button class="menu-btn btn-dark" onclick="goPage('settings.html')"><span>⚙️</span><span data-ar="الإعدادات" data-en="Settings">الإعدادات</span></button>
-<button class="menu-btn btn-orange" onclick="goPage('notes.html')"><span>📝</span><span data-ar="ملاحظاتي" data-en="My Notes">ملاحظاتي</span></button>
-<button class="menu-btn btn-lang" onclick="toggleLang()"><span>🌐</span><span data-ar="English" data-en="عربي">English</span></button>
+<div class="lang-row"><b><span data-ar="اللغة: عربي" data-en="Language: English">اللغة: عربي</span><br><small style="font-weight:normal;color:#666" data-ar="شغلها للإنجليزي" data-en="Turn ON for English">شغلها للإنجليزي</small></b><label class="switch"><input type="checkbox" id="langSwitch" onchange="toggleLangSwitch(this.checked)"><span class="slider"></span></label></div>
 <div class="divider"></div>
 <label data-ar="حجم الخط" data-en="Font Size">حجم الخط</label>
 <select id="fontSel" onchange="changeFont(this.value)"><option value="font-small">صغير</option><option value="font-medium" selected>متوسط</option><option value="font-large">كبير</option></select>
@@ -167,9 +174,17 @@ function applyLang(){
   var fontSel=document.getElementById('fontSel');
   if(isEn){ fontSel.options[0].text='Small'; fontSel.options[1].text='Medium'; fontSel.options[2].text='Large'; }
   else { fontSel.options[0].text='صغير'; fontSel.options[1].text='متوسط'; fontSel.options[2].text='كبير'; }
+  var sw=document.getElementById('langSwitch'); if(sw) sw.checked = isEn;
+}
+function renderSidePhoto(){
+  var photo = localStorage.getItem('studentPhoto') || stu.photo || '';
+  var wrap=document.getElementById('sidePhotoWrap');
+  if(photo){ wrap.innerHTML='<img src="'+photo+'">'; }
+  else { var first = (stu.name||'ط').trim().charAt(0); wrap.innerHTML='<div class="no-photo">'+first+'</div>'; }
 }
 document.getElementById('stuCode').innerText=stu.code;
 document.getElementById('sideName').innerText=stu.name;document.getElementById('sideCode').innerText=stu.code;
+renderSidePhoto();
 var now=new Date();if(!localStorage.getItem('lastLogin')) localStorage.setItem('lastLogin',now.toLocaleString('ar-EG'));
 setInterval(function(){qi=(qi+1)%quotes.length;var el=document.getElementById('motivationText');el.style.opacity=0;setTimeout(function(){el.innerText=quotes[qi];el.style.opacity=1;},300);},6000);
 function toggleSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('overlay').classList.add('show');}
@@ -187,7 +202,8 @@ document.getElementById('app').classList.add(savedFont);
 document.getElementById('fontSel').value = savedFont;
 function changeTheme(v){if(v==='dark')document.getElementById('app').classList.add('dark');else document.getElementById('app').classList.remove('dark');localStorage.setItem('theme',v);}
 if(localStorage.getItem('theme')==='dark') document.getElementById('app').classList.add('dark');
-function toggleLang(){isEn=!isEn;localStorage.setItem('lang',isEn?'en':'ar');applyLang();}
+function toggleLangSwitch(checked){ isEn = checked; localStorage.setItem('lang', isEn?'en':'ar'); applyLang(); }
+function toggleLang(){ isEn=!isEn; localStorage.setItem('lang',isEn?'en':'ar'); applyLang(); }
 function logout(){localStorage.removeItem('currentStudent');location.href='index.html';}
 function checkAgree(){document.getElementById('understoodBtn').classList.toggle('active',document.getElementById('agreeCheck').checked);}
 function acceptWarning(){if(!document.getElementById('agreeCheck').checked){alert('اعمل علامة صح الأول');return;}localStorage.setItem('acceptedWarning','yes');document.getElementById('warningModal').classList.remove('show');}
