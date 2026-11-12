@@ -12,18 +12,22 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center;overflow-x:
 @keyframes fromRight{from{transform:translateX(60px);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes fromLeft{from{transform:translateX(-60px);opacity:0}to{transform:translateX(0);opacity:1}}
 @keyframes zoom{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
-.hero{background:linear-gradient(135deg,#0B1026,#FF6B00);color:#fff;padding:26px 16px 20px;text-align:center;border-radius:0 0 28px 28px;position:relative;overflow:hidden}
-.hero img{width:78px;height:78px;border-radius:50%;border:3px solid #fff;object-fit:cover;background:#fff;animation:up .8s ease both}
+.hero{background:linear-gradient(135deg,#0B1026,#FF6B00);color:#fff;padding:26px 16px 18px;text-align:center;border-radius:0 0 28px 28px}
+.hero .teacher-wrap{position:relative;width:84px;height:84px;margin:0 auto}
+.hero .teacher-wrap img{width:84px;height:84px;border-radius:50%;border:3px solid #fff;object-fit:cover;background:#fff;animation:up .8s ease both}
+.hero .monkey{position:absolute;bottom:-6px;right:-6px;width:34px;height:34px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
 .hero h1{margin:12px 0 4px;font-size:24px;animation:fromRight .8s .2s ease both}
 .hero p{margin:0;opacity:.9;font-size:13px;animation:fromLeft .8s .3s ease both}
 .tabs{display:flex;gap:8px;margin:16px 12px 0;animation:zoom .6s .4s ease both}
 .tabs button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;cursor:pointer;background:#E0E0E0}
 .tabs button.active{background:#0B1026;color:#fff}
 .form{margin:12px;background:#fff;border-radius:18px;padding:16px;border:1px solid #FFE0B2;animation:up .7s .5s ease both}
-.form label{display:block;font-size:12px;font-weight:bold;margin:12px 0 6px;color:#333;animation:fromRight .6s ease both}
+.form label{display:block;font-size:12px;font-weight:bold;margin:12px 0 6px;color:#333}
 .form label:first-child{margin-top:0}
 .form input,.form select{width:100%;padding:13px;border-radius:12px;border:1px solid #E0E0E0;outline:none;font-size:14px;background:#fff}
 .form input:focus{border-color:#FF6B00}
+.pass-wrap{position:relative}
+.pass-wrap .eye{position:absolute;left:10px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:18px;cursor:pointer}
 .hint{font-size:11px;color:#888;margin-top:4px}
 .code-box{background:#FFF3E0;border:2px dashed #FF6B00;border-radius:14px;padding:14px;text-align:center;margin:12px 0;display:none}
 .code-box b{font-size:26px;letter-spacing:4px;color:#0B1026}
@@ -36,14 +40,20 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center;overflow-x:
 .check-row{display:flex;gap:8px;align-items:flex-start;background:#FFF8F0;padding:12px;border-radius:12px;margin-top:12px;font-size:12px;line-height:1.7;font-weight:bold}
 .check-row input{width:18px;height:18px;margin-top:2px;flex-shrink:0}
 .warn-box{background:#FFF3E0;border:1px solid #FFCC80;border-radius:12px;padding:12px;font-size:12px;line-height:1.8;margin-top:12px;display:none}
+.warn-box b{color:#C62828}
 .err{color:#C62828;font-size:12px;margin-top:6px;display:none}
-.footer{text-align:center;font-size:11px;color:#999;padding:12px;animation:fromLeft .7s ease both}
+.footer{text-align:center;font-size:11px;color:#999;padding:12px}
+.instr{margin:12px;background:#fff;border-radius:18px;padding:16px;border:1px solid #FFE0B2;font-size:13px;line-height:1.8;display:none}
+.instr h3{margin:0 0 8px}
 </style>
 </head>
 <body>
 <div class="app">
 <div class="hero">
-<img src="teacher.jpg" onerror="this.style.display='none'">
+<div class="teacher-wrap">
+<img src="teacher.jpg" onerror="this.src='https://via.placeholder.com/84'">
+<div class="monkey" id="monkey">🙈</div>
+</div>
 <h1>MRF English</h1>
 <p>مستر روماني فهيم - لغة إنجليزية</p>
 </div>
@@ -72,15 +82,21 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center;overflow-x:
 </select>
 
 <label>كلمة السر *</label>
-<input id="suPass" type="password" placeholder="اختار كلمة سر">
+<div class="pass-wrap">
+<input id="suPass" type="password" placeholder="اختار كلمة سر" onfocus="monkeyHide()" onblur="monkeyShow()" oninput="monkeyHide()">
+<button class="eye" type="button" onclick="togglePass('suPass',this)">👁️</button>
+</div>
 <label>تأكيد كلمة السر *</label>
-<input id="suPass2" type="password" placeholder="اكتب كلمة السر تاني">
+<div class="pass-wrap">
+<input id="suPass2" type="password" placeholder="اكتب كلمة السر تاني" onfocus="monkeyHide()" onblur="monkeyShow()">
+<button class="eye" type="button" onclick="togglePass('suPass2',this)">👁️</button>
+</div>
 <div class="err" id="errPass">كلمة السر مش متطابقة، أو أقل من 4 حروف</div>
 
 <div class="code-box" id="codeBox">
 <div style="font-size:13px">كودك الخاص 🔐</div>
 <b id="myCode"></b>
-<p>احفظ الكود ده، هتدخل بيه الامتحان والواجب</p>
+<p>احفظ الكود ده، هتدخل بيه الامتحان والواجب<br>الكود ده ظهر بعد ما عملت حسابك، مش قبل كده</p>
 </div>
 
 <div class="warn-box" id="warnBox">
@@ -94,7 +110,18 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center;overflow-x:
 <label class="check-row"><input type="checkbox" id="agreeCheck" onchange="checkAgree()"> أنا قرأت التحذير وفهمته، وموافق على كل التعليمات</label>
 
 <button class="btn btn-green" id="createBtn" disabled onclick="createAccount()">فهمت ✅ - إنشاء الحساب ودخول</button>
+<button class="btn" style="background:#EEE;color:#333" onclick="showInstr()">📖 صفحة التعليمات</button>
 <div class="err" id="errGeneral" style="text-align:center"></div>
+</div>
+<div class="instr" id="instrBox">
+<h3>📖 تعليمات التطبيق</h3>
+<b>1. إنشاء الحساب:</b> اكتب اسمك 4 أجزاء، رقم الواتساب، المرحلة، كلمة السر.<br>
+<b>2. الكود:</b> بعد ما تعمل حساب، هيطلعلك كود من 6 حروف وأرقام، احفظه، هتدخل بيه الامتحان.<br>
+<b>3. الامتحان:</b> ادخل بالكود، اقرأ التعليمات، دوس فهمت، حل بنفسك، متخرجش من الامتحان.<br>
+<b>4. الواجب:</b> زي الامتحان بالظبط، بس اسمه واجب.<br>
+<b>5. التقارير:</b> بعد ما تخلص، هتلاقي درجتك وإجاباتك الصح والغلط.<br>
+<b>6. لو نسيت كلمة السر:</b> كلم الدعم: 01145471688<br>
+<button class="btn btn-green" onclick="document.getElementById('instrBox').style.display='none'">تمام، فهمت ✅</button>
 </div>
 </div>
 
@@ -103,7 +130,10 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center;overflow-x:
 <label>ادخل بالاسم أو الرقم أو الكود *</label>
 <input id="liUser" placeholder="الاسم أو رقم الواتساب أو الكود">
 <label>كلمة السر *</label>
-<input id="liPass" type="password" placeholder="كلمة السر بتاعتك">
+<div class="pass-wrap">
+<input id="liPass" type="password" placeholder="كلمة السر بتاعتك" onfocus="monkeyHide()" onblur="monkeyShow()">
+<button class="eye" type="button" onclick="togglePass('liPass',this)">👁️</button>
+</div>
 <div class="err" id="errLogin">البيانات غلط، اتأكد من البيانات وكلمة السر</div>
 <button class="btn" onclick="doLogin()">دخول على الرئيسية →</button>
 <div class="forgot">نسيت كلمة السر؟ <a href="tel:01145471688">كلم الدعم 📞</a></div>
@@ -114,12 +144,20 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center;overflow-x:
 </div>
 
 <script>
+function monkeyHide(){ document.getElementById('monkey').innerText='🙉'; }
+function monkeyShow(){ document.getElementById('monkey').innerText='🙈'; }
+function togglePass(id, btn){
+  var inp=document.getElementById(id);
+  if(inp.type==='password'){ inp.type='text'; btn.innerText='🙈'; }
+  else { inp.type='password'; btn.innerText='👁️'; }
+}
 function showTab(t){
   document.getElementById('tabSignup').classList.toggle('active', t==='signup');
   document.getElementById('tabLogin').classList.toggle('active', t==='login');
   document.getElementById('signupView').style.display = t==='signup' ? 'block':'none';
   document.getElementById('loginView').style.display = t==='login' ? 'block':'none';
 }
+function showInstr(){ document.getElementById('instrBox').style.display='block'; document.getElementById('instrBox').scrollIntoView({behavior:'smooth'}); }
 function makeCode(){
   var chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   var c='';
@@ -159,6 +197,7 @@ function createAccount(){
   students.push(stu);
   localStorage.setItem('students', JSON.stringify(students));
   localStorage.setItem('currentStudent', JSON.stringify(stu));
+  // الكود بيظهر هنا بس، بعد ما يعمل حساب، مش قبل كده
   document.getElementById('myCode').innerText=code;
   document.getElementById('codeBox').style.display='block';
   document.getElementById('createBtn').innerText='تمام، ادخل على الرئيسية →';
