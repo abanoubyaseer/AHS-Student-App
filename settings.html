@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRF English - الإعدادات</title>
+<style>
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
+.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;padding-bottom:72px;font-size:15px}
+.app.font-small{font-size:13px}.app.font-large{font-size:18px}
+.app.dark{background:#141A33;color:#fff}.app.dark .card,.app.dark .top,.app.dark .bottom-nav{background:#1E2447;color:#fff}
+.top{height:60px;display:flex;align-items:center;gap:10px;padding:0 12px;background:#fff;border-bottom:1px solid #EEE}
+.top button{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px}
+.top b{flex:1;text-align:center}
+.card{margin:12px;background:#fff;border-radius:16px;padding:14px}
+.card h3{margin:0 0 10px}
+.photo-row{display:flex;gap:12px;align-items:center}
+.photo-row img{width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00}
+.photo-row .no-photo{width:72px;height:72px;border-radius:50%;background:#0B1026;color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900}
+.photo-row small{display:block;color:#888;margin-top:4px}
+label{display:block;font-weight:bold;font-size:13px;margin:12px 0 6px}
+input,select{width:100%;padding:11px;border-radius:10px;border:1px solid #EEE;background:#fff}
+input[readonly]{background:#F5F5F5;color:#666}
+.btn{width:100%;padding:12px;border:none;border-radius:12px;font-weight:bold;cursor:pointer;margin-top:10px}
+.btn-orange{background:#FF6B00;color:#fff}.btn-dark{background:#0B1026;color:#fff}.btn-red{background:#FFEBEE;color:#C62828}
+.note{font-size:12px;color:#888;line-height:1.6}
+.lang-row{display:flex;justify-content:space-between;align-items:center;background:#E8EAF6;padding:12px;border-radius:12px}
+.switch{position:relative;width:56px;height:30px;display:inline-block;flex-shrink:0}
+.switch input{display:none}
+.slider{position:absolute;inset:0;background:#ccc;border-radius:30px;cursor:pointer;transition:.3s}
+.slider:before{content:"";position:absolute;width:24px;height:24px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.3s}
+.switch input:checked + .slider{background:#FF6B00}
+.switch input:checked + .slider:before{transform:translateX(26px)}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}
+.nav-item .ico{font-size:22px}
+.nav-item.active{background:#FFF3E0;color:#FF6B00}
+</style>
+</head>
+<body>
+<div class="app font-medium" id="app">
+<div class="top"><button onclick="location.href='home.html'">→</button><b data-ar="⚙️ الإعدادات" data-en="⚙️ Settings">⚙️ الإعدادات</b><span style="width:38px"></span></div>
+
+<div class="card">
+<h3 data-ar="📷 صورتي" data-en="📷 My Photo">📷 صورتي</h3>
+<div class="photo-row"><div id="photoWrap"></div><div style="flex:1"><input type="file" id="photoInput" accept="image/*" onchange="previewPhoto(this)"><small data-ar="اختار صورة لنفسك، هتظهر في القائمة" data-en="Choose your photo, it will show in the menu">اختار صورة لنفسك، هتظهر في القائمة</small></div></div>
+<button class="btn btn-orange" onclick="savePhoto()" data-ar="حفظ الصورة" data-en="Save Photo">حفظ الصورة</button>
+</div>
+
+<div class="card">
+<h3 data-ar="👤 بياناتي" data-en="👤 My Data">👤 بياناتي</h3>
+<label data-ar="الاسم بالكامل" data-en="Full Name">الاسم بالكامل</label>
+<input id="stuName" readonly>
+<div class="note" data-ar="الاسم مش بيتغير، لو عايز تغيره كلم المستر" data-en="Name cannot be changed, call the teacher if you need to change it">الاسم مش بيتغير، لو عايز تغيره كلم المستر</div>
+<label data-ar="كودي الخاص" data-en="My Code">كودي الخاص</label>
+<input id="stuCode" readonly>
+<div class="note" data-ar="الكود مش بيتغير" data-en="Code cannot be changed">الكود مش بيتغير</div>
+<label data-ar="المرحلة" data-en="Stage">المرحلة</label>
+<input id="stuStage" readonly>
+<label data-ar="رقم الواتساب" data-en="WhatsApp Number">رقم الواتساب</label>
+<input id="stuPhone" placeholder="01xxxxxxxxx">
+<button class="btn btn-dark" onclick="savePhone()" data-ar="حفظ رقم الواتساب" data-en="Save WhatsApp Number">حفظ رقم الواتساب</button>
+</div>
+
+<div class="card">
+<h3 data-ar="🔒 كلمة السر" data-en="🔒 Password">🔒 كلمة السر</h3>
+<label data-ar="كلمة السر القديمة" data-en="Old Password">كلمة السر القديمة</label>
+<input type="password" id="oldPass">
+<label data-ar="كلمة السر الجديدة" data-en="New Password">كلمة السر الجديدة</label>
+<input type="password" id="newPass">
+<label data-ar="تأكيد كلمة السر الجديدة" data-en="Confirm New Password">تأكيد كلمة السر الجديدة</label>
+<input type="password" id="confirmPass">
+<button class="btn btn-orange" onclick="changePass()" data-ar="تغيير كلمة السر" data-en="Change Password">تغيير كلمة السر</button>
+<div class="note" data-ar="لما تغير كلمة السر، هيوصل إشعار للمستر وليك إن كلمة السر اتغيرت" data-en="When you change your password, the teacher and you will get a notification">لما تغير كلمة السر، هيوصل إشعار للمستر وليك إن كلمة السر اتغيرت</div>
+</div>
+
+<div class="card">
+<h3 data-ar="🎨 شكل التطبيق" data-en="🎨 App Appearance">🎨 شكل التطبيق</h3>
+<div class="lang-row"><b><span data-ar="اللغة: عربي" data-en="Language: English">اللغة: عربي</span><br><small style="font-weight:normal;color:#666" data-ar="شغلها للإنجليزي" data-en="Turn ON for English">شغلها للإنجليزي</small></b><label class="switch"><input type="checkbox" id="langSwitch" onchange="toggleLangSwitch(this.checked)"><span class="slider"></span></label></div>
+<label data-ar="حجم الخط" data-en="Font Size">حجم الخط</label>
+<select id="fontSel" onchange="changeFont(this.value)"><option value="font-small">صغير</option><option value="font-medium" selected>متوسط</option><option value="font-large">كبير</option></select>
+<label data-ar="المظهر" data-en="Theme">المظهر</label>
+<select id="themeSel" onchange="changeTheme(this.value)"><option value="light">فاتح</option><option value="dark">غامق</option></select>
+</div>
+
+<div class="card">
+<button class="btn btn-red" onclick="logout()" data-ar="🚪 تسجيل خروج" data-en="🚪 Logout">🚪 تسجيل خروج</button>
+<div class="note" style="text-align:center;margin-top:8px">MRF English - Mr Romany Faheam<br>الدعم: 01145471688</div>
+</div>
+
+<div class="bottom-nav">
+<button class="nav-item" onclick="location.href='exams.html'"><span class="ico">📝</span><span data-ar="امتحان جديد" data-en="New Exam">امتحان جديد</span></button>
+<button class="nav-item" onclick="location.href='homework.html'"><span class="ico">📚</span><span data-ar="واجب جديد" data-en="New Homework">واجب جديد</span></button>
+<button class="nav-item" onclick="location.href='home.html'"><span class="ico">🏠</span><span data-ar="الرئيسية" data-en="Home">الرئيسية</span></button>
+<button class="nav-item" onclick="location.href='chat.html'"><span class="ico">💬</span><span data-ar="المنتدى" data-en="Forum">المنتدى</span></button>
+<button class="nav-item" onclick="location.href='reports.html'"><span class="ico">📊</span><span data-ar="تقاريري" data-en="My Reports">تقاريري</span></button>
+</div>
+</div>
+<script>
+var stu=JSON.parse(localStorage.getItem('currentStudent')||'null');
+if(!stu){stu={name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا',phone:'',password:'123456'};}
+var isEn = localStorage.getItem('lang')==='en';
+function applyLang(){
+  document.documentElement.lang = isEn ? 'en' : 'ar';
+  document.querySelectorAll('[data-ar]').forEach(function(el){ el.innerText = isEn ? el.getAttribute('data-en') : el.getAttribute('data-ar'); });
+  var sw=document.getElementById('langSwitch'); if(sw) sw.checked=isEn;
+  var fs=document.getElementById('fontSel'); if(isEn){fs.options[0].text='Small';fs.options[1].text='Medium';fs.options[2].text='Large';} else {fs.options[0].text='صغير';fs.options[1].text='متوسط';fs.options[2].text='كبير';}
+}
+function renderPhoto(){
+  var photo=localStorage.getItem('studentPhoto')||stu.photo||'';
+  var w=document.getElementById('photoWrap');
+  if(photo){w.innerHTML='<img src="'+photo+'">';} else {w.innerHTML='<div class="no-photo">'+(stu.name||'ط').trim().charAt(0)+'</div>';}
+}
+document.getElementById('stuName').value=stu.name;
+document.getElementById('stuCode').value=stu.code;
+document.getElementById('stuStage').value=stu.stage;
+document.getElementById('stuPhone').value=stu.phone||localStorage.getItem('studentPhone')||'';
+renderPhoto();
+var tempPhoto='';
+function previewPhoto(inp){
+  var f=inp.files[0]; if(!f) return;
+  var r=new FileReader(); r.onload=function(e){ tempPhoto=e.target.result; document.getElementById('photoWrap').innerHTML='<img src="'+tempPhoto+'">'; }; r.readAsDataURL(f);
+}
+function savePhoto(){
+  if(!tempPhoto){ alert(isEn?'Choose a photo first':'اختار صورة الأول'); return; }
+  localStorage.setItem('studentPhoto',tempPhoto);
+  stu.photo=tempPhoto; localStorage.setItem('currentStudent',JSON.stringify(stu));
+  alert(isEn?'Photo saved, it will show in the menu':'اتحفظت الصورة، هتظهر في القائمة');
+}
+function savePhone(){
+  var p=document.getElementById('stuPhone').value.trim();
+  if(p.length<11){ alert(isEn?'Enter a valid WhatsApp number':'اكتب رقم واتساب صح'); return; }
+  localStorage.setItem('studentPhone',p); stu.phone=p; localStorage.setItem('currentStudent',JSON.stringify(stu));
+  alert(isEn?'Number saved':'اتحفظ الرقم');
+}
+function changePass(){
+  var oldP=document.getElementById('oldPass').value;
+  var newP=document.getElementById('newPass').value;
+  var conf=document.getElementById('confirmPass').value;
+  if(oldP!==stu.password){ alert(isEn?'Old password is wrong':'كلمة السر القديمة غلط'); return; }
+  if(newP.length<4){ alert(isEn?'New password must be at least 4 characters':'كلمة السر الجديدة لازم تبقى 4 حروف على الأقل'); return; }
+  if(newP!==conf){ alert(isEn?'New password and confirmation do not match':'الجديدة والتأكيد مش زي بعض'); return; }
+  stu.password=newP; localStorage.setItem('currentStudent',JSON.stringify(stu));
+  var arr=JSON.parse(localStorage.getItem('stuNotifs')||'[]');
+  arr.unshift({title:isEn?'Password changed':'تم تغيير كلمة السر', body:isEn?'Your password was changed successfully':'تم تغيير كلمة السر بنجاح', time:new Date().toLocaleString('ar-EG')});
+  localStorage.setItem('stuNotifs',JSON.stringify(arr));
+  var tArr=JSON.parse(localStorage.getItem('teacherNotifs')||'[]');
+  tArr.unshift({title:'تغيير كلمة سر', body:'الطالب '+stu.name+' ('+stu.code+') غير كلمة السر', time:new Date().toLocaleString('ar-EG')});
+  localStorage.setItem('teacherNotifs',JSON.stringify(tArr));
+  alert(isEn?'Password changed, teacher was notified':'اتغيرت كلمة السر، والمستر اتبعتله إشعار');
+  document.getElementById('oldPass').value='';document.getElementById('newPass').value='';document.getElementById('confirmPass').value='';
+}
+function toggleLangSwitch(checked){ isEn=checked; localStorage.setItem('lang',isEn?'en':'ar'); applyLang(); }
+function changeFont(v){ var app=document.getElementById('app'); app.classList.remove('font-small','font-medium','font-large'); app.classList.add(v); localStorage.setItem('font',v); }
+var savedFont=localStorage.getItem('font')||'font-medium';
+document.getElementById('app').classList.remove('font-small','font-medium','font-large'); document.getElementById('app').classList.add(savedFont); document.getElementById('fontSel').value=savedFont;
+function changeTheme(v){ if(v==='dark')document.getElementById('app').classList.add('dark'); else document.getElementById('app').classList.remove('dark'); localStorage.setItem('theme',v); }
+var savedTheme=localStorage.getItem('theme')||'light'; document.getElementById('themeSel').value=savedTheme; if(savedTheme==='dark')document.getElementById('app').classList.add('dark');
+function logout(){ localStorage.removeItem('currentStudent'); location.href='index.html'; }
+applyLang();
+</script>
+</body>
+</html>
