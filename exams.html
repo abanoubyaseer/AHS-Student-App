@@ -13,7 +13,7 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .card{margin:12px;background:#fff;border-radius:18px;padding:16px;border:1px solid #FFE0B2}
 .card h3{margin:0}.card .meta{font-size:12px;color:#888;margin:8px 0;line-height:1.8}
 .card .enter{width:100%;padding:13px;border:none;border-radius:12px;background:#FF6B00;color:#fff;font-weight:bold;cursor:pointer;font-size:14px}
-.empty{text-align:center;color:#888;padding:30px}.empty .big{font-size:44px}
+.empty{text-align:center;color:#888;padding:30px}.empty .big{font-size:44px}.empty b{color:#0B1026;font-size:16px}
 .modal{position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}.modal.show{display:flex}
 .modal-box{background:#fff;border-radius:20px;padding:18px;width:100%;max-height:92%;overflow:auto;text-align:center}
 .modal-box h2{margin:0}.modal-box ul{text-align:right;line-height:1.8;font-size:13px}
@@ -51,16 +51,16 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 </div>
 <script>
 var stu=JSON.parse(localStorage.getItem('currentStudent')||'null')||{name:'طالب',code:'X7K9Q2',stage:'أولى بكالوريا'};
-var exams=JSON.parse(localStorage.getItem('teacherExams')||'null');
-if(!exams || exams.length===0){
-  exams=[{id:'demo1', title:'امتحان تجريبي - Unit 1', stage: stu.stage, duration:5, passGrade:50, totalGrade:10, perPage:1, note:'راجع Unit 1 كويس، الامتحان ده تجريبي عشان تجرب النظام.', questions:[{q:'What is the synonym of "happy"?', type:'mcq', options:['sad','glad','angry','tired'], correct:1, grade:5},{q:'She ___ to school every day.', type:'mcq', options:['go','goes','going','gone'], correct:1, grade:5}]}];
-  localStorage.setItem('teacherExams', JSON.stringify(exams));
-}
+// مفيش أي امتحان وهمي - اللي المستر يعمله هو اللي هيظهر بس
+var exams=JSON.parse(localStorage.getItem('teacherExams')||'[]');
 var currentExam=null, answers={}, currentPage=0, timerInt=null, timeLeft=0, enterTime=null, cheatCount=0;
 function renderList(){
   var el=document.getElementById('listView'); el.innerHTML='';
   var list=exams.filter(function(e){ return !e.stage || e.stage===stu.stage || e.stage==='all'; });
-  if(list.length===0){ el.innerHTML='<div class="empty"><div class="big">📝</div><p>لسه مفيش امتحان جديد.</p></div>'; return; }
+  if(list.length===0){
+    el.innerHTML='<div class="empty"><div class="big">📚 💪 ✨</div><b>ذاكر، الاختبار قرب 📚</b><p>لسه مفيش امتحان جديد.<br>لما المستر ينزل امتحان، هيظهر هنا على طول.<br>استغل الوقت وذاكر، واجمد يا بطل 💪</p></div>';
+    return;
+  }
   list.forEach(function(ex){
     var div=document.createElement('div'); div.className='card';
     div.innerHTML='<h3>📝 '+ex.title+'</h3><div class="meta">⏰ المدة: '+ex.duration+' دقيقة<br>❓ عدد الأسئلة: '+ex.questions.length+' سؤال<br>🏆 درجة النجاح: '+ex.passGrade+'%<br>📚 المرحلة: '+(ex.stage||'الكل')+'</div><button class="enter" onclick="openExam(\''+ex.id+'\')">الدخول إلى الاختبار →</button>';
@@ -130,7 +130,7 @@ function submitExam(){
   html+='<button class="btn-green" onclick="goReports()" style="margin:10px 12px;width:calc(100% - 24px)">أوكي ✅</button>';
   res.innerHTML=html;
   var reports=JSON.parse(localStorage.getItem('studentReports')||'[]');
-  reports.unshift({type:'exam', title:currentExam.title, name:stu.name, code:stu.code, enter:enterTime.toLocaleString('ar-EG'), duration:durMin, grade:got, total:total, percent:percent, passed:passed, cheat:cheatCount, answers:answers, questions:currentExam.questions, date:Date.now()});
+  reports.unshift({type:'exam', title:currentExam.title, name:stu.name, code:stu.code, stage:stu.stage, enter:enterTime.toLocaleString('ar-EG'), duration:durMin, grade:got, total:total, percent:percent, passed:passed, cheat:cheatCount, answers:answers, questions:currentExam.questions, date:Date.now()});
   localStorage.setItem('studentReports', JSON.stringify(reports));
 }
 function goReports(){ location.href='reports.html'; }
