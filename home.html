@@ -12,9 +12,10 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .app.dark .top,.app.dark .id-card,.app.dark .honor-card,.app.dark .cal-card,.app.dark .bottom-nav,.app.dark .side,.app.dark .right-panel{background:#1E2447;color:#fff}
 .app.small{font-size:12px}.app.medium{font-size:15px}.app.large{font-size:18px}
 @keyframes up{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
-.top{height:60px;background:#fff;border-bottom:1px solid #EEE;display:flex;align-items:center;padding:0 10px;gap:8px;position:relative;z-index:30;animation:up .5s ease both}
+/* الشريط اللي فوق - ltr عشان الشمال يفضل شمال واليمين يفضل يمين */
+.top{height:60px;background:#fff;border-bottom:1px solid #EEE;display:flex;align-items:center;padding:0 10px;gap:8px;position:relative;z-index:30;animation:up .5s ease both;direction:ltr}
 .top button{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px;flex-shrink:0}
-.top .logo{flex:1;text-align:center;font-weight:900;font-size:16px}.top .logo span{color:#FF6B00}
+.top .logo{flex:1;text-align:center;font-weight:900;font-size:16px;direction:rtl}.top .logo span{color:#FF6B00}
 .id-card{margin:12px;background:#fff;border-radius:20px;padding:14px;display:flex;gap:12px;align-items:center;border:1px solid #FFE0B2;animation:up .5s .1s ease both}
 .id-card img{width:62px;height:62px;border-radius:50%;object-fit:cover;border:3px solid #FF6B00;background:#EEE;flex-shrink:0}
 .id-card .info{flex:1;min-width:0}.id-card .info b{font-size:15px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.id-card .info span{font-size:12px;color:#888;display:block;margin-top:3px}
@@ -25,40 +26,39 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .cal-card{margin:0 12px;background:#fff;border-radius:18px;padding:14px;border:1px solid #FFE0B2;animation:up .5s .4s ease both}
 .cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.cal-head b{font-size:14px}.cal-head button{border:none;background:#FFF3E0;border-radius:50%;width:32px;height:32px;cursor:pointer}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:12px}.cal-grid .dow{font-weight:bold;color:#888}.cal-grid .day{padding:8px 0;border-radius:10px}.cal-grid .day.today{background:#FF6B00;color:#fff;font-weight:bold}
-.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20}
+.bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20;direction:ltr}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}.nav-item .ico{font-size:22px}.nav-item.active{background:#FFF3E0;color:#FF6B00}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:40;display:none}.overlay.show{display:block}
-/* القايمة الجانبية - بتفتح من الشمال */
-.side{position:absolute;top:0;bottom:0;width:260px;background:#fff;z-index:50;transition:.3s;overflow:auto;padding:16px;left:-270px;right:auto}.side.open{left:0;right:auto}
+/* القايمة - بتفتح من الشمال الفيزيائي */
+.side{position:absolute;top:0;bottom:0;width:260px;background:#fff;z-index:50;transition:.3s;overflow:auto;padding:16px;left:-270px;right:auto}.side.open{left:0}
 .side .p{display:flex;gap:10px;align-items:center;margin-bottom:14px}.side .p img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00;background:#EEE}.side .p b{display:block}.side .p span{font-size:11px;color:#888}
 .side h3{margin:0 0 12px}.side a{display:flex;gap:10px;align-items:center;padding:12px;border-radius:12px;text-decoration:none;color:#333;font-weight:bold;font-size:13px}.side a:hover{background:#FFF3E0}
 .side .row{display:flex;justify-content:space-between;align-items:center;padding:12px;font-size:13px;font-weight:bold}
 .switch{width:48px;height:26px;background:#CCC;border-radius:20px;position:relative;cursor:pointer;flex-shrink:0}.switch:after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.2s}.switch.on{background:#2E7D32}.switch.on:after{left:25px}
 .font-row{display:flex;gap:6px}.font-row button{flex:1;padding:8px;border:2px solid #EEE;border-radius:10px;background:#fff;cursor:pointer;font-weight:bold}.font-row button.active{border-color:#FF6B00;background:#FFF3E0}
-/* الإشعارات والملاحظات - بتفتح من اليمين */
-.right-panel{position:absolute;top:0;bottom:0;width:280px;background:#fff;z-index:50;transition:.3s;overflow:auto;padding:16px;right:-290px;left:auto}.right-panel.open{right:0;left:auto}
-.right-panel h3{margin:0 0 12px}.noti{padding:12px;background:#FFF8F0;border-radius:12px;margin-bottom:8px;font-size:13px;line-height:1.6}.noti b{display:block}
+/* الإشعارات - بتفتح من اليمين الفيزيائي */
+.right-panel{position:absolute;top:0;bottom:0;width:280px;background:#fff;z-index:50;transition:.3s;overflow:auto;padding:16px;right:-290px;left:auto}.right-panel.open{right:0}
+.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.panel-head h3{margin:0}.panel-head .actions{display:flex;gap:6px}.panel-head .actions button{width:32px;height:32px;border:none;background:#FFF3E0;border-radius:50%;cursor:pointer;font-size:16px}
+.noti{padding:12px;background:#FFF8F0;border-radius:12px;margin-bottom:8px;font-size:13px;line-height:1.6}.noti b{display:block}
 .tone-row{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#FFF8F0;border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:bold}.tone-row button{border:none;background:#FF6B00;color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="app medium" id="app">
 <div class="top">
-<!-- اللي على الشمال بيفتح من الشمال -->
 <button onclick="openLeft()">☰</button>
 <div class="logo">MRF <span>English</span></div>
 <button onclick="openRight('notes')">📝</button>
-<!-- اللي على اليمين بيفتح من اليمين -->
 <button onclick="openRight('noti')">🔔</button>
 </div>
 <div class="id-card">
 <img id="stuPhoto" src="" onerror="this.src='https://via.placeholder.com/62'">
 <div class="info"><b id="stuName">طالب</b><span id="stuStage">أولى بكالوريا</span><span id="stuPhone">-</span></div>
-<div class="code"><small>كودك</small><b id="stuCode">------</b></div>
+<div class="code"><small data-ar="كودك" data-en="Your Code">كودك</small><b id="stuCode">------</b></div>
 </div>
 <div class="honor-card">
-<h3>🏆 لوحة الشرف - <span id="honorStage">أولى بكالوريا</span></h3>
-<div id="honorList"><div style="text-align:center;color:#888;font-size:13px;padding:10px">لسه مفيش حد في لوحة الشرف، اجتهد وتبقى أول واحد 💪</div></div>
+<h3><span data-ar="🏆 لوحة الشرف - " data-en="🏆 Honor Board - ">🏆 لوحة الشرف - </span><span id="honorStage">أولى بكالوريا</span></h3>
+<div id="honorList"><div style="text-align:center;color:#888;font-size:13px;padding:10px" data-ar="لسه مفيش حد في لوحة الشرف، اجتهد وتبقى أول واحد 💪" data-en="No one on Honor Board yet, work hard to be first 💪">لسه مفيش حد في لوحة الشرف، اجتهد وتبقى أول واحد 💪</div></div>
 </div>
 <div class="quote-card" id="quoteBox">اجمد يا بطل، انت قدها 💪</div>
 <div class="cal-card">
@@ -66,35 +66,41 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <div class="cal-grid" id="calGrid"></div>
 </div>
 <div class="bottom-nav">
-<button class="nav-item" onclick="location.href='exams.html'"><span class="ico">📝</span><span>امتحان جديد</span></button>
-<button class="nav-item" onclick="location.href='homework.html'"><span class="ico">📚</span><span>واجب جديد</span></button>
-<button class="nav-item active" onclick="location.href='home.html'"><span class="ico">🏠</span><span>الرئيسية</span></button>
-<button class="nav-item" onclick="location.href='chat.html'"><span class="ico">💬</span><span>المنتدى</span></button>
-<button class="nav-item" onclick="location.href='reports.html'"><span class="ico">📊</span><span>تقاريري</span></button>
+<button class="nav-item" onclick="location.href='exams.html'"><span class="ico">📝</span><span data-ar="امتحان جديد" data-en="New Exam">امتحان جديد</span></button>
+<button class="nav-item" onclick="location.href='homework.html'"><span class="ico">📚</span><span data-ar="واجب جديد" data-en="New Homework">واجب جديد</span></button>
+<button class="nav-item active" onclick="location.href='home.html'"><span class="ico">🏠</span><span data-ar="الرئيسية" data-en="Home">الرئيسية</span></button>
+<button class="nav-item" onclick="location.href='chat.html'"><span class="ico">💬</span><span data-ar="المنتدى" data-en="Forum">المنتدى</span></button>
+<button class="nav-item" onclick="location.href='reports.html'"><span class="ico">📊</span><span data-ar="تقاريري" data-en="My Reports">تقاريري</span></button>
 </div>
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 <div class="side" id="leftSide">
 <div class="p"><img id="sidePhoto" src="" onerror="this.src='https://via.placeholder.com/54'"><div><b id="sideName">طالب</b><span id="sideCode">كود: ------</span></div></div>
-<h3>القائمة</h3>
-<a href="home.html">🏠 الرئيسية</a>
-<a href="exams.html">📝 الامتحانات</a>
-<a href="homework.html">📚 الواجبات</a>
-<a href="chat.html">💬 المنتدى</a>
-<a href="reports.html">📊 تقاريري</a>
-<a href="settings.html">⚙️ الإعدادات</a>
-<div class="row">اللغة English <div class="switch" id="langSwitch" onclick="toggleLang()"></div></div>
-<div class="row">الوضع الليلي <div class="switch" id="darkSwitch" onclick="toggleDark()"></div></div>
-<div style="padding:12px;font-size:13px;font-weight:bold">حجم الخط</div>
-<div class="font-row" style="padding:0 12px 12px"><button id="fSmall" onclick="setFont('small')">صغير</button><button id="fMedium" class="active" onclick="setFont('medium')">متوسط</button><button id="fLarge" onclick="setFont('large')">كبير</button></div>
-<a href="#" onclick="logout();return false">🚪 تسجيل خروج</a>
+<h3 data-ar="القائمة" data-en="Menu">القائمة</h3>
+<a href="home.html">🏠 <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
+<a href="exams.html">📝 <span data-ar="الامتحانات" data-en="Exams">الامتحانات</span></a>
+<a href="homework.html">📚 <span data-ar="الواجبات" data-en="Homework">الواجبات</span></a>
+<a href="chat.html">💬 <span data-ar="المنتدى" data-en="Forum">المنتدى</span></a>
+<a href="reports.html">📊 <span data-ar="تقاريري" data-en="My Reports">تقاريري</span></a>
+<a href="settings.html">⚙️ <span data-ar="الإعدادات" data-en="Settings">الإعدادات</span></a>
+<div class="row"><span data-ar="اللغة English" data-en="Language عربي">اللغة English</span> <div class="switch" id="langSwitch" onclick="toggleLang()"></div></div>
+<div class="row"><span data-ar="الوضع الليلي" data-en="Dark Mode">الوضع الليلي</span> <div class="switch" id="darkSwitch" onclick="toggleDark()"></div></div>
+<div style="padding:12px;font-size:13px;font-weight:bold" data-ar="حجم الخط" data-en="Font Size">حجم الخط</div>
+<div class="font-row" style="padding:0 12px 12px"><button id="fSmall" onclick="setFont('small')" data-ar="صغير" data-en="Small">صغير</button><button id="fMedium" class="active" onclick="setFont('medium')" data-ar="متوسط" data-en="Medium">متوسط</button><button id="fLarge" onclick="setFont('large')" data-ar="كبير" data-en="Large">كبير</button></div>
+<a href="#" onclick="logout();return false">🚪 <span data-ar="تسجيل خروج" data-en="Logout">تسجيل خروج</span></a>
 </div>
 <div class="right-panel" id="rightPanel">
-<h3 id="rightTitle">🔔 الإشعارات <button onclick="openToneSettings()" style="float:left;border:none;background:#FFF3E0;border-radius:50%;width:32px;height:32px;cursor:pointer">⚙️</button></h3>
+<div class="panel-head">
+<h3 id="rightTitle">🔔 الإشعارات</h3>
+<div class="actions">
+<button id="gearBtn" onclick="openToneSettings()" title="النغمات">⚙️</button>
+<button onclick="closeAll()" title="اقفل">✖️</button>
+</div>
+</div>
 <div id="rightContent"></div>
 <div id="toneSettings" style="display:none">
-<h4>🎵 النغمات</h4>
+<h4 data-ar="🎵 النغمات" data-en="🎵 Ringtones">🎵 النغمات</h4>
 <div id="toneList"></div>
-<div style="font-size:12px;color:#888;margin-top:8px">لو المستر قافل النغمة، مش هتقدر تغيرها، هيظهرلك تحذير</div>
+<div style="font-size:12px;color:#888;margin-top:8px" data-ar="لو المستر قافل النغمة، مش هتقدر تغيرها، هيظهرلك تحذير" data-en="If teacher locked tone, you cannot change it">لو المستر قافل النغمة، مش هتقدر تغيرها، هيظهرلك تحذير</div>
 </div>
 </div>
 </div>
@@ -109,6 +115,14 @@ var tones=[
 {name:'نغمة 2 - تنبيه', url:'https://actions.google.com/sounds/v1/alarms/beep_short.ogg'},
 {name:'نغمة 3 - رسالة', url:'https://actions.google.com/sounds/v1/notifications/notification_simple.ogg'}
 ];
+function applyLang(){
+  document.querySelectorAll('[data-ar]').forEach(function(el){
+    el.innerText = lang==='en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
+  });
+  document.documentElement.lang = lang==='en' ? 'en' : 'ar';
+  // الاتجاه بيفضل RTL على طول، الترجمة للكلام بس
+  document.documentElement.dir = 'rtl';
+}
 function applyAll(){
   var app=document.getElementById('app');
   app.classList.toggle('dark', isDark);
@@ -128,12 +142,13 @@ function applyAll(){
   var photo = stu.photo||'https://via.placeholder.com/62';
   document.getElementById('stuPhoto').src = photo;
   document.getElementById('sidePhoto').src = photo;
+  applyLang();
   renderHonor();
   renderCal();
 }
 function setFont(s){ fontSize=s; localStorage.setItem('stuFont', s); applyAll(); }
 function toggleDark(){ isDark=!isDark; localStorage.setItem('theme', isDark?'dark':'light'); applyAll(); }
-function toggleLang(){ lang = lang==='ar' ? 'en' : 'ar'; localStorage.setItem('stuLang', lang); applyAll(); alert(lang==='en'?'Language changed to English':'تم تغيير اللغة للعربي'); }
+function toggleLang(){ lang = lang==='ar' ? 'en' : 'ar'; localStorage.setItem('stuLang', lang); applyAll(); }
 function logout(){ localStorage.removeItem('currentStudent'); location.href='index.html'; }
 function openLeft(){ document.getElementById('leftSide').classList.add('open'); document.getElementById('overlay').classList.add('show'); }
 function openRight(type){
@@ -141,11 +156,12 @@ function openRight(type){
   var title=document.getElementById('rightTitle');
   var c=document.getElementById('rightContent');
   document.getElementById('toneSettings').style.display='none';
+  document.getElementById('gearBtn').style.display = type==='noti' ? 'block' : 'none';
   if(type==='notes'){
-    title.innerHTML='📝 ملاحظاتي';
+    title.innerText='📝 ملاحظاتي';
     c.innerHTML='<button onclick="location.href=\'notes.html\'" style="width:100%;padding:12px;border:none;border-radius:12px;background:#FF6B00;color:#fff;font-weight:bold;cursor:pointer">افتح صفحة الملاحظات →</button>';
   } else {
-    title.innerHTML='🔔 الإشعارات <button onclick="openToneSettings()" style="float:left;border:none;background:#FFF3E0;border-radius:50%;width:32px;height:32px;cursor:pointer">⚙️</button>';
+    title.innerText='🔔 الإشعارات';
     var notis=JSON.parse(localStorage.getItem('teacherNotis')||'[]');
     if(notis.length===0){ c.innerHTML='<div style="text-align:center;color:#888;padding:20px">مفيش إشعارات جديدة 🔕</div>'; }
     else { c.innerHTML=''; notis.slice(0,10).forEach(function(n){ var d=document.createElement('div'); d.className='noti'; d.innerHTML='<b>'+(n.title||'إشعار')+'</b>'+(n.msg||''); c.appendChild(d); }); }
