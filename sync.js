@@ -76,6 +76,16 @@ function syncPullAll(){
   localStorage.setItem('notifications', JSON.stringify(mine));
   localStorage.setItem('teacherNotifications', JSON.stringify(mine));
 });
+  db.ref('forum').on('value', function(snap){
+  var data = snap.val()||{};
+  var myStage = getStage();
+  var mine = [];
+  if(myStage && data[myStage]){ mine = Object.values(data[myStage]); }
+  else if(!myStage){ Object.keys(data).forEach(function(k){ mine = mine.concat(Object.values(data[k]||{})); }); }
+  if(mine.length===0) return;
+  localStorage.setItem('chatMsgs', JSON.stringify(mine));
+  if(typeof renderMsgs==='function'){ renderMsgs(); }
+});
   db.ref('teacherSettings').on('value', function(snap){
     var s = snap.val();
     if(!s) return;
