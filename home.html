@@ -215,8 +215,11 @@ function uploadTone(input){
   if(!file) return;
   var reader = new FileReader();
   reader.onload = function(e){
-    localStorage.setItem('myUploadedTone', e.target.result);
-    localStorage.setItem('myUploadedToneName', file.name);
+    var myCode = (JSON.parse(localStorage.getItem('currentStudent')||'{}').code || JSON.parse(localStorage.getItem('student')||'{}').code || 'me');
+localStorage.setItem('myUploadedTone_'+myCode, e.target.result);
+localStorage.setItem('myUploadedToneName_'+myCode, file.name);
+if(typeof db!=='undefined' && db){ db.ref('students/'+myCode+'/tone').set(e.target.result); db.ref('students/'+myCode+'/toneName').set(file.name); }
+    
     localStorage.setItem('selectedTone', e.target.result);
     document.getElementById('myToneName').innerText='نغمتك: '+file.name+' ✅ تم الرفع';
     var a=new Audio(e.target.result); a.play();
