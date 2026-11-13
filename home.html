@@ -9,16 +9,21 @@
 body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;padding-bottom:72px}
 .app.dark{background:#141A33;color:#fff}
-.app.dark .top,.app.dark .id-card,.app.dark .honor-card,.app.dark .cal-card,.app.dark .bottom-nav,.app.dark .side,.app.dark .right-panel{background:#1E2447;color:#fff}
+.app.dark .top,.app.dark .hero,.app.dark .id-card,.app.dark .honor-card,.app.dark .cal-card,.app.dark .bottom-nav,.app.dark .side,.app.dark .right-panel{background:#1E2447;color:#fff}
 .app.small{font-size:12px}.app.medium{font-size:15px}.app.large{font-size:18px}
 @keyframes up{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
-/* الشريط اللي فوق - ltr عشان الشمال يفضل شمال واليمين يفضل يمين */
 .top{height:60px;background:#fff;border-bottom:1px solid #EEE;display:flex;align-items:center;padding:0 10px;gap:8px;position:relative;z-index:30;animation:up .5s ease both;direction:ltr}
 .top button{width:38px;height:38px;border-radius:50%;border:none;background:#FFF3E0;cursor:pointer;font-size:18px;flex-shrink:0}
 .top .logo{flex:1;text-align:center;font-weight:900;font-size:16px;direction:rtl}.top .logo span{color:#FF6B00}
+/* صورة المستر من فوق الاسم */
+.hero{background:linear-gradient(135deg,#0B1026,#FF6B00);color:#fff;padding:18px 16px 16px;text-align:center;animation:up .5s .05s ease both}
+.hero img{width:74px;height:74px;border-radius:50%;border:3px solid #fff;object-fit:cover;background:#fff}
+.hero h2{margin:10px 0 2px;font-size:19px}
+.hero p{margin:0;opacity:.9;font-size:12px}
 .id-card{margin:12px;background:#fff;border-radius:20px;padding:14px;display:flex;gap:12px;align-items:center;border:1px solid #FFE0B2;animation:up .5s .1s ease both}
 .id-card img{width:62px;height:62px;border-radius:50%;object-fit:cover;border:3px solid #FF6B00;background:#EEE;flex-shrink:0}
 .id-card .info{flex:1;min-width:0}.id-card .info b{font-size:15px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.id-card .info span{font-size:12px;color:#888;display:block;margin-top:3px}
+.id-card .info .last{font-size:11px;color:#FF6B00;font-weight:bold;margin-top:4px}
 .id-card .code{background:#0B1026;color:#fff;border-radius:10px;padding:6px 10px;text-align:center;flex-shrink:0}.id-card .code small{display:block;font-size:10px;opacity:.7}.id-card .code b{letter-spacing:2px}
 .honor-card{margin:0 12px;background:#fff;border-radius:18px;padding:14px;border:1px solid #FFE0B2;animation:up .5s .2s ease both}
 .honor-card h3{margin:0 0 10px;font-size:14px}.honor-item{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid #F5F5F5}.honor-item:last-child{border:none}.honor-item img{width:36px;height:36px;border-radius:50%;object-fit:cover;background:#EEE}.honor-item .n{flex:1}.honor-item .n b{display:block;font-size:13px}.honor-item .n span{font-size:11px;color:#888}
@@ -29,18 +34,19 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .bottom-nav{position:absolute;bottom:0;left:0;right:0;height:68px;background:#fff;border-top:1px solid #EEE;display:flex;align-items:center;justify-content:space-around;padding:4px 6px;z-index:20;direction:ltr}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;font-size:11px;font-weight:bold;color:#666;padding:6px 2px;border-radius:12px}.nav-item .ico{font-size:22px}.nav-item.active{background:#FFF3E0;color:#FF6B00}
 .overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);z-index:40;display:none}.overlay.show{display:block}
-/* القايمة - بتفتح من الشمال الفيزيائي */
 .side{position:absolute;top:0;bottom:0;width:260px;background:#fff;z-index:50;transition:.3s;overflow:auto;padding:16px;left:-270px;right:auto}.side.open{left:0}
 .side .p{display:flex;gap:10px;align-items:center;margin-bottom:14px}.side .p img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid #FF6B00;background:#EEE}.side .p b{display:block}.side .p span{font-size:11px;color:#888}
 .side h3{margin:0 0 12px}.side a{display:flex;gap:10px;align-items:center;padding:12px;border-radius:12px;text-decoration:none;color:#333;font-weight:bold;font-size:13px}.side a:hover{background:#FFF3E0}
 .side .row{display:flex;justify-content:space-between;align-items:center;padding:12px;font-size:13px;font-weight:bold}
 .switch{width:48px;height:26px;background:#CCC;border-radius:20px;position:relative;cursor:pointer;flex-shrink:0}.switch:after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.2s}.switch.on{background:#2E7D32}.switch.on:after{left:25px}
 .font-row{display:flex;gap:6px}.font-row button{flex:1;padding:8px;border:2px solid #EEE;border-radius:10px;background:#fff;cursor:pointer;font-weight:bold}.font-row button.active{border-color:#FF6B00;background:#FFF3E0}
-/* الإشعارات - بتفتح من اليمين الفيزيائي */
 .right-panel{position:absolute;top:0;bottom:0;width:280px;background:#fff;z-index:50;transition:.3s;overflow:auto;padding:16px;right:-290px;left:auto}.right-panel.open{right:0}
 .panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.panel-head h3{margin:0}.panel-head .actions{display:flex;gap:6px}.panel-head .actions button{width:32px;height:32px;border:none;background:#FFF3E0;border-radius:50%;cursor:pointer;font-size:16px}
 .noti{padding:12px;background:#FFF8F0;border-radius:12px;margin-bottom:8px;font-size:13px;line-height:1.6}.noti b{display:block}
 .tone-row{display:flex;justify-content:space-between;align-items:center;padding:10px;background:#FFF8F0;border-radius:12px;margin-bottom:8px;font-size:13px;font-weight:bold}.tone-row button{border:none;background:#FF6B00;color:#fff;border-radius:8px;padding:6px 10px;cursor:pointer}
+.upload-box{border:2px dashed #FF6B00;border-radius:12px;padding:14px;text-align:center;margin-top:10px;background:#FFF8F0}
+.upload-box input{display:none}
+.upload-box label{display:inline-block;background:#FF6B00;color:#fff;padding:10px 16px;border-radius:10px;font-weight:bold;cursor:pointer;font-size:13px}
 </style>
 </head>
 <body>
@@ -51,14 +57,20 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <button onclick="openRight('notes')">📝</button>
 <button onclick="openRight('noti')">🔔</button>
 </div>
+<!-- صورة المستر من فوق الاسم -->
+<div class="hero">
+<img src="teacher.jpg" onerror="this.src='https://via.placeholder.com/74'">
+<h2>مستر روماني فهيم</h2>
+<p>MRF English - لغة إنجليزية</p>
+</div>
 <div class="id-card">
 <img id="stuPhoto" src="" onerror="this.src='https://via.placeholder.com/62'">
-<div class="info"><b id="stuName">طالب</b><span id="stuStage">أولى بكالوريا</span><span id="stuPhone">-</span></div>
+<div class="info"><b id="stuName">طالب</b><span id="stuStage">أولى بكالوريا</span><span id="stuPhone">-</span><span class="last" id="lastLogin">آخر دخول: -</span></div>
 <div class="code"><small data-ar="كودك" data-en="Your Code">كودك</small><b id="stuCode">------</b></div>
 </div>
 <div class="honor-card">
 <h3><span data-ar="🏆 لوحة الشرف - " data-en="🏆 Honor Board - ">🏆 لوحة الشرف - </span><span id="honorStage">أولى بكالوريا</span></h3>
-<div id="honorList"><div style="text-align:center;color:#888;font-size:13px;padding:10px" data-ar="لسه مفيش حد في لوحة الشرف، اجتهد وتبقى أول واحد 💪" data-en="No one on Honor Board yet, work hard to be first 💪">لسه مفيش حد في لوحة الشرف، اجتهد وتبقى أول واحد 💪</div></div>
+<div id="honorList"><div style="text-align:center;color:#888;font-size:13px;padding:10px">لسه مفيش حد في لوحة الشرف، اجتهد وتبقى أول واحد 💪</div></div>
 </div>
 <div class="quote-card" id="quoteBox">اجمد يا بطل، انت قدها 💪</div>
 <div class="cal-card">
@@ -76,11 +88,7 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <div class="side" id="leftSide">
 <div class="p"><img id="sidePhoto" src="" onerror="this.src='https://via.placeholder.com/54'"><div><b id="sideName">طالب</b><span id="sideCode">كود: ------</span></div></div>
 <h3 data-ar="القائمة" data-en="Menu">القائمة</h3>
-<a href="home.html">🏠 <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></a>
-<a href="exams.html">📝 <span data-ar="الامتحانات" data-en="Exams">الامتحانات</span></a>
-<a href="homework.html">📚 <span data-ar="الواجبات" data-en="Homework">الواجبات</span></a>
-<a href="chat.html">💬 <span data-ar="المنتدى" data-en="Forum">المنتدى</span></a>
-<a href="reports.html">📊 <span data-ar="تقاريري" data-en="My Reports">تقاريري</span></a>
+<!-- شلت الرئيسية والامتحانات والواجبات والمنتدى والتقارير من هنا، عشان هم خلاص تحت -->
 <a href="settings.html">⚙️ <span data-ar="الإعدادات" data-en="Settings">الإعدادات</span></a>
 <div class="row"><span data-ar="اللغة English" data-en="Language عربي">اللغة English</span> <div class="switch" id="langSwitch" onclick="toggleLang()"></div></div>
 <div class="row"><span data-ar="الوضع الليلي" data-en="Dark Mode">الوضع الليلي</span> <div class="switch" id="darkSwitch" onclick="toggleDark()"></div></div>
@@ -100,6 +108,14 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <div id="toneSettings" style="display:none">
 <h4 data-ar="🎵 النغمات" data-en="🎵 Ringtones">🎵 النغمات</h4>
 <div id="toneList"></div>
+<!-- رفع نغمة من جهاز الطالب - زي القديم -->
+<div class="upload-box">
+<div style="font-size:13px;font-weight:bold;margin-bottom:8px">📤 ارفع نغمة من جهازك</div>
+<div style="font-size:11px;color:#888;margin-bottom:10px">زي أغنية أو موسيقى من موبايلك، 3-5 ثواني</div>
+<input type="file" id="toneUpload" accept="audio/*" onchange="uploadTone(this)">
+<label for="toneUpload">📤 اختار نغمة من موبايلي</label>
+<div id="myToneName" style="font-size:12px;color:#2E7D32;margin-top:8px"></div>
+</div>
 <div style="font-size:12px;color:#888;margin-top:8px" data-ar="لو المستر قافل النغمة، مش هتقدر تغيرها، هيظهرلك تحذير" data-en="If teacher locked tone, you cannot change it">لو المستر قافل النغمة، مش هتقدر تغيرها، هيظهرلك تحذير</div>
 </div>
 </div>
@@ -110,6 +126,12 @@ var stu=JSON.parse(localStorage.getItem('currentStudent')||'{}');
 var lang = localStorage.getItem('stuLang')||'ar';
 var fontSize = localStorage.getItem('stuFont')||'medium';
 var isDark = localStorage.getItem('theme')==='dark';
+// آخر دخول - بيتسجل أول ما يدخل
+var now = new Date();
+var lastLoginStr = now.toLocaleDateString('ar-EG') + ' - ' + now.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'});
+if(!localStorage.getItem('lastLoginShown')){
+  localStorage.setItem('lastLoginShown', lastLoginStr);
+}
 var tones=[
 {name:'نغمة 1 - رنين هادي', url:'https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg'},
 {name:'نغمة 2 - تنبيه', url:'https://actions.google.com/sounds/v1/alarms/beep_short.ogg'},
@@ -120,7 +142,6 @@ function applyLang(){
     el.innerText = lang==='en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
   });
   document.documentElement.lang = lang==='en' ? 'en' : 'ar';
-  // الاتجاه بيفضل RTL على طول، الترجمة للكلام بس
   document.documentElement.dir = 'rtl';
 }
 function applyAll(){
@@ -139,6 +160,7 @@ function applyAll(){
   document.getElementById('stuCode').innerText = stu.code||'------';
   document.getElementById('sideCode').innerText = 'كود: '+(stu.code||'------');
   document.getElementById('honorStage').innerText = stu.stage||'';
+  document.getElementById('lastLogin').innerText = 'آخر دخول: ' + (localStorage.getItem('lastLoginShown')||'-');
   var photo = stu.photo||'https://via.placeholder.com/62';
   document.getElementById('stuPhoto').src = photo;
   document.getElementById('sidePhoto').src = photo;
@@ -149,7 +171,7 @@ function applyAll(){
 function setFont(s){ fontSize=s; localStorage.setItem('stuFont', s); applyAll(); }
 function toggleDark(){ isDark=!isDark; localStorage.setItem('theme', isDark?'dark':'light'); applyAll(); }
 function toggleLang(){ lang = lang==='ar' ? 'en' : 'ar'; localStorage.setItem('stuLang', lang); applyAll(); }
-function logout(){ localStorage.removeItem('currentStudent'); location.href='index.html'; }
+function logout(){ localStorage.setItem('lastLoginShown', lastLoginStr); localStorage.removeItem('currentStudent'); location.href='index.html'; }
 function openLeft(){ document.getElementById('leftSide').classList.add('open'); document.getElementById('overlay').classList.add('show'); }
 function openRight(type){
   var p=document.getElementById('rightPanel');
@@ -183,9 +205,25 @@ function openToneSettings(){
     d.innerHTML='<span>'+tone.name+'</span><span><button onclick="playTone('+idx+')">▶ تشغيل</button> <button onclick="chooseTone('+idx+')">اختيار</button></span>';
     list.appendChild(d);
   });
+  var myTone = localStorage.getItem('myUploadedToneName');
+  if(myTone){ document.getElementById('myToneName').innerText='نغمتك: '+myTone+' ✅'; }
 }
 function playTone(idx){ var a=new Audio(tones[idx].url); a.play(); }
 function chooseTone(idx){ localStorage.setItem('selectedTone', tones[idx].url); alert('تم اختيار: '+tones[idx].name); }
+function uploadTone(input){
+  var file = input.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e){
+    localStorage.setItem('myUploadedTone', e.target.result);
+    localStorage.setItem('myUploadedToneName', file.name);
+    localStorage.setItem('selectedTone', e.target.result);
+    document.getElementById('myToneName').innerText='نغمتك: '+file.name+' ✅ تم الرفع';
+    var a=new Audio(e.target.result); a.play();
+    alert('تم رفع نغمتك ✅\n'+file.name);
+  };
+  reader.readAsDataURL(file);
+}
 function closeAll(){ document.getElementById('leftSide').classList.remove('open'); document.getElementById('rightPanel').classList.remove('open'); document.getElementById('overlay').classList.remove('show'); }
 var quotes=['اجمد يا بطل، انت قدها 💪','كل يوم بتذاكر فيه، انت بتقرب من حلمك ✨','متقارنش نفسك بحد، قارن نفسك بنفسك امبارح 🔥','اللي بيذاكر النهاردة، بيضحك بكرة 🎯','انت مش أقل من حد، انت تقدر تعمل أي حاجة 💪','ركز، واجتهد، وسيب الباقي على ربنا 🙏','النجاح مش صدفة، النجاح تعب ومذاكرة 📚','خليك فاكر، كل سؤال بتحله صح، انت بتقرب خطوة 🏆'];
 var qi=0;
