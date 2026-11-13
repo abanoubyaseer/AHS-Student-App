@@ -119,7 +119,7 @@ currentExam.questions.forEach(function(q,idx){ total+=(q.grade||5);var isOk=fals
   else { html+='<div class="result fail"><div style="font-size:44px">🥺 😔</div><h2 style="color:#C62828">معلش يا بطل، متزعلش</h2>'; }
   html+='<div style="text-align:right;line-height:1.9;font-size:13px;background:#FFF8F0;padding:12px;border-radius:12px;margin-top:10px"><b>الطالب:</b> '+stu.name+'<br><b>الكود:</b> '+stu.code+'<br><b>الامتحان:</b> '+currentExam.title+'<br><b>دخول الامتحان:</b> '+enterTime.toLocaleString('ar-EG')+'<br><b>المدة:</b> '+durMin+' دقيقة<br><b>الدرجة:</b> '+got+' / '+total+' ('+percent+'%)</div></div>';
   currentExam.questions.forEach(function(q,idx){
-var stuAns = (answers[idx]==undefined||answers[idx]==='' ? 'لم يجب' : (q.type==='essay' ? answers[idx] : (q.options||q.choices||[])[answers[idx]]));    var correctAns = q.options[q.correct]; var isOk = answers[idx]===q.correct;
+var stuAns = (answers[idx]==undefined||answers[idx]==='' ? 'لم يجب' : (q.type==='essay' ? answers[idx] : (q.options||q.choices||[])[answers[idx]]));  var correctAns = (q.type==='essay' ? ('التقييم: '+(essayRate||'')+' | الإجابة النموذجية: '+(q.modelAnswer||q.essayAnswer||q.correctAnswer||'راجع المستر')) : (q.options||q.choices||[])[q.correct]);
     html+='<div class="ans-card" style="border:1px solid '+(isOk?'#C8E6C9':'#FFCDD2')+'"><b>سؤال '+(idx+1)+':</b> '+q.q+'<br>👤 <b>إجابتك:</b> '+stuAns+'<br>✅ <b>الإجابة الصح:</b> '+correctAns+'<br>'+(isOk?'✅ صح':'❌ غلط')+'</div>';
   });
   html+='<button class="btn-green" onclick="location.href=\'reports.html\'" style="margin:10px 12px;width:calc(100% - 24px)">أوكي ✅</button>';
