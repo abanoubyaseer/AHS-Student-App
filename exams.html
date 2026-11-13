@@ -92,7 +92,7 @@ function updateTimer(){
   document.getElementById('pageInfo').innerText='صفحة '+(currentPage+1)+' من '+totalPages;
 }
 function renderPage(){
-  var per=currentExam.perPage||1; var start=currentPage*per, end=Math.min(start+per, currentExam.questions.length);
+  var per=1; var start=currentPage*per, end=Math.min(start+per, currentExam.questions.length);
   var el=document.getElementById('examView'); el.innerHTML='';
   for(var i=start;i<end;i++){ (function(idx){
     var q=currentExam.questions[idx]; var div=document.createElement('div'); div.className='q-card';
