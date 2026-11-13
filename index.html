@@ -7,23 +7,30 @@
 <style>
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
 body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
-.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.app{width:100%;max-width:430px;background:#FFF8F0;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;position:relative}
 @keyframes up{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
-@keyframes fromLeft{from{transform:translateX(-60px);opacity:0}to{transform:translateX(0);opacity:1}}
-@keyframes fromRight{from{transform:translateX(60px);opacity:0}to{transform:translateX(0);opacity:1}}
-@keyframes zoom{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes fromLeft{from{transform:translateX(-70px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes fromRight{from{transform:translateX(70px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes zoom{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
 @keyframes dots{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
-/* شاشة التحميل - الصورة الأول */
-.splash{background:linear-gradient(135deg,#0B1026,#FF6B00);color:#fff;padding:36px 16px 22px;text-align:center;border-radius:0 0 28px 28px}
-.splash img{width:96px;height:96px;border-radius:50%;border:4px solid #fff;object-fit:cover;background:#fff;animation:zoom .7s ease both}
-.splash h1{margin:14px 0 2px;font-size:26px;animation:fromRight .7s .2s ease both}
-.splash .sub{font-size:13px;opacity:.9;animation:fromLeft .7s .3s ease both}
-.splash .logo{margin-top:10px;font-weight:900;letter-spacing:1px;animation:zoom .7s .4s ease both}
-.loading{display:flex;gap:6px;justify-content:center;margin-top:16px}
+@keyframes fromTop{from{transform:translateY(-50px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* ستارة المسرح - صغيرة ومش واخدة نص الصفحة */
+.splash{position:absolute;inset:0;background:linear-gradient(135deg,#0B1026,#FF6B00);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;z-index:100;transition:transform .8s ease}
+.splash.hide{transform:translateY(-100%)}
+.splash img{width:88px;height:88px;border-radius:50%;border:4px solid #fff;object-fit:cover;background:#fff;animation:up .7s ease both}
+.splash h1{margin:12px 0 2px;font-size:22px;animation:fromRight .7s .15s ease both}
+.splash .job{font-size:13px;opacity:.9;animation:fromLeft .7s .3s ease both}
+.splash .logo{margin-top:12px;font-weight:900;font-size:18px;letter-spacing:1px;animation:zoom .7s .45s ease both}
+.splash .logo span{color:#FFD54F}
+.loading{display:flex;gap:6px;justify-content:center;margin-top:18px}
 .loading span{width:9px;height:9px;background:#fff;border-radius:50%;animation:dots 1s infinite}
 .loading span:nth-child(2){animation-delay:.15s}
 .loading span:nth-child(3){animation-delay:.3s}
-.loading-text{font-size:11px;opacity:.8;margin-top:8px}
+.loading-text{font-size:11px;opacity:.8;margin-top:8px;animation:fromRight .7s .6s ease both}
+/* اسم التطبيق من فوق بعد الستارة */
+.top-logo{background:#fff;padding:14px;text-align:center;border-bottom:1px solid #EEE;animation:fromTop .6s ease both}
+.top-logo b{font-size:20px}.top-logo b span{color:#FF6B00}
+.top-logo p{margin:2px 0 0;font-size:11px;color:#888}
 .tabs{display:flex;gap:8px;margin:16px 12px 0;animation:up .6s ease both}
 .tabs button{flex:1;padding:12px;border:none;border-radius:12px;font-weight:bold;cursor:pointer;background:#E0E0E0}
 .tabs button.active{background:#0B1026;color:#fff}
@@ -52,28 +59,28 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 .footer{text-align:center;font-size:11px;color:#999;padding:12px}
 .instr{margin:12px;background:#fff;border-radius:18px;padding:16px;border:1px solid #FFE0B2;font-size:13px;line-height:1.8;display:none}
 .instr h3{margin:0 0 8px}
-/* الفورم بيستنى 3 ثواني وبعدين يطلع من تحت لفوق */
-#mainContent{opacity:0;transform:translateY(60px);transition:.6s}
-#mainContent.show{opacity:1;transform:translateY(0)}
+#mainContent{opacity:0;transition:.5s}
+#mainContent.show{opacity:1}
 </style>
 </head>
 <body>
 <div class="app">
-<div class="splash">
-<img src="teacher.jpg" onerror="this.src='https://via.placeholder.com/96'">
+<!-- ستارة المسرح -->
+<div class="splash" id="splash">
+<img src="teacher.jpg" onerror="this.src='https://via.placeholder.com/88'">
 <h1>مستر روماني فهيم</h1>
-<div class="sub">لغة إنجليزية - بكالوريا</div>
-<div class="logo">MRF English</div>
+<div class="job">أستاذ اللغة الإنجليزية - بكالوريا</div>
+<div class="logo">MRF <span>English</span></div>
 <div class="loading"><span></span><span></span><span></span></div>
 <div class="loading-text">بيحمل... استنى 3 ثواني</div>
 </div>
 
 <div id="mainContent">
+<div class="top-logo"><b>MRF <span>English</span></b><p>مستر روماني فهيم - لغة إنجليزية</p></div>
 <div class="tabs">
 <button id="tabSignup" class="active" onclick="showTab('signup')">إنشاء حساب ✨</button>
 <button id="tabLogin" onclick="showTab('login')">تسجيل دخول 🔐</button>
 </div>
-
 <div id="signupView">
 <div class="form">
 <label>الاسم بالكامل - 4 أجزاء *</label>
@@ -128,7 +135,6 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <button class="btn btn-green" onclick="document.getElementById('instrBox').style.display='none'">تمام، فهمت ✅</button>
 </div>
 </div>
-
 <div id="loginView" style="display:none">
 <div class="form">
 <label>ادخل بالاسم أو الرقم أو الكود *</label>
@@ -143,13 +149,16 @@ body{margin:0;background:#0F0F0F;display:flex;justify-content:center}
 <div class="forgot">نسيت كلمة السر؟ <a href="tel:01145471688">كلم الدعم 📞</a></div>
 </div>
 </div>
-
 <div class="footer">MRF English - مستر روماني فهيم<br>الدعم: 01145471688</div>
 </div>
 </div>
 <script>
-// بعد 3 ثواني، الفورم بيطلع من تحت لفوق
-setTimeout(function(){ document.getElementById('mainContent').classList.add('show'); }, 3000);
+// بعد 3 ثواني، الستارة بتتفتح لفوق زي المسرح
+setTimeout(function(){
+  document.getElementById('splash').classList.add('hide');
+  document.getElementById('mainContent').classList.add('show');
+  setTimeout(function(){ document.getElementById('splash').style.display='none'; }, 800);
+}, 3000);
 function togglePass(id, btn){
   var inp=document.getElementById(id);
   if(inp.type==='password'){ inp.type='text'; btn.innerText='🙉'; }
@@ -215,7 +224,6 @@ function doLogin(){
   if(!stu){ document.getElementById('errLogin').style.display='block'; return; }
   document.getElementById('errLogin').style.display='none';
   localStorage.setItem('currentStudent', JSON.stringify(stu));
-  // نسجل آخر دخول
   var now=new Date();
   localStorage.setItem('lastLoginShown', now.toLocaleDateString('ar-EG')+' - '+now.toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'}));
   location.href='home.html';
