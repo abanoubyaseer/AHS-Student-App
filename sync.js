@@ -67,6 +67,15 @@ function syncPullAll(){
     localStorage.setItem('studentReports', JSON.stringify(all));
     localStorage.setItem('reports', JSON.stringify(all));
   });
+  
+  db.ref('notifications').on('value', function(snap){
+  var all = Object.values(snap.val()||{});
+  if(all.length===0) return;
+  var myStage = getStage();
+  var mine = myStage ? all.filter(function(n){ return !n.targetStage || String(n.targetStage)===String(myStage) || n.targetStage==='all'; }) : all;
+  localStorage.setItem('notifications', JSON.stringify(mine));
+  localStorage.setItem('teacherNotifications', JSON.stringify(mine));
+});
   db.ref('teacherSettings').on('value', function(snap){
     var s = snap.val();
     if(!s) return;
