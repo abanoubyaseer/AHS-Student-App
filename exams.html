@@ -97,7 +97,7 @@ function renderPage(){
   for(var i=start;i<end;i++){ (function(idx){
     var q=currentExam.questions[idx]; var div=document.createElement('div'); div.className='q-card';
     var html='<h4>سؤال '+(idx+1)+': '+q.q+'</h4>';
-    q.options.forEach(function(opt,oi){ var sel=answers[idx]===oi?' selected':''; html+='<button class="opt'+sel+'" onclick="selectAns('+idx+','+oi+',this)">'+opt+'</button>'; });
+   (q.options||q.choices||[]).forEach(function(opt,oi){ var sel=answers[idx]===oi?' selected':''; html+='<button class="opt'+sel+'" onclick="selectAns('+idx+','+oi+',this)">'+opt+'</button>'; });
     div.innerHTML=html; el.appendChild(div);
   })(i); }
   var totalPages=Math.ceil(currentExam.questions.length/per);
