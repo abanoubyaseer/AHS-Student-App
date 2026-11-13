@@ -1,64 +1,78 @@
-// ===== MRF English - Sync بين موقع المستر وتطبيق الطالب =====
+// MRF English - Sync - بيصلح الربط بس، مش بيغير التصميم
 var firebaseConfig = {
-  apiKey: "AIzaSyClf-vI0hnh2hI_UG--KsXRiZkOU0miXhS_4",
+  apiKey: "AIzaSyC1f-Vi0hnh2H1_UG-KsXRiZkOU0miXhs_4",
   authDomain: "mrf-english.firebaseapp.com",
   databaseURL: "https://mrf-english-default-rtdb.firebaseio.com",
   projectId: "mrf-english",
   storageBucket: "mrf-english.firebasestorage.app",
   messagingSenderId: "388831155630",
-  appId: "1:388831155630:web:a14e57cb33bb2f90aba43f"
+  appId: "1:388831155630:web:a14e57cb33b2f90aba43f"
 };
-
-var SYNC_KEYS = [
-  'teacherExams',
-  'teacherHomeworks',
-  'teacherNotis',
-  'honorBoard',
-  'studentReports',
-  'students',
-  'forumMsgs',
-  'currentStudent'
-];
-
-function syncPush(key){
-  if(!window.firebaseDB) return;
-  var val = localStorage.getItem(key);
-  if(val===null) return;
-  try{
-    var parsed = JSON.parse(val);
-    window.firebaseDB.ref('mrf/'+key).set(parsed);
-  }catch(e){}
+if(typeof firebase!=='undefined' && !firebase.apps.length){ firebase.initializeApp(firebaseConfig); }
+var db = (typeof firebase!=='undefined') ? firebase.database() : null;
+function getStage(){
+  var u = JSON.parse(localStorage.getItem('currentStudent')||localStorage.getItem('student')||'null');
+  return u ? (u.stage||u.targetStage||'') : '';
 }
 function syncPushAll(){
-  SYNC_KEYS.forEach(function(k){ syncPush(k); });
-}
-function syncPull(){
-  if(!window.firebaseDB) return;
-  SYNC_KEYS.forEach(function(key){
-    window.firebaseDB.ref('mrf/'+key).on('value', function(snap){
-      var v = snap.val();
-      if(v===null || v===undefined) return;
-      var newStr = JSON.stringify(v);
-      if(localStorage.getItem(key) !== newStr){
-        localStorage.setItem(key, newStr);
-        if(typeof renderList === 'function'){ try{ renderList(); }catch(e){} }
-        if(typeof renderHonor === 'function'){ try{ renderHonor(); }catch(e){} }
-        if(typeof applyAll === 'function'){ try{ applyAll(); }catch(e){} }
-        if(typeof renderReports === 'function'){ try{ renderReports(); }catch(e){} }
-        if(typeof renderForum === 'function'){ try{ renderForum(); }catch(e){} }
-      }
+  if(!db) return;
+  try{
+    var exams = JSON.parse(localStorage.getItem('teacherExams')||localStorage.getItem('exams')||'[]');
+    var hws = JSON.parse(localStorage.getItem('teacherHomeworks')||localStorage.getItem('homeworks')||'[]');
+    var students = JSON.parse(localStorage.getItem('students')||'[]');
+    var reports = JSON.parse(localStorage.getItem('studentReports')||localStorage.getItem('reports')||'[]');
+    exams.forEach(function(e){
+      e.targetStage = e.stage || e.targetStage || '';
+      e.questions = (e.questions||[]).map(function(q){
+        return {q: q.q||q.question||'', choices: q.choices||q.options||['','','',''], correct: (q.correct!==undefined?q.correct:0), grade: q.grade||1, type: q.type||'mcq', img: q.img||''};
+      });
+      db.ref('exams/'+e.id).set(e);
     });
+    hws.forEach(function(h){
+      h.targetStage = h.stage || h.targetStage || '';
+      h.questions = (h.questions||[]).map(function(q){
+        return {q: q.q||q.question||'', choices: q.choices||q.options||['','','',''], correct: (q.correct!==undefined?q.correct:0), grade: q.grade||1, type: q.type||'mcq', img: q.img||''};
+      });
+      db.ref('homeworks/'+h.id).set(h);
+    });
+    students.forEach(function(s){ if(s.code) db.ref('students/'+s.code).set(s); });
+    reports.forEach(function(r){ if(r.id) db.ref('reports/'+r.id).set(r); });
+    var instr = JSON.parse(localStorage.getItem('examInstructions')||'{}');
+    db.ref('examInstructions').set(instr);
+    var settings = JSON.parse(localStorage.getItem('teacherSettings')||'{}');
+    db.ref('teacherSettings').set(settings);
+  }catch(e){ console.log(e); }
+}
+function syncPullAll(){
+  if(!db) return;
+  db.ref('exams').on('value', function(snap){
+    var all = Object.values(snap.val()||{});
+    var myStage = getStage();
+    var mine = myStage ? all.filter(function(e){ return (e.stage||e.targetStage)===myStage; }) : all;
+    if(myStage){ localStorage.setItem('exams', JSON.stringify(mine)); }
+    else { localStorage.setItem('teacherExams', JSON.stringify(all)); }
+  });
+  db.ref('homeworks').on('value', function(snap){
+    var all = Object.values(snap.val()||{});
+    var myStage = getStage();
+    var mine = myStage ? all.filter(function(h){ return (h.stage||h.targetStage)===myStage; }) : all;
+    if(myStage){ localStorage.setItem('homeworks', JSON.stringify(mine)); }
+    else { localStorage.setItem('teacherHomeworks', JSON.stringify(all)); }
+  });
+  db.ref('students').on('value', function(snap){
+    localStorage.setItem('students', JSON.stringify(Object.values(snap.val()||{})));
+  });
+  db.ref('reports').on('value', function(snap){
+    var all = Object.values(snap.val()||{});
+    localStorage.setItem('studentReports', JSON.stringify(all));
+    localStorage.setItem('reports', JSON.stringify(all));
+    if(typeof renderReports==='function'){ renderReports(); }
+  });
+  db.ref('teacherSettings').on('value', function(snap){
+    localStorage.setItem('teacherSettings', JSON.stringify(snap.val()||{}));
+    var s = snap.val()||{};
+    var btn = document.getElementById('uploadToneBtn');
+    if(btn && s.toneLocked){ btn.style.display='none'; }
   });
 }
-var _oldSet = localStorage.setItem;
-localStorage.setItem = function(k, v){
-  _oldSet.apply(this, arguments);
-  if(SYNC_KEYS.indexOf(k) !== -1){
-    setTimeout(function(){ syncPush(k); }, 200);
-  }
-};
-document.addEventListener('DOMContentLoaded', function(){
-  setTimeout(function(){
-    if(window.firebaseDB){ syncPull(); syncPushAll(); }
-  }, 800);
-});
+if(typeof document!=='undefined'){ document.addEventListener('DOMContentLoaded', function(){ syncPullAll(); }); }
