@@ -111,8 +111,7 @@ function prevPage(){ if(currentPage>0){ currentPage--; renderPage(); } }
 function submitExam(){
   clearInterval(timerInt);
   var total=0, got=0;
-  currentExam.questions.forEach(function(q,idx){ total+=(q.grade||5); if(answers[idx]===q.correct) got+=(q.grade||5); });
-  var percent=Math.round((got/total)*100); var passed=percent>=currentExam.passGrade;
+currentExam.questions.forEach(function(q,idx){ total+=(q.grade||5); var isOk=(q.type==='essay' ? (answers[idx]&&String(answers[idx]).trim()!=='') : answers[idx]==q.correct); if(isOk) got+=(q.grade||5); });  var percent=Math.round((got/total)*100); var passed=percent>=currentExam.passGrade;
   var endTime=new Date(); var durMin=Math.max(1, Math.round((endTime-enterTime)/60000));
   document.getElementById('examView').style.display='none'; document.getElementById('examNav').style.display='none'; document.getElementById('timerBar').classList.remove('show');
   var res=document.getElementById('resultView'); var html='';
